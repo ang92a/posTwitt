@@ -1,15 +1,14 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    static associate({ Post, Comment, PostLike, CommentLike }) {
-      this.hasMany(Post, { foreignKey: "userId" });
-      this.hasMany(Comment, { foreignKey: "userId" });
-      this.hasMany(PostLike, { foreignKey: "userId" });
-      this.hasMany(CommentLike, { foreignKey: "userId" });
+  class Post extends Model {
+    static associate({ User, PostLike, Comment }) {
+      this.belongsTo(User, { foreignKey: "userId" });
+      this.hasMany(Comment, { foreignKey: "postId" });
+      this.hasMany(PostLike, { foreignKey: "postId" });
     }
   }
-  User.init(
+  Post.init(
     {
       id: {
         allowNull: false,
@@ -17,22 +16,26 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      email: {
+      userId: {
         allowNull: false,
-        unique: true,
+        type: DataTypes.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onDelete: "CASCADE",
+      },
+      title: {
+        allowNull: false,
         type: DataTypes.TEXT,
       },
-      name: {
+      content: {
         allowNull: false,
         type: DataTypes.TEXT,
       },
-      password: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      img: {
-        allowNull: false,
-        type: DataTypes.TEXT,
+      likes: {
+        defaultValue: 0,
+        type: DataTypes.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -45,8 +48,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "Post",
     }
   );
-  return User;
+  return Post;
 };
