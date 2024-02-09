@@ -1,0 +1,44 @@
+.containerOne {
+  display: flex;
+  justify-content: center;
+}
+.containerTwo {
+  display: flex;
+  justify-content: space-around;
+}
+/* .containerImg {
+} */
+.containerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+}
+/* .text {
+}
+.name {
+} */
+
+.function {
+  display: flex;
+  justify-content: space-around;
+}
+/* .one {
+}
+.two {
+}
+.fre {
+}
+.foo {
+}
+
+.freeTochka {
+} */
