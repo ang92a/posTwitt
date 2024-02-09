@@ -7,7 +7,8 @@ import { checkUser } from '../Sign/authSlice';
 import { useAppDispatch } from '../../redux/store';
 import WelcomPage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
-
+import NewsPage from './NewsPage/NewsPage';
+import NavBar from '../NavBar/NavBar';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,9 +21,12 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<WelcomPage />} />
-        <Route path="/sign-in" element={<SignInPage />} />
-        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/" element={<NavBar />}>
+          <Route index element={<WelcomPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+        </Route>
       </Routes>
     </div>
   );

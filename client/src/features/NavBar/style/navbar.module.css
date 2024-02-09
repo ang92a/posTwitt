@@ -1,0 +1,32 @@
+.container {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 40px 20px;
+  margin: 0;
+}
+.link {
+  padding: 10px 25px;
+  border-radius: 10px;
+  border: 1px solid rgb(36, 17, 17);
+  text-decoration: none;
+  text-transform: uppercase;
+  color: rgb(0, 0, 0);
+  box-shadow: 5px 5px 20px 3px rgba(color: black, alpha: 1);
+  transition: all 0.3s;
+}
+.active {
+  border-color: rgb(93, 90, 90);
+  color: rgb(121, 83, 83);
+}
+.hover {
+  cursor: pointer;
+  color: rgb(18, 11, 10);
+  border-color: black;
+  box-shadow: 3px 3px 5px 3px rgba($color: tomato, $alpha: 1);
+}
+
+.img {
+  width: 50px;
+  height: 50px;
+}
