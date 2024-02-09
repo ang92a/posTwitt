@@ -16,6 +16,7 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <Routes>
+        <Route path="/" element={<WelcomPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
       </Routes>
