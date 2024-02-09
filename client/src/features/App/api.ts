@@ -7,6 +7,18 @@ export const fetchCheckUser = async (): Promise<User> => {
   return data.user;
 };
 
+
+
+export const fetchLoadProfiles = async (): Promise<User[]> => {
+  const res = await fetch('/api/profiles/');
+  const data: { profiles: User[] } = (await res.json()) as {
+    profiles: User[];
+  };
+  console.log(data.profiles);
+
+  return data.profiles;
+}
+
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts/check');
   const data: { posts: Post[] } = (await res.json()) as { posts: Post[] };
@@ -58,4 +70,5 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-};
+
+
