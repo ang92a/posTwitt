@@ -2,11 +2,13 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import style from './style/postitem.module.css';
+
 import type { Post } from './types';
 import like from './img/Like.png';
 import comment from './img/comment.png';
 import repost from './img/repost.png';
 import izbr from './img/избранное.png';
+
 
 // eslint-disable-next-line react/function-component-definition, arrow-body-style
 const PostItem = ({ post }: { post: Post }): JSX.Element => {

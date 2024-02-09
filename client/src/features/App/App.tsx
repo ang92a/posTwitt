@@ -8,6 +8,7 @@ import { useAppDispatch } from '../../redux/store';
 import WelcomPage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
 
+
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
