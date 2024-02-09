@@ -6,8 +6,9 @@ const apiPostsRouter = require('./api/api.posts.routes');
 const apiProfileRouter = require('./api/api.profiles.routes')
 
 router.use('/api/auth', apiAuthRouter);
+router.use('/api/posts', apiPostsRouter);
 router.use('/api/profiles', apiProfileRouter)
-router.use('/api/posts/check', apiPostsRouter);
+
 
 
 module.exports = router;

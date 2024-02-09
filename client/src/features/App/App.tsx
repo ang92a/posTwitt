@@ -5,13 +5,12 @@ import SignInPage from '../Sign/SignInPage';
 import SignUpPage from '../Sign/SignUpPage';
 import { checkUser } from '../Sign/authSlice';
 import { useAppDispatch } from '../../redux/store';
-
 import ProfilePage from '../ProfilePage/ProfilePage';
 import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
 import WelcomPage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
-
-
+import NewsPage from './NewsPage/NewsPage';
+import NavBar from '../NavBar/NavBar';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,16 +20,18 @@ function App(): JSX.Element {
     dispatch(loadProfiles()).catch(console.log);
     setTimeout(() => dispatch(stopLoading()), 1000);
     dispatch(loadPosts()).catch(console.log);
-
   }, []);
 
   return (
     <div className="App">
       <Routes>
-        {/* <Route path="/" element={<WelcomePage />} /> */}
-        <Route path="/sign-in" element={<SignInPage />} />
-        <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/profiles/:profileId" element={<ProfilePage />} />
+        <Route path="/" element={<NavBar />}>
+          <Route index element={<WelcomPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/profiles/:profileId" element={<ProfilePage />} />
+        </Route>
       </Routes>
     </div>
   );
