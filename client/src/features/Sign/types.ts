@@ -11,6 +11,7 @@ export type AuthState = {
   error: string | undefined;
 };
 
+
 export type ProfileState = {
   profiles: User[];
   error: string | undefined;
@@ -19,6 +20,9 @@ export type ProfileState = {
 
 // export type UserSignIn = Omit<User, 'id' | 'img'>;
 
-// export type UserSignUp = Omit<User, 'id'> & { rpassword: string };
+export type UserSignUp = Omit<User, 'id' | 'img'> & { rpassword: string };
+
+
+export type UserSignIn = Omit<User, 'id' | 'img' | 'name'>;
 
 // export type UserWithOutId = Omit<User, 'id'>;
