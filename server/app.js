@@ -10,7 +10,7 @@ const { verifyAccessToken } = require('./middleware/verifyJWT');
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: 'true' }));
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(verifyAccessToken);
 
@@ -19,7 +19,5 @@ app.use('/', indexRouter);
 const PORT = 3000;
 
 app.listen(PORT, () => {
-  console.log(
-    `listen ${PORT}`
-  );
+  console.log(`listen ${PORT}`);
 });

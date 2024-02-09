@@ -1,7 +1,7 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
-import style from './style/postitem.modules.css';
+import style from './style/postitem.module.css';
 // eslint-disable-next-line react/function-component-definition, arrow-body-style
 const PostItem = (): JSX.Element => {
   return (
