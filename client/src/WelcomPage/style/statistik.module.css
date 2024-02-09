@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  background-color: blue;
+}
+.one {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.two {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.fre {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
