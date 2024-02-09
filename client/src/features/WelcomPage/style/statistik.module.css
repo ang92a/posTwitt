@@ -2,19 +2,25 @@
   display: flex;
   justify-content: space-around;
   background-color: blue;
+  align-items: center;
+  width: 900px;
+  
 }
 .one {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  text-align: center;
 }
 .two {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  text-align: center;
 }
 .fre {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  text-align: center;
 }

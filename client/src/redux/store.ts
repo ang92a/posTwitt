@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import authSlice from '../features/Sign/authSlice';
+import postsSlice from '../features/WelcomPage/postsSlice';
+
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
+    posts: postsSlice,
   },
 });
 
