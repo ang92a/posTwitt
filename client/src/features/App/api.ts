@@ -1,7 +1,5 @@
-
 import type { Post } from '../WelcomPage/types';
 import type { User, UserSignIn, UserSignUp } from '../Sign/types';
-
 
 export const fetchCheckUser = async (): Promise<User> => {
   const res = await fetch('/api/auth/check');
@@ -9,11 +7,11 @@ export const fetchCheckUser = async (): Promise<User> => {
   return data.user;
 };
 
-
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts/check');
   const data: { posts: Post[] } = (await res.json()) as { posts: Post[] };
   return data.posts;
+};
 
 export const fetchSignUp = async (user: UserSignUp): Promise<User> => {
   const res = await fetch('/api/auth/sign-up', {
@@ -60,5 +58,4 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-
 };
