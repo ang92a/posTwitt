@@ -5,6 +5,8 @@ import SignInPage from '../Sign/SignInPage';
 import SignUpPage from '../Sign/SignUpPage';
 import { checkUser } from '../Sign/authSlice';
 import { useAppDispatch } from '../../redux/store';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
 import WelcomPage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
 import NewsPage from './NewsPage/NewsPage';
@@ -15,6 +17,8 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(checkUser()).catch(console.log);
+    dispatch(loadProfiles()).catch(console.log);
+    setTimeout(() => dispatch(stopLoading()), 1000);
     dispatch(loadPosts()).catch(console.log);
   }, []);
 
@@ -26,6 +30,7 @@ function App(): JSX.Element {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/profiles/:profileId" element={<ProfilePage />} />
         </Route>
       </Routes>
     </div>

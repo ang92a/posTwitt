@@ -1,3 +1,4 @@
+
 /* eslint-disable @typescript-eslint/no-base-to-string */
 import type { Post, PostAdd, PostId } from '../WelcomPage/types';
 import type { User, UserSignIn, UserSignUp } from '../Sign/types';
@@ -7,13 +8,20 @@ export const fetchCheckUser = async (): Promise<User> => {
   const data: { user: User } = (await res.json()) as { user: User };
   return data.user;
 };
+export const fetchLoadProfiles = async (): Promise<User[]> => {
+  const res = await fetch('/api/profiles/');
+  const data: { profiles: User[] } = (await res.json()) as {
+    profiles: User[];
+  };
+  console.log(data.profiles);
 
+  return data.profiles;
+}
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts');
   const data: { posts: Post[] } = (await res.json()) as { posts: Post[] };
   return data.posts;
 };
-
 export const fetchAddPosts = async (post: PostAdd): Promise<Post> => {
   const res = await fetch('/api/posts', {
     method: 'POST',
@@ -25,7 +33,6 @@ export const fetchAddPosts = async (post: PostAdd): Promise<Post> => {
   const data: { post: Post } = (await res.json()) as { post: Post };
   return data.post;
 };
-
 export const fetchPostRemove = async (id: PostId): Promise<PostId> => {
   const res = await fetch(`/api/posts/${id}`, {
     method: 'DELETE',
@@ -39,7 +46,6 @@ export const fetchPostRemove = async (id: PostId): Promise<PostId> => {
   }
   return data.postId;
 };
-
 export const fetchSignUp = async (user: UserSignUp): Promise<User> => {
   const res = await fetch('/api/auth/sign-up', {
     method: 'post',
@@ -58,7 +64,6 @@ export const fetchSignUp = async (user: UserSignUp): Promise<User> => {
   };
   return data.user;
 };
-
 export const fetchSignIn = async (user: UserSignIn): Promise<User> => {
   const res = await fetch('/api/auth/sign-in', {
     method: 'post',
@@ -78,7 +83,6 @@ export const fetchSignIn = async (user: UserSignIn): Promise<User> => {
   };
   return data.user;
 };
-
 export const fetchLogout = async (): Promise<void> => {
   const res = await fetch('/api/auth/logout');
   const data: { message: string } = (await res.json()) as { message: string };
