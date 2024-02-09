@@ -1,18 +1,22 @@
+/* eslint-disable react/function-component-definition */
 import React from 'react';
-// import style from './style/postlist.modules.css';
-//import { useSelector } from 'react-redux';
-//import { RootState } from '@reduxjs/toolkit/query';
 import PostItem from './PostItem';
+import type { RootState } from '../../redux/store';
+import { useSelector } from 'react-redux';
+import style from './style/postlist.module.css';
 
 const PostList = (): JSX.Element => {
-  //const posts = useSelector((store:RootState)=>store.posts.posts)
+  const posts = useSelector((store: RootState) => store.posts.posts);
+  console.log(posts);
 
   return (
-    // <div>itempost</div>
-    <PostItem />
-    // {posts.map((post) => (
-    //   <PostItem key={post.id} post={post} />
-    // ))}
+    <>
+      <div className={style.containerList}>
+        {posts.map((post) => (
+          <PostItem key={post.id} post={post} />
+        ))}
+      </div>
+    </>
   );
 };
 
