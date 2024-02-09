@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dbr": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize db:seed:all ",
+    "dev": "nodemon app.js --ext js,json,jsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
