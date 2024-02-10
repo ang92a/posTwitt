@@ -20,46 +20,55 @@ const NavBar = (): JSX.Element => {
 
   return (
     <>
-      <ul className={style.container}>
-        <li className={style.item}>
-          <NavLink className={style.link} to="/news">
-            Лента
-          </NavLink>
-        </li>
-        <li className={style.item}>
-          <NavLink className={style.link} to="/users">
-            Профиль
-          </NavLink>
-        </li>
-        <li className={style.item}>
-          <NavLink className={style.link} to="/setting">
-            Настройки
-          </NavLink>
-        </li>
-        {user && (
-          <>
-            <li
-              onClick={() => {
-                dispatch(logout()).catch(console.log);
-                navigate('/');
-              }}
-              className={style.item}
-            >
-              <NavLink className={style.link} to="/logout">
-                Logout
-              </NavLink>
-            </li>
-          </>
-        )}
-        {user && (
-          <>
-            <li>Hello, {user.name}!</li>{' '}
-            <li className={style.item}>
-              <img className={style.img} src={user?.img} alt="" />
-            </li>{' '}
-          </>
-        )}
-      </ul>
+      <div className={style.header}>
+        <div className={style.container}>
+          <ul className={style.navigation}>
+            <div className={style.leftBox}>
+              <li className={style.item}>
+                <NavLink
+                  className={`${style.link} ${window.location.pathname === '/news' ? style.active : ''}`}
+                  to="/news"
+                >
+                  Лента
+                </NavLink>
+              </li>
+              <li className={style.item}>
+                <NavLink
+                  className={`${style.link} ${window.location.pathname === '/users' ? style.active : ''}`}
+                  to="/users"
+                >
+                  Профиль
+                </NavLink>
+              </li>
+              <li className={style.item}>
+                <NavLink
+                  className={`${style.link} ${window.location.pathname === '/setting' ? style.active : ''}`}
+                  to="/setting"
+                >
+                  Настройки
+                </NavLink>
+              </li>
+            </div>
+            {user && (
+              <>
+                <div className={style.rightBox}>
+                  <li
+                    onClick={() => {
+                      dispatch(logout()).catch(console.log);
+                      navigate('/');
+                    }}
+                    className={style.item}
+                  >
+                    <NavLink className={style.link} to="/logout">
+                      Logout
+                    </NavLink>
+                  </li>
+                </div>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
       <Outlet />
     </>
   );

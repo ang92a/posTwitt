@@ -70,5 +70,4 @@
 .btn:active {
     transform: scale(.99);
     box-shadow: 0px 2px 6px -1px rgba(108, 114, 255, 0.5);
-    /* Цвет тени при активации */
 }
