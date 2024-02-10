@@ -2,7 +2,7 @@ import type { User } from '../Sign/types';
 
 export type Post = {
   id: number;
-  userid: string;
+  userId: number;
   title: string;
   content: string;
   User: User;
@@ -12,15 +12,15 @@ export type Post = {
 
 export type Comment = {
   id: number;
-  postid: number;
-  userid: number;
+  postId: number;
+  userId: number;
   content: string;
-  parentid: number;
+  parentId: number;
 };
 export type PostLike = {
   id: number;
-  postid: number;
-  userid: number;
+  postId: number;
+  userId: number;
 };
 
 export type PostsState = {

@@ -10,9 +10,7 @@ const initialState: AuthState = {
 export const checkUser = createAsyncThunk('auth/check', () => fetchCheckUser());
 export const signUp = createAsyncThunk('auth/signUp', (user: UserSignUp) => fetchSignUp(user));
 export const signIn = createAsyncThunk('auth/signIn', (user: UserSignIn) => fetchSignIn(user));
-console.log(signIn, 222);
 
-// export const logout = createAsyncThunk('auth/logOut', () => fetchLogout());
 
 const authSlice = createSlice({
   name: 'auth',

@@ -11,8 +11,6 @@ import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
 import WelcomPage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
 
-
-
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -21,13 +19,12 @@ function App(): JSX.Element {
     dispatch(loadProfiles()).catch(console.log);
     setTimeout(() => dispatch(stopLoading()), 1000);
     dispatch(loadPosts()).catch(console.log);
-
   }, []);
 
   return (
     <div className="App">
       <Routes>
-        {/* <Route path="/" element={<WelcomePage />} /> */}
+        <Route path="/" element={<WelcomPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/profiles/:profileId" element={<ProfilePage />} />
