@@ -25,7 +25,6 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loadPosts.fulfilled, (state, action) => {
-        console.log(action);
 
         state.posts = action.payload;
       })

@@ -1,4 +1,3 @@
-
 /* eslint-disable @typescript-eslint/no-base-to-string */
 import type { Post, PostAdd, PostId } from '../WelcomPage/types';
 import type { User, UserSignIn, UserSignUp } from '../Sign/types';
@@ -14,10 +13,9 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   const data: { profiles: User[] } = (await res.json()) as {
     profiles: User[];
   };
-  console.log(data.profiles);
-
   return data.profiles;
-}
+};
+
 
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts');

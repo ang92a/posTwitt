@@ -12,7 +12,6 @@ import { loadPosts } from '../WelcomPage/postsSlice';
 import NewsPage from './NewsPage/NewsPage';
 import NavBar from '../NavBar/NavBar';
 
-
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
