@@ -8,9 +8,10 @@ import React from 'react';
 
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { type RootState, useAppDispatch } from '../../redux/store';
-import { logout } from '../Sign/authSlice';
-import style from './style/navbar.module.css';
+import { type RootState, useAppDispatch } from '../../../redux/store';
+import { logout } from '../../Page/SignPage/authSlice';
+
+import style from './navbar.module.css';
 
 const NavBar = (): JSX.Element => {
   const user = useSelector((store: RootState) => store.auth.auth);
@@ -34,8 +35,8 @@ const NavBar = (): JSX.Element => {
               </li>
               <li className={style.item}>
                 <NavLink
-                  className={`${style.link} ${window.location.pathname === '/users' ? style.active : ''}`}
-                  to="/users"
+                  className={`${style.link} ${window.location.pathname === `/profiles/${user?.id}` ? style.active : ''}`}
+                  to={`/profiles/${user?.id}`}
                 >
                   Профиль
                 </NavLink>

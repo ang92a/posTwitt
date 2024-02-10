@@ -1,12 +1,12 @@
 import React from 'react';
-import style from './Style/profilePage.module.css';
 import load from './assets/Rolling-1s-200px.svg';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { type RootState } from '../../redux/store';
-import PostItem from '../WelcomPage/PostItem';
+import { type RootState } from '../../../redux/store';
+import PostItem from '../../UI/PostItem/PostItem';
+import style from './Style/profilePage.module.css';
 
-const ProfilePage = (): JSX.Element => {
+function ProfilePage(): JSX.Element {
   const { profiles } = useSelector((store: RootState) => store.profiles);
   const { profileId } = useParams();
 
@@ -45,6 +45,6 @@ const ProfilePage = (): JSX.Element => {
   );
 
   return <>{loading ? <img src={load} /> : content}</>;
-};
+}
 
 export default ProfilePage;

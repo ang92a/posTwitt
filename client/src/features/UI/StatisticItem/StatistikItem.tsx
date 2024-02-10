@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './style/statistik.module.css';
+import style from './statistik.module.css';
 
 function StatistikItem(): JSX.Element {
   return (

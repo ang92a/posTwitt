@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import SignInPage from '../Sign/SignInPage';
-import SignUpPage from '../Sign/SignUpPage';
-import { checkUser } from '../Sign/authSlice';
 import { useAppDispatch } from '../../redux/store';
-import WelcomPage from '../WelcomPage/WelcomPage';
-import ProfilePage from '../ProfilePage/ProfilePage';
-import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
-import { loadPosts } from '../WelcomPage/postsSlice';
-import NewsPage from './NewsPage/NewsPage';
-import NavBar from '../NavBar/NavBar';
+
+
+import { checkUser } from '../Page/SignPage/authSlice';
+import { loadProfiles, stopLoading } from '../Page/ProfilePage/profileSlice';
+import { loadPosts } from '../Page/WelcomPage/postsSlice';
+
+import SignInPage from '../Page/SignPage/SignInPage';
+import NavBar from '../UI/NavBar/NavBar';
+import NewsPage from '../Page/NewsPage/NewsPage';
+import ProfilePage from '../Page/ProfilePage/ProfilePage';
+import WelcomPage from '../Page/WelcomPage/WelcomPage';
+import SignUpPage from '../Page/SignPage/SignUpPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

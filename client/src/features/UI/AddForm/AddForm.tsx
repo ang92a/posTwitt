@@ -4,10 +4,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import style from './style/addForm.module.css';
+import style from './addForm.module.css';
 import { useAppDispatch } from '../../../redux/store';
-import { AddPosts } from '../../WelcomPage/postsSlice';
+
 import type { RootState } from '../../../redux/store';
+import { AddPosts } from '../../Page/WelcomPage/postsSlice';
 
 const AddForm = (): JSX.Element => {
   const [text, setText] = useState('');

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../redux/store';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, type RootState } from '../../../redux/store';
+
 import { signUp } from './authSlice';
 import style from './style/signPage.module.css';
-import { useNavigate } from 'react-router-dom';
 import fon from './assets/fon.webp';
 
 function SignUpPage(): JSX.Element {
