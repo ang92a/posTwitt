@@ -1,7 +1,9 @@
 import React from 'react';
-import PostList from '../../WelcomPage/PostList';
-import AddForm from './AddForm';
-import LeftColumn from '../../LeftColumn/LeftColumn';
+
+import PostList from '../../UI/PostList/PostList';
+import AddForm from '../../UI/AddForm/AddForm';
+import LeftColumn from '../../UI/LeftColumn/LeftColumn';
+
 import style from './style/news.module.css';
 
 function NewsPage(): JSX.Element {

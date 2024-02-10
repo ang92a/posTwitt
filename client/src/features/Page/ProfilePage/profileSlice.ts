@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ProfileState } from '../Sign/types';
-import { fetchLoadProfiles } from '../App/api';
+
+import { fetchLoadProfiles } from '../../App/api';
+import type { ProfileState } from '../SignPage/types';
+
 
 const initialState: ProfileState = {
   profiles: [],

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import type { RootState } from '../../redux/store';
-import { useAppDispatch } from '../../redux/store';
+import type { RootState } from '../../../redux/store';
+import { useAppDispatch } from '../../../redux/store';
 import { signIn } from './authSlice';
 import style from './style/signPage.module.css';
 import fon from './assets/fon.webp';

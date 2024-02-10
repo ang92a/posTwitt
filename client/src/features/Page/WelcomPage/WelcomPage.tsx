@@ -1,9 +1,11 @@
 import React from 'react';
-import StatistikItem from './StatistikItem';
-import PostList from './PostList';
+
 import style from './style/welcomepage.module.css';
-import HeaderWelcomePage from '../HeaderWelcomePage/HeaderWelcomePage';
-import LeftColumn from '../LeftColumn/LeftColumn';
+
+import PostList from '../../UI/PostList/PostList';
+import LeftColumn from '../../UI/LeftColumn/LeftColumn';
+import HeaderWelcomePage from '../../UI/HeaderWelcomePage/HeaderWelcomePage';
+import StatistikItem from '../../UI/StatisticItem/StatistikItem';
 
 function WelcomPage(): JSX.Element {
   return (
