@@ -1,71 +1,57 @@
-.containerOne {
+.containerPost {
+  width: 840px;
   display: flex;
-  justify-content: center;
-
-
-  width: 800px;
-
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 10px;
 }
-.containerTwo {
-  display: flex;
-  justify-content: space-around;
 
+.containerPostPhoto {
+  flex: 0 0 auto;
+}
 
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-.containerImg {
-  width: 50px;
-  height: 50px;
-}
 .Img {
-  height: 50px;
   width: 50px;
-  border-radius: 500px;
-}
-.containerContent {
-  display: flex;
-  width: 600px;
-  padding-left: 15px;
-
-  justify-content: space-between;
+  height: 50px;
+  border-radius: 50%;
 }
 
-.content {
-  display: flex;
-  justify-content: space-between;
+.containerPostContent {
+  flex: 1;
+  margin-left: 20px;
+  max-width: 550px;
+  margin-right: auto;
 }
-.left {
-  display: flex;
-  flex-direction: column;
-}
-/* .text {
-}
+
 .name {
-} */
+  margin-bottom: 5px;
+}
+
+.containerPostMore {
+  flex: 0 0 auto;
+  cursor: pointer;
+  color: #000000;
+
+}
 
 .function {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-top: 20px;
+  max-width: 300px;
 }
 
-.img {
-  width: 20px;
-  height: 20px;
-}
-.one {
-  display: flex;
-}
-.two {
-  display: flex;
-}
-.fre {
-  display: flex;
-}
+.one,
+.two,
+.fre,
 .foo {
   display: flex;
 }
 
-.freeTochka {
+.one,
+.two,
+.fre,
+.foo>img {
+  width: 15px;
+  height: 15px;
 }
-

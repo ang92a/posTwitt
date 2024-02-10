@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../redux/store';
 import { signUp } from './authSlice';
 import style from './style/signPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import fon from './assets/fon.webp';
 
 function SignUpPage(): JSX.Element {
   const [name, setName] = useState('');
@@ -25,9 +26,11 @@ function SignUpPage(): JSX.Element {
   }, [user]);
 
   return (
-    <main>
+    <main className={style.main}>
       <div className={style.container}>
-        <div className={style.containerImg} />
+        <div className={style.containerImg}>
+          <img src={fon} alt="photo" />
+        </div>
         <div className={style.containerForm}>
           <form
             className={style.signUp}
@@ -38,7 +41,6 @@ function SignUpPage(): JSX.Element {
           >
             <h1>Регистрация PosTwitt</h1>
             <h4>Социальная сеть, для общения и обмена опытом среди разработчиков</h4>
-            {error && <p>{error}</p>}
             <div>
               <input
                 value={name}
@@ -71,6 +73,7 @@ function SignUpPage(): JSX.Element {
                 placeholder="Повторите пароль"
               />
             </div>
+            {error && <p className={`${style.subText} ${style.error}`}>{error}</p>}
             <button type="submit" className={style.btn}>
               Зарегистрироваться
             </button>

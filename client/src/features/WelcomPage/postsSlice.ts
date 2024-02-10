@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { PostsState } from './types';
-import { fetchLoadPosts } from '../App/api';
+import type { PostAdd, PostId, PostsState } from './types';
+import { fetchAddPosts, fetchLoadPosts, fetchPostRemove } from '../App/api';
 
 const initialState: PostsState = {
   posts: [],
@@ -8,6 +8,11 @@ const initialState: PostsState = {
 };
 
 export const loadPosts = createAsyncThunk('posts/load', () => fetchLoadPosts());
+
+export const AddPosts = createAsyncThunk('post/add', (post: PostAdd) => fetchAddPosts(post));
+
+export const DelPost = createAsyncThunk('post/del', (postId: PostId) => fetchPostRemove(postId));
+
 
 const authSlice = createSlice({
   name: 'posts',
@@ -24,6 +29,18 @@ const authSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(loadPosts.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(AddPosts.fulfilled, (state, action) => {
+        state.posts.push(action.payload);
+      })
+      .addCase(AddPosts.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(DelPost.fulfilled, (state, action) => {
+        state.posts = state.posts.filter((post) => post.id !== +action.payload);
+      })
+      .addCase(DelPost.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

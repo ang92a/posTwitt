@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchCheckUser, fetchSignIn, fetchSignUp } from '../App/api';
+import { fetchCheckUser, fetchLogout, fetchSignIn, fetchSignUp } from '../App/api';
 import type { AuthState, UserSignIn, UserSignUp } from './types';
 
 const initialState: AuthState = {
@@ -10,7 +10,7 @@ const initialState: AuthState = {
 export const checkUser = createAsyncThunk('auth/check', () => fetchCheckUser());
 export const signUp = createAsyncThunk('auth/signUp', (user: UserSignUp) => fetchSignUp(user));
 export const signIn = createAsyncThunk('auth/signIn', (user: UserSignIn) => fetchSignIn(user));
-
+export const logout = createAsyncThunk('auth/logOut', () => fetchLogout());
 
 const authSlice = createSlice({
   name: 'auth',
@@ -38,6 +38,12 @@ const authSlice = createSlice({
         state.auth = action.payload;
       })
       .addCase(signIn.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.auth = undefined;
+      })
+      .addCase(logout.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

@@ -5,10 +5,19 @@ export type Post = {
   userId: number;
   title: string;
   content: string;
+  likes: number;
   User: User;
   Comments: Comment[];
   PostLikes: PostLike[];
 };
+
+export type PostAdd = {
+  content: string;
+  userId: number;
+  title: string;
+};
+
+export type PostId = Post['id']
 
 export type Comment = {
   id: number;
