@@ -18,7 +18,7 @@ function SignInPage(): JSX.Element {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/news');
     }
   }, [user]);
 

@@ -21,7 +21,7 @@ function SignUpPage(): JSX.Element {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/news');
     }
   }, [user]);
 
