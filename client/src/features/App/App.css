@@ -6,3 +6,10 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+
+/* #007bff-красивый цвет */
+
+:root {
+  --primary-color: #6c72ff;
+}

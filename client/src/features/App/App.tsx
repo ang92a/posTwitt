@@ -5,12 +5,13 @@ import SignInPage from '../Sign/SignInPage';
 import SignUpPage from '../Sign/SignUpPage';
 import { checkUser } from '../Sign/authSlice';
 import { useAppDispatch } from '../../redux/store';
+import WelcomPage from '../WelcomPage/WelcomPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
-import WelcomPage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
 import NewsPage from './NewsPage/NewsPage';
 import NavBar from '../NavBar/NavBar';
+
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

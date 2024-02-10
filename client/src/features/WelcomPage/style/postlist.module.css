@@ -1,5 +1,8 @@
 .containerList {
+  max-width: 1280px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  border-radius: 4px;
+  box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, .22);
+  margin-right: 30px;
 }
