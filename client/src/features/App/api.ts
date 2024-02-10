@@ -14,7 +14,6 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   const data: { profiles: User[] } = (await res.json()) as {
     profiles: User[];
   };
-  console.log(data.profiles);
 
   return data.profiles;
 }
@@ -70,5 +69,5 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-
+}
 

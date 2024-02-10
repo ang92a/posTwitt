@@ -81,7 +81,6 @@ router.post('/sign-in', async (req, res) => {
 });
 
 router.get('/check', async (req, res) => {
-  console.log(res.locals.user);
   if (res.locals.user) {
     const user = await User.findOne({ where: { id: res.locals.user.id } });
     res.json({ user });

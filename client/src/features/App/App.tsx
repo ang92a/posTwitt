@@ -8,14 +8,16 @@ import { useAppDispatch } from '../../redux/store';
 
 import ProfilePage from '../ProfilePage/ProfilePage';
 import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
-import WelcomPage from '../WelcomPage/WelcomPage';
+import WelcomePage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
+import ChatPage from '../Chat/ChatPage';
 
 
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
+  
   useEffect(() => {
     dispatch(checkUser()).catch(console.log);
     dispatch(loadProfiles()).catch(console.log);
@@ -27,7 +29,8 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <Routes>
-        {/* <Route path="/" element={<WelcomePage />} /> */}
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/profiles/:profileId" element={<ProfilePage />} />
