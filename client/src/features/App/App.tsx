@@ -11,6 +11,7 @@ import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
 import WelcomePage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
 import ChatPage from '../Chat/ChatPage';
+import ChatTest from '../Chat/ChatTest';
 
 
 
@@ -33,6 +34,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/chattest" element={<ChatTest />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/profiles/:profileId" element={<ProfilePage />} />
