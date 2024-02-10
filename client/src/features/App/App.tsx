@@ -3,7 +3,7 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import SignInPage from '../Sign/SignInPage';
 import SignUpPage from '../Sign/SignUpPage';
-import { checkUser } from '../Sign/authSlice';
+import { checkUser, stopLoadingAu } from '../Sign/authSlice';
 import { useAppDispatch } from '../../redux/store';
 
 import ProfilePage from '../ProfilePage/ProfilePage';
@@ -17,11 +17,13 @@ import ChatPage from '../Chat/ChatPage';
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
+  dispatch(checkUser()).catch(console.log);
+  
   
   useEffect(() => {
-    dispatch(checkUser()).catch(console.log);
     dispatch(loadProfiles()).catch(console.log);
     setTimeout(() => dispatch(stopLoading()), 1000);
+    setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
 
   }, []);

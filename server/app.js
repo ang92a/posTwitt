@@ -18,28 +18,18 @@ const io = new Server(server, {
 const indexRouter = require('./routes/index.routes');
 const { verifyAccessToken } = require('./middleware/verifyJWT');
 
+const handleSocketConnection = require('./socketHandlers');
+
+
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: 'true' }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(verifyAccessToken);
 
 app.use('/', indexRouter);
 
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg.message);
-    io.emit('chat message', msg);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected')
-  });
-});
+handleSocketConnection(io);
 
 const PORT = 3000;
 

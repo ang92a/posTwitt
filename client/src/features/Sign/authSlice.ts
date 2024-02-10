@@ -22,7 +22,7 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = undefined;
     },
-    stopLoading: (state) => {
+    stopLoadingAu: (state) => {
       state.loading = false;
     },
   },
@@ -31,7 +31,7 @@ const authSlice = createSlice({
       .addCase(checkUser.fulfilled, (state, action) => {
         state.auth = action.payload;
       })
-      .addCase(loadHeroes.pending, (state) => {
+      .addCase(checkUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(checkUser.rejected, (state, action) => {
@@ -51,5 +51,7 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const { stopLoadingAu } = authSlice.actions;
 
 export default authSlice.reducer;
