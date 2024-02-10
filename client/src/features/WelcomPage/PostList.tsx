@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/function-component-definition */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PostItem from './PostItem';
 import type { RootState } from '../../redux/store';
+
 import style from './style/postlist.module.css';
 
 const PostList = (): JSX.Element => {

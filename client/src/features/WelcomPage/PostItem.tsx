@@ -1,11 +1,20 @@
-import React from 'react';
-import style from './style/postitem.module.css';
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react/jsx-no-useless-fragment */
 
+import React from 'react';
+import { useSelector } from 'react-redux';
+import style from './style/postitem.module.css';
+import { useAppDispatch, type RootState } from '../../redux/store';
 import type { Post } from './types';
 import like from './img/Like.png';
 import comment from './img/comment.png';
 import repost from './img/repost.png';
 import izbr from './img/избранное.png';
+
 
 function PostItem({ post }: { post: Post }): JSX.Element {
   return (
