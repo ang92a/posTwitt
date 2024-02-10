@@ -1,13 +1,13 @@
 /* eslint-disable react/function-component-definition */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PostItem from './PostItem';
 import type { RootState } from '../../redux/store';
-import { useSelector } from 'react-redux';
 import style from './style/postlist.module.css';
 
 const PostList = (): JSX.Element => {
   const posts = useSelector((store: RootState) => store.posts.posts);
-  console.log(posts);
+  // console.log(posts);
 
   return (
     <>

@@ -12,7 +12,7 @@ const ProfilePage = (): JSX.Element => {
   const currentProfile = profileId && profiles.find((profile) => profile.id === +profileId);
 
   const content = currentProfile && (
-    <main>
+    <main className={style.main}>
       <div className={style.container}>
         <div className={style.user_page}>
           <div className={style.user_info}>

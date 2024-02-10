@@ -1,27 +1,23 @@
 import React from 'react';
 import style from './style/statistik.module.css';
 
-// eslint-disable-next-line react/function-component-definition, arrow-body-style
-const StatistikItem = (): JSX.Element => {
+function StatistikItem(): JSX.Element {
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
-      <div className={style.container}>
-        <div className={style.one}>
-          <h1>20</h1>
-          <h3>Пользователей зарегестрировано</h3>
-        </div>
-        <div className={style.two}>
-          <h1>556</h1>
-          <h3>Сообщений написано</h3>
-        </div>
-        <div className={style.fre}>
-          <h1>58</h1>
-          <h3>Написано Сообщений</h3>
-        </div>
+    <div className={style.container}>
+      <div className={style.one}>
+        <p className={style.count}>20</p>
+        <p>Пользователей зарегестрировано</p>
       </div>
-    </>
+      <div className={style.two}>
+        <p className={style.count}>556</p>
+        <p>Сообщений написано</p>
+      </div>
+      <div className={style.fre}>
+        <p className={style.count}>58</p>
+        <p>Написано сегодня</p>
+      </div>
+    </div>
   );
-};
+}
 
 export default StatistikItem;

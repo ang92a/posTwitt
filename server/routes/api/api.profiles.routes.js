@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
     res.json({ type: "profiles router", message });
   }
 });
+
 router.get("/:profileId", async (req, res) => {
   try {
     const { profileId } = req.params;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import type { RootState } from '../../redux/store';
 import { useAppDispatch } from '../../redux/store';
 import { signIn } from './authSlice';
 import style from './style/signPage.module.css';
-import { useNavigate } from 'react-router-dom';
-// import signImage from './assets/signImage.jpg';
+import fon from './assets/fon.webp';
 
 function SignInPage(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -23,9 +23,11 @@ function SignInPage(): JSX.Element {
   }, [user]);
 
   return (
-    <main>
+    <main className={style.main}>
       <div className={style.container}>
-        <div className={style.containerImg}>{/* <img src={signImage} alt="image" /> */}</div>
+        <div className={style.containerImg}>
+          <img src={fon} alt="photo" />
+        </div>
         <div className={style.containerForm}>
           <form
             className={style.signIn}
@@ -36,7 +38,6 @@ function SignInPage(): JSX.Element {
           >
             <h1>Вход PosTwitt</h1>
             <h4>Социальная сеть, для общения и обмена опытом среди разработчиков</h4>
-            {error && <p>{error}</p>}
             <div>
               <input
                 name="email"
@@ -55,6 +56,7 @@ function SignInPage(): JSX.Element {
                 placeholder="Введите ваш пароль"
               />
             </div>
+            {error && <p className={`${style.subText} ${style.error}`}>{error}</p>}
             <button type="submit" className={style.btn}>
               Вход
             </button>
