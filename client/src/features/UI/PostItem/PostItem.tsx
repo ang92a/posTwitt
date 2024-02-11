@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import type { Post } from '../../Page/WelcomPage/types';
 import { type RootState, useAppDispatch } from '../../../redux/store';
 import { DelPost, DisLikePost, LikePost, loadPosts } from '../../Page/WelcomPage/postsSlice';
-import comment from './img/comment.png';
+import commentImg from './img/comment.png';
 import izbr from './img/избранное.png';
 import { AddComment } from './commentSlice';
 import emptyLike from './img/empty.svg';
@@ -17,21 +17,26 @@ import like from './img/full.svg';
 import style from './postitem.module.css';
 
 function PostItem({ post }: { post: Post }): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  // состояния на коменты
   const [stateCom, setComState] = useState(false);
   const [text, setText] = useState('');
-  const dispatch = useAppDispatch();
-  const [isLike, setIsLike] = useState(false); //пустое
 
   const user = useSelector((store: RootState) => store.auth.auth);
-  const findUserInLikePost = post.PostLikes.find((el) => el.userId === user!.id);
-  const handleLikeClick = (): void => {
-    console.log(isLike, 'useState(false)');
-    if (isLike) {
+
+  // проверка лайкал ли юзер этот пост
+  const findUserInLikePost = user && post.PostLikes.find((el) => el.userId === user.id);
+
+  const [isLike, setLike] = useState(findUserInLikePost);
+
+  // лайки
+  const handleLikeClick = (status: string): void => {
+    if (status === 'full') {
       dispatch(DisLikePost({ postId: post.id })).catch(console.log);
     } else {
       dispatch(LikePost({ postId: post.id, userId: user!.id })).catch(console.log);
     }
-    setIsLike(!isLike);
   };
 
   const formatDateTime = (createdate: string | number | Date): string => {
@@ -44,9 +49,12 @@ function PostItem({ post }: { post: Post }): JSX.Element {
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   };
 
+  useEffect(() => {
+    dispatch(loadPosts()).catch(console.log);
+  }, [text]);
+
   return (
     <>
-      {/* ///первая всё норм */}
       <div className={style.containerPost}>
         <div className={style.containerPostOne}>
           <div className={style.containerPostPhoto}>
@@ -60,64 +68,65 @@ function PostItem({ post }: { post: Post }): JSX.Element {
             <p className={style.content}>{post.content}</p>
             <div className={style.function}>
               <div className={style.one} onClick={() => setComState((prev) => !prev)}>
-                <img className={style.img} src={comment} alt="" />
+                <img className={style.img} src={commentImg} alt="" />
                 <p className={style.counter}>{post.Comments.length}</p>
               </div>
 
-              <div className={style.two}>
+              {/* <div className={style.two}>
                 <img className={style.img} src={repost} alt="" />
                 <p className={style.counter}>12</p>
-              </div>
-              {/*  */}
-              {/*  */}
- {user && findUserInLikePost ? (
+              </div> */}
+
+              {user ? (
                 <div className={style.fre}>
-                  <img
-                    src={like}
-                    alt="full"
-                    className={style.img}
-                    data-id={post.id}
-                    onClick={() => {
-                      handleLikeClick();
-                      dispatch(loadPosts()).catch(console.log);
-                    }}
-                  />
+                  {findUserInLikePost ? (
+                    <img
+                      src={like}
+                      alt="full"
+                      className={style.img}
+                      data-id={post.id}
+                      onClick={() => {
+                        handleLikeClick('full');
+                        dispatch(loadPosts()).catch(console.log);
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={emptyLike}
+                      alt="empty"
+                      className={style.img}
+                      data-id={post.id}
+                      onClick={() => {
+                        handleLikeClick('empty');
+                        dispatch(loadPosts()).catch(console.log);
+                      }}
+                    />
+                  )}
                   <div className="count">{post.PostLikes.length}</div>
                 </div>
               ) : (
                 <div className={style.fre}>
-                  <img
-                    src={emptyLike}
-                    alt="empty"
-                    className={style.img}
-                    data-id={post.id}
-                    onClick={() => {
-                      handleLikeClick();
-                      dispatch(loadPosts()).catch(console.log);
-                    }}
-                  />
+                  <img src={like} alt="full" className={style.img} data-id={post.id} />
                   <div className="count">{post.PostLikes.length}</div>
                 </div>
               )}
-              {/*  */}
+
               <div className={style.foo}>
                 <img className={style.img} src={izbr} alt="" />
               </div>
             </div>
           </div>
-          {/*  */}
           {user?.id === post.User.id && (
             <div className={style.containerPostMore} onClick={() => dispatch(DelPost(post.id))}>
               X
             </div>
           )}
-          {/*  */}
         </div>
 
         {stateCom && (
           <>
             {post.Comments.map((comment) => (
-              <div>
+              <div key={comment.id}>
                 <div className={style.containerPostTwo}>
                   <div className={style.containerPostPhotoCom}>
                     <img className={style.ImgCom} src={comment.User.img} alt="фотоUSer" />
@@ -126,7 +135,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                     <div>{comment.User.name}</div>
                     <div className={style.Comment}>{comment.content}</div>
                   </div>
-                  <div className={style.delComment}>x</div>
+                  {user?.id === comment.userId && <div className={style.delComment}>x</div>}
                 </div>
               </div>
             ))}
@@ -152,8 +161,9 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                 <div className={style.containerPostPhotoForm}>
                   <img className={style.ImgForm} src={user.img} alt="фотоUSer" />
                 </div>
-                <div className={style.Input}>
+                <div>
                   <input
+                    className={style.Input}
                     onChange={(e) => setText(e.target.value)}
                     type="text"
                     value={text}
@@ -161,11 +171,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                   />
                 </div>
                 <div className={style.containerBtn}>
-                  <button
-                    type="submit"
-                    className={style.btn}
-                    onClick={() => dispatch(loadPosts()).catch(console.log)}
-                  >
+                  <button type="submit" className={style.btn}>
                     Отправить
                   </button>
                 </div>
