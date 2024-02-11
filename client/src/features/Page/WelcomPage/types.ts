@@ -20,13 +20,14 @@ export type PostAdd = {
 
 export type PostId = Post['id'];
 
-export type Comment = {
-  id: number;
-  postId: number;
-  userId: number;
-  content: string;
-  parentId: number;
-};
+// export type Comment = {
+//   id: number;
+//   postId: number;
+//   userId: number;
+//   content: string;
+//   parentId: number;
+//   User: User
+// };
 export type PostLike = {
   id: number;
   postId: number;

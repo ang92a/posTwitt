@@ -3,7 +3,6 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
 
-
 import { checkUser } from '../Page/SignPage/authSlice';
 import { loadProfiles, stopLoading } from '../Page/ProfilePage/profileSlice';
 import { loadPosts } from '../Page/WelcomPage/postsSlice';

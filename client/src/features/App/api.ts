@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
+
 import type { Post, PostAdd, PostId } from '../Page/WelcomPage/types';
 import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
+import { Comment, CommentAdd } from '../UI/PostItem/types';
+
 
 // проверка юзера в системе
 export const fetchCheckUser = async (): Promise<User> => {
@@ -19,8 +22,10 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   return data.profiles;
 };
 
+
 // ПОСТЫ
 // получение всех ПОСТОВ
+
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts');
   const data: { posts: Post[] } = (await res.json()) as { posts: Post[] };
@@ -55,6 +60,19 @@ export const fetchPostRemove = async (id: PostId): Promise<PostId> => {
   return data.postId;
 };
 
+////comment
+export const fetchAddComment = async (comment: CommentAdd): Promise<Comment> => {
+  const res = await fetch('/api/comment', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(comment),
+  });
+  const data: { comment: Comment } = (await res.json()) as { comment: Comment };
+  return data.comment;
+};
+
 // добавление лайк ПОСТОВ
 export const fetchAddLikePost = async ({
   postId,
@@ -73,6 +91,7 @@ export const fetchAddLikePost = async ({
   const data: { post: Post } = (await res.json()) as { post: Post };
   return data.post;
 };
+
 
 // удаление лайк ПОСТОВ
 export const fetchDelLikePost = async (postId: PostId): Promise<PostId> => {
