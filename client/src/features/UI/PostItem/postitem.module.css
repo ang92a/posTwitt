@@ -1,9 +1,18 @@
 .containerPost {
-  width: 840px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.22);
+}
+
+.containerPostOne {
+  /*   width: 840px; */
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
-  margin-bottom: 10px;
+  padding: 20px 40px;
+
 }
 
 .containerPostPhoto {
@@ -23,22 +32,24 @@
   margin-right: auto;
 }
 
-.name {
-  margin-bottom: 5px;
+.time {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #585656;
 }
+
 
 .containerPostMore {
   flex: 0 0 auto;
   cursor: pointer;
   color: #000000;
-
 }
 
 .function {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  max-width: 300px;
+  max-width: 150px;
 }
 
 .one,
@@ -57,6 +68,85 @@
   height: 15px;
 }
 
-.counter {
-  margin-left: 10px;
+
+.img {
+  width: 15px;
+  margin-right: 8px;
+}
+
+
+/* container COMMENT */
+
+.containerPostTwo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.containerPostPhotoCom {
+  flex: 0 0 auto;
+}
+
+.ImgCom {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.NameComment {
+  flex: 1;
+  margin-left: 20px;
+  max-width: 750px;
+  margin-right: auto;
+
+  padding-top: 5px;
+}
+
+/* container FORM COMMENT */
+
+.containerPostForm {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px;
+}
+
+.containerPostPhotoForm {
+  flex: 0 0 auto;
+}
+
+.ImgForm {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.Input {
+  flex: 1;
+  margin-left: 20px;
+  max-width: 550px;
+  margin-right: auto;
+  padding-top: 5px;
+  margin-bottom: 0;
+}
+
+.containerBtn {
+  margin: auto;
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-bottom: 8px;
+}
+
+.nowork {
+  color: rgb(224, 221, 221);
 }

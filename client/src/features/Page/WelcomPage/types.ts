@@ -1,6 +1,7 @@
-import type { User } from '../Sign/types';
+import type { User } from '../SignPage/types';
 
 export type Post = {
+  createdAt(createdAt: any): import("react").ReactNode;
   id: number;
   userId: number;
   title: string;
@@ -17,15 +18,16 @@ export type PostAdd = {
   title: string;
 };
 
-export type PostId = Post['id']
+export type PostId = Post['id'];
 
-export type Comment = {
-  id: number;
-  postId: number;
-  userId: number;
-  content: string;
-  parentId: number;
-};
+// export type Comment = {
+//   id: number;
+//   postId: number;
+//   userId: number;
+//   content: string;
+//   parentId: number;
+//   User: User
+// };
 export type PostLike = {
   id: number;
   postId: number;
