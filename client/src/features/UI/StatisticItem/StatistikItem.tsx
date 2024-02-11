@@ -1,8 +1,7 @@
 import React from 'react';
-import { RootState } from '../../redux/store';
-import style from './style/statistik.module.css';
+import { RootState } from '../../../redux/store';
+import style from './statistik.module.css';
 import { useSelector } from 'react-redux';
-
 
 function StatistikItem(): JSX.Element {
   const users = useSelector((store: RootState) => store.profiles.profiles).length;
