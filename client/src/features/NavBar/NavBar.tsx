@@ -15,29 +15,48 @@ import style from './style/navbar.module.css';
 const NavBar = (): JSX.Element => {
   const user = useSelector((store: RootState) => store.auth.auth);
   const navigate = useNavigate();
-
+  // const userId = useSelector((store: RootState) => store.profiles.profiles);
   const dispatch = useAppDispatch();
 
   return (
     <>
-      <ul className={style.container}>
-        <li className={style.item}>
-          <NavLink className={style.link} to="/news">
-            Лента
-          </NavLink>
-        </li>
-        <li className={style.item}>
-          <NavLink className={style.link} to="/users">
-            Профиль
-          </NavLink>
-        </li>
-        <li className={style.item}>
-          <NavLink className={style.link} to="/setting">
-            Настройки
-          </NavLink>
-        </li>
-        {user && (
-          <>
+      {!user ? (
+        <>
+          <ul className={style.container}>
+            <li className={style.item}>
+              <NavLink className={style.link} to="/sign-in">
+                Вход
+              </NavLink>
+            </li>
+            <li className={style.item}>
+              <NavLink className={style.link} to="/sign-up">
+                Регистрация
+              </NavLink>
+            </li>
+            <li className={style.item}>
+              <NavLink className={style.link} to="/setting">
+                Настройки
+              </NavLink>
+            </li>
+          </ul>
+        </>
+      ) : (
+        <>
+          <ul className={style.container}>
+            <li className={style.item}>
+              <NavLink className={style.link} to="/news">
+                Лента
+              </NavLink>
+            </li>
+            <li className={style.item}>
+              <NavLink className={style.link} to={`/profiles/${user?.id}`}>
+                Мой профиль
+              </NavLink>
+            </li>
+            <li>Hello, {user.name}!</li>{' '}
+            <li className={style.item}>
+              <img className={style.img} src={user?.img} alt="" />
+            </li>
             <li
               onClick={() => {
                 dispatch(logout()).catch(console.log);
@@ -49,17 +68,10 @@ const NavBar = (): JSX.Element => {
                 Logout
               </NavLink>
             </li>
-          </>
-        )}
-        {user && (
-          <>
-            <li>Hello, {user.name}!</li>{' '}
-            <li className={style.item}>
-              <img className={style.img} src={user?.img} alt="" />
-            </li>{' '}
-          </>
-        )}
-      </ul>
+          </ul>
+        </>
+      )}
+
       <Outlet />
     </>
   );
