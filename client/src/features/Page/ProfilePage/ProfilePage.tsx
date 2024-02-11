@@ -25,8 +25,11 @@ function ProfilePage(): JSX.Element {
             <span className={style.circle_ava}>
               <img src={currentProfile.img} />
             </span>
+            <div className={style.user_column}>
             <p className={style.user_name}>{currentProfile.name}</p>
             <p className={style.user_email}>{currentProfile.email}</p>
+            </div>
+
             <div className={style.user_count}>
               <p className={style.user_posts_count}>Постов: {userPosts.length}</p>
             </div>
