@@ -1,12 +1,9 @@
 .postForm {
-    width: 100%;
-    max-width: 840px;
-    /* Ограничение максимальной ширины формы */
+    width: 655px;
     margin: 0 auto;
     border-radius: 4px;
     box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, .22);
-    padding: 16px;
-    /* Добавляем немного отступа для контента внутри формы */
+    padding: 20px 40px;
 }
 
 .textarea {
@@ -42,5 +39,3 @@
     transform: translateY(-3px);
     box-shadow: 0 2px 6px -1px rgba(108, 114, 255, 0.5);
 }
-
-
