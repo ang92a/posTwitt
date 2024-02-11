@@ -1,0 +1,63 @@
+.header {
+  width: 100vw;
+  /* Ширина на всю ширину видимой области экрана */
+  height: auto;
+  border-bottom: 1px solid #a9a9a9;
+  /* Подчеркивание */
+}
+
+.container {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+
+.leftBox {
+  display: flex;
+}
+
+.item {
+  margin-right: 20px;
+  padding: 20px;
+  position: relative;
+  /* добавляем отступ между элементами */
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+  /* цвет ссылок */
+  font-weight: bold;
+
+  /* добавляем относительное позиционирование */
+}
+
+.active {
+  color: var(--primary-color);
+}
+
+.active::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--primary-color);
+  /* Цвет подчеркивания */
+  position: absolute;
+  bottom: -2px;
+  /* Расположение подчеркивания относительно ссылки */
+  left: 0;
+}
+
+
+.link:hover {
+  color: var(--primary-color);
+  /* цвет при наведении */
+}
