@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
       where: { id: postmin.id },
       include: [{ model: User }, { model: Comment }, { model: PostLike }],
     });
-    console.log(post);
+
     res.json({
       post,
     });
@@ -44,6 +44,50 @@ router.delete('/:postId', async (req, res) => {
       return;
     }
     res.json({ message: 'Не твоя, вот ты и бесишься' });
+  } catch ({ message }) {
+    res.json({ message });
+  }
+});
+
+router.post('/like', async (req, res) => {
+  try {
+    const { userId, postId } = req.body;
+
+    const findpost = await PostLike.findOne({
+      where: { userId: userId, postId: postId },
+    });
+
+    if (!findpost) {
+      await PostLike.create({
+        userId,
+        postId,
+      });
+      const post = await Post.findOne({
+        where: { id: postId },
+        include: [{ model: User }, { model: Comment }, { model: PostLike }],
+      });
+      res.json({
+        post,
+      });
+    }
+    return;
+  } catch ({ message }) {
+    res.json({ type: 'post router', message });
+  }
+});
+
+router.delete('/dislike/:postId', async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    const result = await PostLike.destroy({
+      where: { postId: postId, userId: res.locals.user.id },
+    });
+    if (result > 0) {
+      res.json({ message: 'success', postId });
+      return;
+    }
+    res.json({ message: 'Не сработал dislike' });
   } catch ({ message }) {
     res.json({ message });
   }
