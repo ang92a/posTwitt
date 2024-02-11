@@ -61,3 +61,7 @@
   color: var(--primary-color);
   /* цвет при наведении */
 }
+
+.nowork{
+  color: rgb(217, 214, 214);
+}

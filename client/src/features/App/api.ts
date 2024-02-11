@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
-import type { Post, PostAdd, PostId } from '../WelcomPage/types';
-import type { User, UserSignIn, UserSignUp } from '../Sign/types';
+
+import type { Post, PostAdd, PostId } from '../Page/WelcomPage/types';
+import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
 import { Comment, CommentAdd } from '../UI/PostItem/types';
 
+
+// проверка юзера в системе
 export const fetchCheckUser = async (): Promise<User> => {
   const res = await fetch('/api/auth/check');
   const data: { user: User } = (await res.json()) as { user: User };
   return data.user;
 };
 
+// ЮЗЕРЫ
+// получение всех ЮЗЕРОВ
 export const fetchLoadProfiles = async (): Promise<User[]> => {
   const res = await fetch('/api/profiles/');
   const data: { profiles: User[] } = (await res.json()) as {
@@ -17,12 +22,17 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   return data.profiles;
 };
 
+
+// ПОСТЫ
+// получение всех ПОСТОВ
+
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts');
   const data: { posts: Post[] } = (await res.json()) as { posts: Post[] };
   return data.posts;
 };
 
+// добавление ПОСТОВ
 export const fetchAddPosts = async (post: PostAdd): Promise<Post> => {
   const res = await fetch('/api/posts', {
     method: 'POST',
@@ -35,6 +45,7 @@ export const fetchAddPosts = async (post: PostAdd): Promise<Post> => {
   return data.post;
 };
 
+// удаление ПОСТОВ
 export const fetchPostRemove = async (id: PostId): Promise<PostId> => {
   const res = await fetch(`/api/posts/${id}`, {
     method: 'DELETE',
@@ -62,6 +73,43 @@ export const fetchAddComment = async (comment: CommentAdd): Promise<Comment> => 
   return data.comment;
 };
 
+// добавление лайк ПОСТОВ
+export const fetchAddLikePost = async ({
+  postId,
+  userId,
+}: {
+  postId: PostId;
+  userId: UserId;
+}): Promise<Post> => {
+  const res = await fetch('/api/posts/like', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ postId, userId }),
+  });
+  const data: { post: Post } = (await res.json()) as { post: Post };
+  return data.post;
+};
+
+
+// удаление лайк ПОСТОВ
+export const fetchDelLikePost = async (postId: PostId): Promise<PostId> => {
+
+  const res = await fetch(`/api/posts/dislike/${postId}`, {
+    method: 'DELETE',
+  });
+  const data: { message: string; postId: PostId } = (await res.json()) as {
+    message: string;
+    postId: PostId;
+  };
+  if (data.message !== 'success') {
+    throw new Error(data.message);
+  }
+  return data.postId;
+};
+
+// РЕГИСТРАЦИЯ
 export const fetchSignUp = async (user: UserSignUp): Promise<User> => {
   const res = await fetch('/api/auth/sign-up', {
     method: 'post',
@@ -81,6 +129,7 @@ export const fetchSignUp = async (user: UserSignUp): Promise<User> => {
   return data.user;
 };
 
+// ВХОД
 export const fetchSignIn = async (user: UserSignIn): Promise<User> => {
   const res = await fetch('/api/auth/sign-in', {
     method: 'post',
@@ -101,6 +150,7 @@ export const fetchSignIn = async (user: UserSignIn): Promise<User> => {
   return data.user;
 };
 
+// ВЫХОД
 export const fetchLogout = async (): Promise<void> => {
   const res = await fetch('/api/auth/logout');
   const data: { message: string } = (await res.json()) as { message: string };

@@ -7,11 +7,12 @@
 }
 
 .containerPostOne {
-  width: 840px;
+/*   width: 840px; */
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
-  margin-bottom: 10px;
+  padding: 20px 40px;
+  border-bottom: 1px solid rgb(220, 223, 230);
 }
 
 .containerPostPhoto {
@@ -31,9 +32,12 @@
   margin-right: auto;
 }
 
-.name {
-  margin-bottom: 5px;
+.time {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #585656;
 }
+
 
 .containerPostMore {
   flex: 0 0 auto;
@@ -45,7 +49,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  max-width: 300px;
+  max-width: 150px;
 }
 
 .one,
@@ -67,6 +71,7 @@
 .counter {
   margin-left: 10px;
 }
+
 
 /* container COMMENT */
 
@@ -130,3 +135,8 @@
   font-size: 16px;
   transition: background-color 0.3s;
 }
+
+.nowork {
+  color: rgb(224, 221, 221);
+}
+
