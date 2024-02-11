@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 import type { Post, PostAdd, PostId } from '../WelcomPage/types';
 import type { User, UserSignIn, UserSignUp } from '../Sign/types';
+import { Comment, CommentAdd } from '../UI/PostItem/types';
 
 export const fetchCheckUser = async (): Promise<User> => {
   const res = await fetch('/api/auth/check');
@@ -15,7 +16,6 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   };
   return data.profiles;
 };
-
 
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts');
@@ -47,6 +47,19 @@ export const fetchPostRemove = async (id: PostId): Promise<PostId> => {
     throw new Error(data.message);
   }
   return data.postId;
+};
+
+////comment
+export const fetchAddComment = async (comment: CommentAdd): Promise<Comment> => {
+  const res = await fetch('/api/comment', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(comment),
+  });
+  const data: { comment: Comment } = (await res.json()) as { comment: Comment };
+  return data.comment;
 };
 
 export const fetchSignUp = async (user: UserSignUp): Promise<User> => {

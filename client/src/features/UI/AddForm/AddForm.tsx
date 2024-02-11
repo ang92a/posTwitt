@@ -23,7 +23,7 @@ const AddForm = (): JSX.Element => {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(AddPosts({ title, content: text, userId: user?.id }))
+          dispatch(AddPosts({ title, content: text, userId: user?.id }))//тут нужно поправить
             .then(() => {
               setText('');
               setTitle('');

@@ -4,7 +4,11 @@ const { Post, User, Comment, PostLike } = require('../../db/models');
 router.get('/', async (req, res) => {
   try {
     const posts = await Post.findAll({
-      include: [{ model: User }, { model: Comment }, { model: PostLike }],
+      include: [
+        { model: User },
+        { model: Comment, include: { model: User } },
+        { model: PostLike },
+      ],
     });
     res.json({ posts });
     return;
