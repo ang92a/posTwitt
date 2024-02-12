@@ -22,7 +22,6 @@ const { verifyAccessToken } = require('./middleware/verifyJWT');
 
 const handleSocketConnection = require('./socketHandlers');
 
-
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: 'true' }));
 app.use(express.json());

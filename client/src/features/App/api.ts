@@ -4,6 +4,7 @@
 import type { Post, PostAdd, PostId, PostSort } from '../Page/WelcomPage/types';
 import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
 import type { CommentAdd, CommentId } from '../UI/PostItem/types';
+import type { Dialog } from '../Chat/types';
 
 // проверка юзера в системе
 export const fetchCheckUser = async (): Promise<User> => {
@@ -201,4 +202,20 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
+}
+
+// CHAT
+
+// load chat
+
+export const fetchLoadChats = async (): Promise<Dialog[]> => {
+  const res = await fetch('/api/chat/');
+  const data: { dialogs: Dialog[] } = (await res.json()) as {
+    dialogs: Dialog[];
+  };
+  return data.dialogs;
 };
+
+
+// };
+
