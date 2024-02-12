@@ -6,6 +6,7 @@ import style from './statistik.module.css';
 function StatistikItem(): JSX.Element {
   const users = useSelector((store: RootState) => store.profiles.profiles).length;
   const allPosts = useSelector((store: RootState) => store.posts.posts).length;
+
   const allPostsCountYest = useSelector((store: RootState) => store.posts.posts);
   const [count, setCount] = useState(0);
 
@@ -30,6 +31,7 @@ function StatistikItem(): JSX.Element {
       });
     }
   }, [allPostsCountYest]);
+
 
   return (
     <div className={style.container}>

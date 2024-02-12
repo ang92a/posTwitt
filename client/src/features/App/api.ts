@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 
+
 import type { Post, PostAdd, PostId, PostSort } from '../Page/WelcomPage/types';
 import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
 import type { CommentAdd, CommentId } from '../UI/PostItem/types';
@@ -110,16 +111,18 @@ export const fetchDelComment = async (commentDel: {
 export const fetchAddLikePost = async ({
   postId,
   userId,
+  like,
 }: {
   postId: PostId;
   userId: UserId;
+  like: number;
 }): Promise<Post> => {
   const res = await fetch('/api/posts/like', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({ postId, userId }),
+    body: JSON.stringify({ postId, userId, like }),
   });
   const data: { post: Post } = (await res.json()) as { post: Post };
   return data.post;
@@ -141,6 +144,13 @@ export const fetchDelLikePost = async (
     throw new Error(data.message);
   }
   return { postId: data.postId, userId };
+};
+
+// РЕЙТИНГ
+export const fetchLoadReating = async (): Promise<Reating[]> => {
+  const res = await fetch('/api/reating');
+  const data: { posts: Reating[] } = (await res.json()) as { posts: Reating[] };
+  return data.posts;
 };
 
 // РЕГИСТРАЦИЯ

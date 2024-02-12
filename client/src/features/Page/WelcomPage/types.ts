@@ -32,3 +32,12 @@ export type PostsState = {
   posts: Post[];
   error: string | undefined;
 };
+
+export type Reating = {
+  id: number;
+  userId: number;
+  title: string;
+  content: string;
+  likes: number;
+  img: string;
+};

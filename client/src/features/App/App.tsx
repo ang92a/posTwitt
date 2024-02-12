@@ -14,6 +14,7 @@ import NewsPage from '../Page/NewsPage/NewsPage';
 import ProfilePage from '../Page/ProfilePage/ProfilePage';
 import WelcomPage from '../Page/WelcomPage/WelcomPage';
 import SignUpPage from '../Page/SignPage/SignUpPage';
+import { loadReating } from '../UI/LeftColumn/reatingSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(checkUser()).catch(console.log);
     dispatch(loadProfiles()).catch(console.log);
+    dispatch(loadReating()).catch(console.log);
     setTimeout(() => dispatch(stopLoading()), 1000);
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
