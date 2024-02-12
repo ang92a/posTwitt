@@ -13,10 +13,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
-          key: 'id'
+          model: "Users",
+          key: "id",
         },
-        onDelete: 'CASCADE'
+        onDelete: "CASCADE",
       },
       title: {
         allowNull: false,
@@ -24,6 +24,9 @@ module.exports = {
       },
       content: {
         allowNull: false,
+        type: Sequelize.TEXT,
+      },
+      img: {
         type: Sequelize.TEXT,
       },
       likes: {

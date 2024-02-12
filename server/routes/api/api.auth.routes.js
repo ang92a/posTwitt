@@ -10,12 +10,12 @@ router.post('/sign-up', async (req, res) => {
   try {
     const { name, email, password, rpassword } = req.body;
     if (password !== rpassword) {
-      res.status(400).json({ message: 'Пароли не совпадают!' });
+      res.status(400).json({ message: 'Пароли не совпадают' });
       return;
     }
     user = await User.findOne({ where: { name } });
     if (user) {
-      res.status(400).json({ message: 'Такой пользователь уже есть!' });
+      res.status(400).json({ message: 'Такой пользователь уже есть' });
       return;
     }
 

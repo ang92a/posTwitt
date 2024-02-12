@@ -33,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.TEXT,
       },
+      img: {
+        type: DataTypes.TEXT,
+      },
       likes: {
         defaultValue: 0,
         type: DataTypes.INTEGER,

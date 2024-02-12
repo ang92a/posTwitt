@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import SignInPage from '../Sign/SignInPage';
-import SignUpPage from '../Sign/SignUpPage';
-import { checkUser, stopLoadingAu } from '../Sign/authSlice';
+import ChatPage from '../Chat/ChatPage';
 import { useAppDispatch } from '../../redux/store';
 
-import ProfilePage from '../ProfilePage/ProfilePage';
-import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
-import WelcomePage from '../WelcomPage/WelcomPage';
-import { loadPosts } from '../WelcomPage/postsSlice';
-import ChatPage from '../Chat/ChatPage';
-import ChatTest from '../Chat/ChatPage';
+import { checkUser, stopLoadingAu } from '../Page/SignPage/authSlice';
+import { loadProfiles, stopLoading } from '../Page/ProfilePage/profileSlice';
+import { loadPosts } from '../Page/WelcomPage/postsSlice';
 
 
+import SignInPage from '../Page/SignPage/SignInPage';
+import NavBar from '../UI/NavBar/NavBar';
+import NewsPage from '../Page/NewsPage/NewsPage';
+import ProfilePage from '../Page/ProfilePage/ProfilePage';
+import WelcomPage from '../Page/WelcomPage/WelcomPage';
+import SignUpPage from '../Page/SignPage/SignUpPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,18 +27,20 @@ function App(): JSX.Element {
     setTimeout(() => dispatch(stopLoading()), 1000);
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
-
   }, []);
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/chattest" element={<ChatTest />} />
+        <Route path="/" element={<NavBar />}>
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/profiles/:profileId" element={<ProfilePage />} />
+          <Route path="/chat" element={<ChatPage />} />
+        </Route>
+        <Route index element={<WelcomPage />} />
+
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/profiles/:profileId" element={<ProfilePage />} />
       </Routes>
     </div>
   );
