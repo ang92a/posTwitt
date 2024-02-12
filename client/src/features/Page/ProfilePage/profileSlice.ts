@@ -3,7 +3,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchLoadProfiles } from '../../App/api';
 import type { ProfileState } from '../SignPage/types';
 
-
 const initialState: ProfileState = {
   profiles: [],
   error: undefined,
@@ -18,6 +17,9 @@ const profilesSlice = createSlice({
   reducers: {
     stopLoading: (state) => {
       state.loading = false;
+    },
+    fielUsers: (state, action) => {
+      state.profiles.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -34,6 +36,6 @@ const profilesSlice = createSlice({
   },
 });
 
-export const { stopLoading } = profilesSlice.actions;
+export const { stopLoading, fielUsers } = profilesSlice.actions;
 
 export default profilesSlice.reducer;

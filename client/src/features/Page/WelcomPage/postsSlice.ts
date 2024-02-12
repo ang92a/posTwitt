@@ -91,9 +91,12 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(AddComment.fulfilled, (state, action) => {
-        state.posts = state.posts.map((post) =>
-          post.id === +action.payload.id ? action.payload : post,
-        );
+        // state.posts = state.posts.map((post) =>
+        //   post.id === +action.payload.id ? action.payload : post,
+        // );
+        state.posts.forEach((post, idx, arr) => {
+          post.id === +action.payload.id ? arr[idx].Comments = action.payload.Comments : post
+        });
       })
       .addCase(AddComment.rejected, (state, action) => {
         state.error = action.error.message;

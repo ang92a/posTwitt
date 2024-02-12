@@ -12,7 +12,6 @@
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
-
 }
 
 .containerPostPhoto {
@@ -50,6 +49,16 @@
   justify-content: space-between;
   margin-top: 20px;
   max-width: 150px;
+}
+
+.user_name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user_email {
+  font-size: 16px;
+  color: #666;
 }
 
 .one,

@@ -13,7 +13,6 @@ body {
   padding: 10px;
   position: fixed;
   left: 0;
-  top: 0;
   height: 100%;
   width: 200px; /* Adjust width as needed */
   z-index: 1000; /* Ensure it's above other content */
