@@ -39,7 +39,6 @@ function App(): JSX.Element {
           <Route path="/chat" element={<ChatPage />} />
         </Route>
         <Route index element={<WelcomPage />} />
-
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
       </Routes>

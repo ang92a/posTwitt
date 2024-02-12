@@ -45,6 +45,14 @@ const NavBar = (): JSX.Element => {
                   </li>
                   <li className={style.item}>
                     <NavLink
+                      className={`${style.link} ${window.location.pathname === `/profiles/${user?.id}` ? style.active : ''}`}
+                      to={`/chat`}
+                    >
+                      Чат
+                    </NavLink>
+                  </li>
+                  <li className={style.item}>
+                    <NavLink
                       className={`${style.link} ${style.nowork} ${window.location.pathname === '/setting' ? style.active : ''}`}
                       to="/setting"
                     >

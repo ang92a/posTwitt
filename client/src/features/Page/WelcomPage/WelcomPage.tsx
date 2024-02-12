@@ -8,7 +8,6 @@ import HeaderWelcomePage from '../../UI/HeaderWelcomePage/HeaderWelcomePage';
 import StatistikItem from '../../UI/StatisticItem/StatistikItem';
 // import Slider from '../../UI/Slider/Slider';
 
-
 function WelcomPage(): JSX.Element {
   return (
     <main className={style.main}>
