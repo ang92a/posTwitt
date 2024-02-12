@@ -27,6 +27,7 @@ function App(): JSX.Element {
     setTimeout(() => dispatch(stopLoading()), 1000);
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
+    dispatch(stopLoading());
   }, []);
 
   return (

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import load from './assets/Rolling-1s-200px.svg';
 import { type RootState } from '../../../redux/store';
+
 import PostItem from '../../UI/PostItem/PostItem';
 import style from './Style/profilePage.module.css';
 
@@ -25,17 +26,35 @@ function ProfilePage(): JSX.Element {
 
             <div className={style.user_photo}>
               <span className={style.circle_ava}>
-                <img src={currentProfile.img} />
+                <img src={currentProfile.img} alt="User Avatar" />
               </span>
             </div>
             <div className={style.user_row}>
-
-              <p className={style.user_name}>{currentProfile.name}</p>
-              <p className={style.user_email}>{currentProfile.email}</p>
-            </div>
-            <div className={style.user_count}>
-              <p className={style.user_posts_count}>Постов: {userPosts.length}</p>
-              <p className={style.user_posts_count}>Подписчиков: </p>
+              <div style={{ display: 'flex' }}>
+                <p className={style.user_name}>{currentProfile.name}</p>
+                <p className={style.user_email}>{currentProfile.email}</p>
+              </div>
+              <div className={style.user_count}>
+                <div>
+                  <h3 className={style.user_posts_count}>{userPosts.length}</h3>
+                  <p>Постов</p>
+                </div>
+                <div>
+                  <h3 className={style.user_followers_count}>123</h3>
+                  <p>Подписчиков</p>
+                </div>
+              </div>
+              <div className={style.user_details}>
+                <p>
+                  <strong>Город:</strong> {currentProfile.city}
+                </p>
+                <p>
+                  <strong>Контакт:</strong> {currentProfile.contact}
+                </p>
+                <p>
+                  <strong>Дата рождения:</strong> {currentProfile.birthDate}
+                </p>
+              </div>
             </div>
           </div>
           <div className={style.user_posts}>
@@ -44,14 +63,16 @@ function ProfilePage(): JSX.Element {
             ))}
           </div>
         </div>
-        <div className={style.right_panel}>
-          <div className={style.hot_posts}>что то</div>
-        </div>
       </div>
     </main>
   );
 
-  return <>{loading ? <img src={load} /> : content}</>;
+  return (
+    <div className={style.wrapper}>
+      <div className={style.sideBar}> {/* Сайдбар, например, подобный тому, что в Twitter */}</div>
+      <div className={style.content}>{loading ? <img src={load} alt="Loading..." /> : content}</div>
+    </div>
+  );
 }
 
 export default ProfilePage;
