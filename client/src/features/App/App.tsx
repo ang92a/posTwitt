@@ -8,7 +8,6 @@ import { checkUser, stopLoadingAu } from '../Page/SignPage/authSlice';
 import { loadProfiles, stopLoading } from '../Page/ProfilePage/profileSlice';
 import { loadPosts } from '../Page/WelcomPage/postsSlice';
 
-
 import SignInPage from '../Page/SignPage/SignInPage';
 import NavBar from '../UI/NavBar/NavBar';
 import NewsPage from '../Page/NewsPage/NewsPage';
@@ -20,10 +19,9 @@ import { loadReating } from '../UI/LeftColumn/reatingSlice';
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  dispatch(checkUser()).catch(console.log);
-  
   
   useEffect(() => {
+    dispatch(checkUser()).catch(console.log);
     dispatch(loadProfiles()).catch(console.log);
     dispatch(loadReating()).catch(console.log);
     setTimeout(() => dispatch(stopLoading()), 1000);
@@ -39,6 +37,7 @@ function App(): JSX.Element {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/profiles/:profileId" element={<ProfilePage />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/chat/:receiverId" element={<ChatPage />} />
         </Route>
         <Route index element={<WelcomPage />} />
         <Route path="/sign-in" element={<SignInPage />} />

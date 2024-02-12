@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { PostAdd, PostId, PostsState } from './types';
+import type { PostAdd, PostId, PostSort, PostsState } from './types';
 import {
   fetchAddComment,
   fetchAddLikePost,
@@ -7,6 +7,7 @@ import {
   fetchDelComment,
   fetchDelLikePost,
   fetchLoadPosts,
+  fetchLoadSortPosts,
   fetchPostRemove,
 } from '../../App/api';
 import type { UserId } from '../SignPage/types';
@@ -18,11 +19,11 @@ const initialState: PostsState = {
 };
 
 export const loadPosts = createAsyncThunk('posts/load', () => fetchLoadPosts());
-
 export const AddPosts = createAsyncThunk('post/add', (post: PostAdd) => fetchAddPosts(post));
-
 export const DelPost = createAsyncThunk('post/del', (postId: PostId) => fetchPostRemove(postId));
-
+export const loadSortPosts = createAsyncThunk('post/sort', (text: PostSort) =>
+  fetchLoadSortPosts(text),
+); //
 export const AddComment = createAsyncThunk('comment/add', (comment: CommentAdd) =>
   fetchAddComment(comment),
 );
@@ -63,6 +64,12 @@ const authSlice = createSlice({
       .addCase(loadPosts.rejected, (state, action) => {
         state.error = action.error.message;
       })
+      .addCase(loadSortPosts.fulfilled, (state, action) => {
+        state.posts = action.payload;
+      })
+      .addCase(loadSortPosts.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
       .addCase(AddPosts.fulfilled, (state, action) => {
         state.posts.push(action.payload);
       })
@@ -84,9 +91,12 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(AddComment.fulfilled, (state, action) => {
-        state.posts = state.posts.map((post) =>
-          post.id === +action.payload.id ? action.payload : post,
-        );
+        // state.posts = state.posts.map((post) =>
+        //   post.id === +action.payload.id ? action.payload : post,
+        // );
+        state.posts.forEach((post, idx, arr) => {
+          post.id === +action.payload.id ? arr[idx].Comments = action.payload.Comments : post
+        });
       })
       .addCase(AddComment.rejected, (state, action) => {
         state.error = action.error.message;

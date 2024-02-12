@@ -6,6 +6,7 @@ import { useAppDispatch, type RootState } from '../../../redux/store';
 import { signUp } from './authSlice';
 import style from './style/signPage.module.css';
 import fon from './assets/fon.webp';
+import { fielUsers } from '../ProfilePage/profileSlice';
 
 function SignUpPage(): JSX.Element {
   const [name, setName] = useState('');
@@ -36,7 +37,9 @@ function SignUpPage(): JSX.Element {
             className={style.signUp}
             onSubmit={(e) => {
               e.preventDefault();
-              dispatch(signUp({ name, email, password, rpassword })).catch(console.log);
+              dispatch(signUp({ name, email, password, rpassword })).then((res) =>
+                dispatch(fielUsers(res.payload)),
+              );
             }}
           >
             <h1>Регистрация PosTwitt</h1>

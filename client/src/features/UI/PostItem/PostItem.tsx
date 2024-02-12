@@ -57,21 +57,29 @@ function PostItem({ post }: { post: Post }): JSX.Element {
             <img className={style.Img} src={post.User.img} alt="img" />
           </div>
           <div className={style.containerPostContent}>
-            <p className={style.name}>
-              {post.User.name} {post.User.email}
-            </p>
+            <div style={{ display: 'flex' }}>
+              <p className={style.user_name}>{post.User.name}</p>
+              <p className={style.user_email}>{post.User.email}</p>
+            </div>
             <p className={style.time}>{formatDateTime(post.createdAt)}</p>
             <p className={style.content}>{post.content}</p>
             <div className={style.function}>
-              <div className={style.one}>
-                <img
-                  className={style.img}
-                  src={commentImg}
-                  alt="img"
-                  onClick={() => setComState((prev) => !prev)}
-                />
-                <p className={style.counter}>{post.Comments.length}</p>
-              </div>
+              {user ? (
+                <div className={style.one}>
+                  <img
+                    className={style.img}
+                    src={commentImg}
+                    alt="img"
+                    onClick={() => setComState((prev) => !prev)}
+                  />
+                  <p className={style.counter}>{post.Comments.length}</p>
+                </div>
+              ) : (
+                <div className={style.one}>
+                  <img className={style.img} src={commentImg} alt="img" />
+                  <p className={style.counter}>{post.Comments.length}</p>
+                </div>
+              )}
 
               {/* <div className={style.two}>
                 <img className={style.img} src={repost} alt="" />
@@ -208,4 +216,4 @@ function PostItem({ post }: { post: Post }): JSX.Element {
   );
 }
 
-export default PostItem;
+export default React.memo(PostItem);
