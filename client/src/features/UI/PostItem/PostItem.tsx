@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -24,11 +25,12 @@ function PostItem({ post }: { post: Post }): JSX.Element {
   const [text, setText] = useState('');
 
   const user = useSelector((store: RootState) => store.auth.auth);
+  console.log(user);
 
   // проверка лайкал ли юзер этот пост
   const findUserInLikePost = user && post.PostLikes.find((el) => el.userId === user.id);
 
-  const [isLike, setLike] = useState(findUserInLikePost);
+  // const [isLike, setLike] = useState(findUserInLikePost);
 
   // лайки
   const handleLikeClick = (status: string): void => {
@@ -51,7 +53,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
 
   useEffect(() => {
     dispatch(loadPosts()).catch(console.log);
-  }, [text]);
+  }, [text, user]);
 
   return (
     <>
