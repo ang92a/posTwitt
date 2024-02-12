@@ -2,14 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Posts", {
+    await queryInterface.createTable("Followers", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId: {
+      followerId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -18,20 +18,14 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      title: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      content: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      img: {
-        type: Sequelize.TEXT,
-      },
-      likes: {
-        defaultValue: 0,
+      followedId: {
+        llowNull: false,
         type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Posts");
+    await queryInterface.dropTable("Followers");
   },
 };
