@@ -87,7 +87,7 @@ export const fetchDelComment = async (commentDel: {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-  return { commentId: data.commentId, postId: commentDel.postId };
+  return { commentId: +data.commentId, postId: commentDel.postId };
 };
 
 // добавление лайк ПОСТОВ

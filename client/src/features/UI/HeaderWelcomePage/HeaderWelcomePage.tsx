@@ -9,13 +9,20 @@ function HeaderWelcomePage(): JSX.Element {
       <div className={style.boxTitle}>
         <div className={style.boxTitle}>
           <img src={svgDolf} alt="dolpf" className={style.svg} />
-          <h1>Ныряй как дельфин на PosTwitt и общайся <br/> на языке кода!</h1>
-          <a href="/sign-up" className={style.btn}>
-            Зарегистрироваться
-          </a>
-          <a href="/sign-in" className={style.btn}>
-            Войти
-          </a>
+          <h1>
+            Ныряй как дельфин на PosTwitt и общайся <br /> на языке кода!
+          </h1>
+          <div className={style.boxFlex}>
+            <a href="/sign-up" className={style.btn}>
+              Зарегистрироваться
+            </a>
+            <a href="/sign-in" className={style.btn}>
+              Войти
+            </a>
+            <a href="/news" className={`${style.btn} ${style.btnDemo}`}>
+              Демо
+            </a>
+          </div>
         </div>
       </div>
       <div className={style.boxImg}>
