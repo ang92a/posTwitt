@@ -16,7 +16,7 @@ export const store = configureStore({
     auth: authSlice,
     profiles: profilesSlice,
     posts: postsSlice,
-    chats: chatSlice
+    chats: chatSlice,
     reating: reatingSlice,
     // comment: commentSlice,
   },

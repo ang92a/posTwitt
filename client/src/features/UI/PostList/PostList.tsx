@@ -10,11 +10,14 @@ import PostItem from '../PostItem/PostItem';
 
 const PostList = (): JSX.Element => {
   const posts = useSelector((store: RootState) => store.posts.posts);
+  console.log(posts);
 
+  const slice = posts.slice(0, 3);
+  console.log(slice);
   return (
     <>
       <div className={style.containerList}>
-        {posts.slice(3).map((post) => (
+        {slice.map((post) => (
           <PostItem key={post.id} post={post} />
         ))}
       </div>
