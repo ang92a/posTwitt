@@ -4,9 +4,10 @@ const { Post, User, Comment, PostLike } = require('../../db/models');
 router.get('/', async (req, res) => {
   try {
     const posts = await Post.findAll({
+      order: [['id', 'DESC']],
       include: [
         { model: User },
-        { model: Comment, include: { model: User } },
+        { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
         { model: PostLike },
       ],
     });
@@ -28,7 +29,11 @@ router.post('/', async (req, res) => {
     });
     const post = await Post.findOne({
       where: { id: postmin.id },
-      include: [{ model: User }, { model: Comment }, { model: PostLike }],
+      include: [
+        { model: User },
+        { model: Comment, include: { model: User } },
+        { model: PostLike },
+      ],
     });
 
     res.json({
@@ -41,7 +46,8 @@ router.post('/', async (req, res) => {
 
 router.delete('/:postId', async (req, res) => {
   try {
-    const { postId } = req.params;
+    const postId = req.params;
+    console.log(postId);
     const result = await Post.destroy({ where: { id: postId } });
     if (result > 0) {
       res.json({ message: 'success', postId });
@@ -68,7 +74,11 @@ router.post('/like', async (req, res) => {
       });
       const post = await Post.findOne({
         where: { id: postId },
-        include: [{ model: User }, { model: Comment }, { model: PostLike }],
+        include: [
+          { model: User },
+          { model: Comment, include: { model: User } },
+          { model: PostLike },
+        ],
       });
       res.json({
         post,

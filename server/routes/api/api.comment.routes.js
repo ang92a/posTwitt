@@ -1,24 +1,44 @@
 const router = require('express').Router();
-const { Comment } = require('../../db/models');
+const { Comment, User, Post, PostLike } = require('../../db/models');
 
 router.post('/', async (req, res) => {
   try {
     const { postId, userId, content } = req.body;
-    const commentOne = await Comment.create({
+    await Comment.create({
       userId: res.locals.user.id,
       postId,
       content,
       parentId: postId,
     });
 
-    const comment = await Comment.findOne({
-      where: { id: commentOne.id },
+    const post = await Post.findOne({
+      where: { id: postId },
+      include: [
+        { model: User },
+        { model: Comment, include: { model: User } },
+        { model: PostLike },
+      ],
     });
     res.json({
-      comment,
+      post,
     });
   } catch ({ message }) {
     res.json({ type: 'comment router', message });
+  }
+});
+
+router.delete('/:commentId', async (req, res) => {
+  try {
+    const { commentId } = req.params;
+    // console.log(postId);
+    const result = await Comment.destroy({ where: { id: commentId, userId:res.locals.user.id } });
+    if (result > 0) {
+      res.json({ message: 'success', commentId });
+      return;
+    }
+    res.json({ message: 'нельзя DELComment' });
+  } catch ({ message }) {
+    res.json({ message });
   }
 });
 

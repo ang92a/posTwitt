@@ -1,7 +1,7 @@
 import React from 'react';
-import load from './assets/Rolling-1s-200px.svg';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import load from './assets/Rolling-1s-200px.svg';
 import { type RootState } from '../../../redux/store';
 import PostItem from '../../UI/PostItem/PostItem';
 import style from './Style/profilePage.module.css';
@@ -23,11 +23,11 @@ function ProfilePage(): JSX.Element {
         <div className={style.user_page}>
           <div className={style.user_info}>
             <span className={style.circle_ava}>
-              <img src={currentProfile.img} />
+              <img src={currentProfile.img} alt='foto'/>
             </span>
             <div className={style.user_column}>
-            <p className={style.user_name}>{currentProfile.name}</p>
-            <p className={style.user_email}>{currentProfile.email}</p>
+              <p className={style.user_name}>{currentProfile.name}</p>
+              <p className={style.user_email}>{currentProfile.email}</p>
             </div>
 
             <div className={style.user_count}>
@@ -41,7 +41,7 @@ function ProfilePage(): JSX.Element {
           </div>
         </div>
         <div className={style.right_panel}>
-          <div className={style.hot_posts}></div>
+          <div className={style.hot_posts}>что то</div>
         </div>
       </div>
     </main>
