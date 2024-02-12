@@ -1,78 +1,104 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
+import './style/chat.css';
 import { useSelector } from 'react-redux';
 import socket from './socket';
-import Message from './Message';
-import { useAppDispatch, type RootState } from '../../redux/store';
-import { checkUser } from '../Sign/authSlice';
-import load from './assets/Rolling-1s-200px.svg';
+import send from './assets/send-svgrepo-com.svg';
+import SenderMes from './SenderMes';
+import ReceiverMes from './ReceiverMes';
+import { type RootState } from '../../redux/store';
+import './style/panel.css';
 
-function ChatPage(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const loading = useSelector((store: RootState) => store.auth.loading);
-
+function ChatTest(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.auth);
-  const state = useSelector((store: RootState) => store.profiles.profiles)
-  console.log(state);
-  
+  const users = useSelector((store: RootState) => store.profiles.profiles).filter(
+    (man) => man.name !== user?.name,
+  );
+  const [activeId, setActiveId] = useState<number | null>(null);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([{ message, user }]);
+  const [receiver, setReceiver] = useState(user);
+  const [messages, setMessages] = useState([{ message, user, receiverId: 0 }]);
 
-  console.log(user);
+  console.log(1);
 
   useEffect(() => {
     socket.connect();
-    socket.on('connect', () => setIsConnected(true));
+    socket.on('connect', () => {
+      socket.emit('reg', user?.id);
+      setIsConnected(true);
+    });
 
     socket.on('chat message', (msg) => {
-      setMessage('');
-      console.log(message, '00000000000000000', messages);
-      setMessages((prev) => [...prev, msg]);
+      console.log(123132132132);
+      setMessages((prev) => (prev.length === 1 && prev[0].message === '' ? [msg] : [...prev, msg]));
     });
+
+    socket.on('disconnect', () => setIsConnected(false));
 
     return () => {
       socket.disconnect();
-      socket.on('disconnect', () => setIsConnected(false));
+      socket.off('connect', () => setIsConnected(true));
+      socket.off('disconnect', () => setIsConnected(false));
     };
+  }, [user]);
 
-    // return () => {
-    //   socket.disconnect();
-    //   socket.off('connect', () => setIsConnected(true));
-    //   socket.off('disconnect', () => setIsConnected(false));
-    // };
-  }, []);
-
-  return loading ? (
-    <img src={load} alt="load" />
-  ) : (
-    <div className="chat d-flex">
-      {messages.map((mes) => (
-        <Message user={mes.user} message={mes.message} />
-      ))}
-      <form className="d-flex chatForm" data-id={user?.id}>
+  return (
+    <>
+      <nav className="chat-navigation">
+        <ul className="chat-navigation-list">
+          {users.map(
+            (man) =>
+              man.id !== user?.id && (
+                <li
+                  key={man.id}
+                  onClick={() => {
+                    setActiveId(man.id);
+                    setReceiver(man);
+                  }}
+                  className={`chat-navigation-item ${man.id === activeId ? 'active' : ''}`}
+                >
+                  <a href="#">{man.name}</a>
+                </li>
+              ),
+          )}
+        </ul>
+      </nav>
+      <section role="log" className="slds-chat">
+        <ul className="slds-chat-list">
+          {messages.map((mes) =>
+            mes.message !== '' && mes.user?.id === user?.id ? (
+              <SenderMes user={mes.user} message={mes.message} />
+            ) : (
+              <ReceiverMes receiver={receiver} message={mes.message} />
+            ),
+          )}
+        </ul>
+      </section>
+      <div className="input-container">
         <input
           value={message}
-          id="input"
-          name="message"
-          className="form-control me-2 myInputs"
-          type="text"
-          placeholder="Написать сообщение"
           onChange={(e) => setMessage(e.target.value)}
+          type="text"
+          placeholder="Type a message..."
         />
         <button
           onClick={(e) => {
             e.preventDefault();
-            socket.emit('chat message', { message, user });
+            if (receiver === undefined) return;
+            setMessage('');
+            const receiverId = receiver?.id;
+            // const userId = user?.id;
+            socket.emit('chat message', message, user, receiverId);
           }}
-          id="send-message"
-          className="btn btn-dark"
           type="submit"
         >
-          Отправить
+          <img src={send} alt="send" />
         </button>
-      </form>
-    </div>
+      </div>
+    </>
   );
 }
 
-export default ChatPage;
+export default ChatTest;

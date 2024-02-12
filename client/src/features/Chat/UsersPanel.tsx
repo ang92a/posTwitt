@@ -13,12 +13,6 @@ function UsersPanel(): JSX.Element {
         <li className="chat-navigation-item active">
           <a href="#">John Doe</a>
         </li>
-        <li className="chat-navigation-item">
-          <a href="#">Jane Smith</a>
-        </li>
-        <li className="chat-navigation-item">
-          <a href="#">David Johnson</a>
-        </li>
       </ul>
     </nav>
   );

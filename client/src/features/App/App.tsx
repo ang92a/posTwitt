@@ -11,7 +11,7 @@ import { loadProfiles, stopLoading } from '../ProfilePage/profileSlice';
 import WelcomePage from '../WelcomPage/WelcomPage';
 import { loadPosts } from '../WelcomPage/postsSlice';
 import ChatPage from '../Chat/ChatPage';
-import ChatTest from '../Chat/ChatTest';
+import ChatTest from '../Chat/ChatPage';
 
 
 

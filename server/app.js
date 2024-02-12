@@ -9,6 +9,8 @@ const { createServer } = require('node:http');
 
 const server = createServer(app)
 const io = new Server(server, {
+  cookie: true,
+  withCredentials: true,
   cors: {
     origin: "http://localhost:5173"
   }

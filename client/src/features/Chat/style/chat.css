@@ -94,6 +94,9 @@
   align-items: center;
   margin-left: 300px;
   margin-right: 250px;
+  position: fixed;
+  bottom: 0;
+  width: 500px;
 }
 
 .input-container input[type="text"] {
@@ -110,6 +113,10 @@
   padding: 0;
   margin-left: 10px;
   /* Пространство между инпутом и кнопкой */
+}
+
+.input-container button[type="submit"]:hover {
+  cursor: pointer;
 }
 
 .input-container button[type="submit"] img {
