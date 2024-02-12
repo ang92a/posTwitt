@@ -9,13 +9,12 @@ import style from './postlist.module.css';
 import PostItem from '../PostItem/PostItem';
 
 const PostList = (): JSX.Element => {
-  
   const posts = useSelector((store: RootState) => store.posts.posts);
 
   return (
     <>
       <div className={style.containerList}>
-        {posts.map((post) => (
+        {posts.slice(3).map((post) => (
           <PostItem key={post.id} post={post} />
         ))}
       </div>

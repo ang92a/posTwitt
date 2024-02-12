@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 
-import type { Post, PostAdd, PostId } from '../Page/WelcomPage/types';
+import type { Post, PostAdd, PostId, PostSort } from '../Page/WelcomPage/types';
 import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
 import type { CommentAdd, CommentId } from '../UI/PostItem/types';
 
@@ -20,15 +20,29 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   };
   return data.profiles;
 };
+export const fetchLoadSortPosts = async (text: PostSort): Promise<Post[]> => {
+  const res = await fetch('/api/posts/sort', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ text }),
+  });
+  const data: { posts: Post[] } = (await res.json()) as {
+    posts: Post[];
+  };
+  return data.posts;
+};
 
 // ПОСТЫ
 // получение всех ПОСТОВ
-
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts');
   const data: { posts: Post[] } = (await res.json()) as { posts: Post[] };
   return data.posts;
 };
+
+// Сортировка постов по поиску
 
 // добавление ПОСТОВ
 export const fetchAddPosts = async (post: PostAdd): Promise<Post> => {
@@ -45,6 +59,8 @@ export const fetchAddPosts = async (post: PostAdd): Promise<Post> => {
 
 // удаление ПОСТОВ
 export const fetchPostRemove = async (id: PostId): Promise<PostId> => {
+  console.log(id);
+
   const res = await fetch(`/api/posts/${id}`, {
     method: 'DELETE',
   });
@@ -175,5 +191,4 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-}
-
+};

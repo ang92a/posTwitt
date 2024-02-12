@@ -19,8 +19,8 @@ export type PostAdd = {
   title: string;
 };
 
-
 export type PostId = Post['id'];
+export type PostSort = Post['content'];
 
 export type PostLike = {
   id: number;
