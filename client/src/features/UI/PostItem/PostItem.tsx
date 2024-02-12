@@ -33,7 +33,6 @@ function PostItem({ post }: { post: Post }): JSX.Element {
   const [text, setText] = useState('');
 
   const user = useSelector((store: RootState) => store.auth.auth);
-  console.log(user);
 
   // проверка лайкал ли юзер этот пост
   const findUserInLikePost = user && Boolean(post.PostLikes.find((el) => el.userId === user.id));
@@ -64,15 +63,22 @@ function PostItem({ post }: { post: Post }): JSX.Element {
             <p className={style.time}>{formatDateTime(post.createdAt)}</p>
             <p className={style.content}>{post.content}</p>
             <div className={style.function}>
-              <div className={style.one}>
-                <img
-                  className={style.img}
-                  src={commentImg}
-                  alt="img"
-                  onClick={() => setComState((prev) => !prev)}
-                />
-                <p className={style.counter}>{post.Comments.length}</p>
-              </div>
+              {user ? (
+                <div className={style.one}>
+                  <img
+                    className={style.img}
+                    src={commentImg}
+                    alt="img"
+                    onClick={() => setComState((prev) => !prev)}
+                  />
+                  <p className={style.counter}>{post.Comments.length}</p>
+                </div>
+              ) : (
+                <div className={style.one}>
+                  <img className={style.img} src={commentImg} alt="img" />
+                  <p className={style.counter}>{post.Comments.length}</p>
+                </div>
+              )}
 
               {/* <div className={style.two}>
                 <img className={style.img} src={repost} alt="" />

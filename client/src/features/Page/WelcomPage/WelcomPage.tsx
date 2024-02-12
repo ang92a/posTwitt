@@ -14,7 +14,7 @@ function WelcomPage(): JSX.Element {
       <HeaderWelcomePage />
       <StatistikItem />
       <div className={style.container}>
-        <h1>Последние сообщения</h1>
+        <h1>Последние посты</h1>
       </div>
       <div className={style.containerFlexRow}>
         <PostList />
