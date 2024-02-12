@@ -9,19 +9,19 @@ import SenderMes from './SenderMes';
 import ReceiverMes from './ReceiverMes';
 import { type RootState } from '../../redux/store';
 import './style/panel.css';
+import { useParams } from 'react-router-dom';
 
 function ChatTest(): JSX.Element {
+  const { receiverId } = useParams();
   const user = useSelector((store: RootState) => store.auth.auth);
   const users = useSelector((store: RootState) => store.profiles.profiles).filter(
     (man) => man.name !== user?.name,
   );
-  const [activeId, setActiveId] = useState<number | null>(null);
+  const [activeId, setActiveId] = useState<number | null>( receiverId ? +receiverId : null);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [message, setMessage] = useState('');
   const [receiver, setReceiver] = useState(user);
   const [messages, setMessages] = useState([{ message, user, receiverId: 0 }]);
-
-  console.log(1);
 
   useEffect(() => {
     socket.connect();
