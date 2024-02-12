@@ -13,13 +13,15 @@
 
 .navigation {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   list-style: none;
 }
 
 
-.leftBox {
+.leftBox,
+.rightBox {
   display: flex;
 }
 

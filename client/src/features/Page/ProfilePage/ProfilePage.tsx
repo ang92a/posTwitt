@@ -22,16 +22,20 @@ function ProfilePage(): JSX.Element {
       <div className={style.container}>
         <div className={style.user_page}>
           <div className={style.user_info}>
-            <span className={style.circle_ava}>
-              <img src={currentProfile.img} alt='foto'/>
-            </span>
-            <div className={style.user_column}>
+
+            <div className={style.user_photo}>
+              <span className={style.circle_ava}>
+                <img src={currentProfile.img} />
+              </span>
+            </div>
+            <div className={style.user_row}>
+
               <p className={style.user_name}>{currentProfile.name}</p>
               <p className={style.user_email}>{currentProfile.email}</p>
             </div>
-
             <div className={style.user_count}>
               <p className={style.user_posts_count}>Постов: {userPosts.length}</p>
+              <p className={style.user_posts_count}>Подписчиков: </p>
             </div>
           </div>
           <div className={style.user_posts}>

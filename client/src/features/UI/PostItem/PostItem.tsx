@@ -33,6 +33,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
   const [text, setText] = useState('');
 
   const user = useSelector((store: RootState) => store.auth.auth);
+  console.log(user);
 
   // проверка лайкал ли юзер этот пост
   const findUserInLikePost = user && Boolean(post.PostLikes.find((el) => el.userId === user.id));
