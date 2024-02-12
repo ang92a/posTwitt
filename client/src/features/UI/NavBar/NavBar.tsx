@@ -24,35 +24,33 @@ const NavBar = (): JSX.Element => {
       <div className={style.header}>
         <div className={style.container}>
           <ul className={style.navigation}>
-            <div className={style.leftBox}>
-              <li className={style.item}>
-                <NavLink
-                  className={`${style.link} ${window.location.pathname === '/news' ? style.active : ''}`}
-                  to="/news"
-                >
-                  Лента
-                </NavLink>
-              </li>
-              <li className={style.item}>
-                <NavLink
-                  className={`${style.link} ${window.location.pathname === `/profiles/${user?.id}` ? style.active : ''}`}
-                  to={`/profiles/${user?.id}`}
-                >
-                  Профиль
-                </NavLink>
-              </li>
-              <li className={style.item}>
-                <NavLink
-                  className={`${style.link} ${style.nowork} ${window.location.pathname === '/setting' ? style.active : ''}`}
-                  to="/setting"
-                >
-                  Настройки
-                </NavLink>
-              </li>
-            </div>
-            {user && (
+            {user ? (
               <>
                 <div className={style.rightBox}>
+                  <li className={style.item}>
+                    <NavLink
+                      className={`${style.link} ${window.location.pathname === '/news' ? style.active : ''}`}
+                      to="/news"
+                    >
+                      Лента
+                    </NavLink>
+                  </li>
+                  <li className={style.item}>
+                    <NavLink
+                      className={`${style.link} ${window.location.pathname === `/profiles/${user?.id}` ? style.active : ''}`}
+                      to={`/profiles/${user?.id}`}
+                    >
+                      Профиль
+                    </NavLink>
+                  </li>
+                  <li className={style.item}>
+                    <NavLink
+                      className={`${style.link} ${style.nowork} ${window.location.pathname === '/setting' ? style.active : ''}`}
+                      to="/setting"
+                    >
+                      Настройки
+                    </NavLink>
+                  </li>
                   <li
                     onClick={() => {
                       dispatch(logout()).catch(console.log);
@@ -61,7 +59,28 @@ const NavBar = (): JSX.Element => {
                     className={style.item}
                   >
                     <NavLink className={style.link} to="/logout">
-                      Logout
+                      Выход
+                    </NavLink>
+                  </li>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={style.leftBox}>
+                  <li className={style.item}>
+                    <NavLink
+                      className={`${style.link} ${style.nowork} ${window.location.pathname === '/sign-in' ? style.active : ''}`}
+                      to="/sign-in"
+                    >
+                      Вход
+                    </NavLink>
+                  </li>
+                  <li className={style.item}>
+                    <NavLink
+                      className={`${style.link} ${style.nowork} ${window.location.pathname === '/sign-up' ? style.active : ''}`}
+                      to="/sign-up"
+                    >
+                      Регистрация
                     </NavLink>
                   </li>
                 </div>
