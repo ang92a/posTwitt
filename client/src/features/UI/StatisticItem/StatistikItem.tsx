@@ -7,6 +7,9 @@ function StatistikItem(): JSX.Element {
   const users = useSelector((store: RootState) => store.profiles.profiles).length;
   const allPosts = useSelector((store: RootState) => store.posts.posts).length;
   const todayPostsLol = Math.floor(Math.random() * 100);
+
+
+
   return (
     <div className={style.container}>
       <div className={style.one}>

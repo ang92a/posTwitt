@@ -61,7 +61,7 @@ router.delete('/:postId', async (req, res) => {
 
 router.post('/like', async (req, res) => {
   try {
-    const { userId, postId } = req.body;
+    const { userId, postId, like } = req.body;
 
     const findpost = await PostLike.findOne({
       where: { userId: userId, postId: postId },
@@ -72,6 +72,12 @@ router.post('/like', async (req, res) => {
         userId,
         postId,
       });
+
+      const postUpdate = await Post.findOne({ where: { id: postId } });
+      if (postUpdate) {
+        await postUpdate.update({ likes: like + 1 });
+      }
+
       const post = await Post.findOne({
         where: { id: postId },
         include: [
@@ -80,6 +86,9 @@ router.post('/like', async (req, res) => {
           { model: PostLike },
         ],
       });
+
+      console.log(post);
+
       res.json({
         post,
       });
@@ -93,6 +102,11 @@ router.post('/like', async (req, res) => {
 router.delete('/dislike/:postId', async (req, res) => {
   try {
     const { postId } = req.params;
+
+    const postUpdate = await Post.findOne({ where: { id: postId } });
+    if (postUpdate) {
+      await postUpdate.update({ likes: postUpdate.likes - 1 });
+    }
 
     const result = await PostLike.destroy({
       where: { postId: postId, userId: res.locals.user.id },

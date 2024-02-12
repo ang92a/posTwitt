@@ -19,7 +19,6 @@ export type PostAdd = {
   title: string;
 };
 
-
 export type PostId = Post['id'];
 
 export type PostLike = {
@@ -31,4 +30,13 @@ export type PostLike = {
 export type PostsState = {
   posts: Post[];
   error: string | undefined;
+};
+
+export type Reating = {
+  id: number;
+  userId: number;
+  title: string;
+  content: string;
+  likes: number;
+  img: string;
 };

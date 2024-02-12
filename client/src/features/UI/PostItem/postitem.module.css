@@ -12,7 +12,6 @@
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
-
 }
 
 .containerPostPhoto {
@@ -43,6 +42,7 @@
   flex: 0 0 auto;
   cursor: pointer;
   color: #000000;
+  padding-top: 10px;
 }
 
 .function {
@@ -75,18 +75,18 @@
   cursor: pointer;
 }
 
-.img:hover{
-transform: scale(1.4);
+.img:hover {
+  transform: scale(1.4);
 }
 
 
 /* container COMMENT */
 
 .containerPostTwo {
-  width: 100%;
+  width: 740px;
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 20px 40px;
 }
 
 .containerPostPhotoCom {
@@ -104,7 +104,7 @@ transform: scale(1.4);
   margin-left: 20px;
   max-width: 750px;
   margin-right: auto;
-
+  border-top: 1px solid #9d9b9b;
   padding-top: 5px;
 }
 
@@ -114,7 +114,7 @@ transform: scale(1.4);
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 20px 20px;
+  padding: 20px 40px;
 }
 
 .containerPostPhotoForm {

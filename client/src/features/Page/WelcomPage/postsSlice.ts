@@ -33,9 +33,9 @@ export const DelComment = createAsyncThunk(
 
 export const LikePost = createAsyncThunk(
   'post/like',
-  (payload: { postId: PostId; userId: UserId }) => {
-    const { postId, userId } = payload;
-    return fetchAddLikePost({ postId, userId });
+  (payload: { postId: PostId; userId: UserId; like: number }) => {
+    const { postId, userId, like } = payload;
+    return fetchAddLikePost({ postId, userId, like });
   },
 );
 

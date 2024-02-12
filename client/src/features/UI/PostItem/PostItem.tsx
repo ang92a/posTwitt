@@ -33,7 +33,6 @@ function PostItem({ post }: { post: Post }): JSX.Element {
   const [text, setText] = useState('');
 
   const user = useSelector((store: RootState) => store.auth.auth);
-  console.log(user);
 
   // проверка лайкал ли юзер этот пост
   const findUserInLikePost = user && Boolean(post.PostLikes.find((el) => el.userId === user.id));
@@ -86,10 +85,15 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                       src={like}
                       alt="full"
                       className={style.img}
-                      data-id={post.id}
+                      data-like={post.PostLikes.length}
                       onClick={() => {
-                        // handleLikeClick('full');
-                        dispatch(DisLikePost({ postId: post.id, userId: user.id }));
+                        dispatch(
+                          DisLikePost({
+                            postId: post.id,
+                            userId: user.id,
+                            like: post.PostLikes.length,
+                          }),
+                        );
                       }}
                     />
                   ) : (
@@ -97,9 +101,15 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                       src={emptyLike}
                       alt="empty"
                       className={style.img}
-                      data-id={post.id}
+                      data-like={post.PostLikes.length}
                       onClick={() => {
-                        dispatch(LikePost({ postId: post.id, userId: user.id }));
+                        dispatch(
+                          LikePost({
+                            postId: post.id,
+                            userId: user.id,
+                            like: post.PostLikes.length,
+                          }),
+                        );
                       }}
                     />
                   )}
@@ -112,9 +122,10 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                 </div>
               )}
 
-              <div className={style.foo}>
+              {/* избранное */}
+              {/* <div className={style.foo}>
                 <img className={style.img} src={izbr} alt="" />
-              </div>
+              </div> */}
             </div>
           </div>
           {user?.id === post.User.id && (
