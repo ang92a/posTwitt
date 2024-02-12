@@ -157,4 +157,5 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-};
+}
+

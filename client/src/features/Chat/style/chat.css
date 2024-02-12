@@ -1,0 +1,126 @@
+.slds-chat {
+  max-width: 600px;
+  /* Максимальная ширина чата */
+  margin: 0 auto;
+  /* Центрирование чата на странице */
+  border-radius: 10px;
+  /* Закругленные углы для чата */
+  overflow: hidden;
+  /* Предотвращает прокрутку чата */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Тень для чата */
+}
+
+.slds-chat-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slds-chat-listitem {
+  margin: 10px 0;
+}
+
+.slds-chat-bookend {
+  display: flex;
+  align-items: center;
+  color: #666;
+  padding: 10px;
+  background-color: #f5f5f5;
+  /* Цвет фона для концов чата */
+}
+
+.slds-chat-message {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.slds-avatar {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+  /* Закругленные углы для аватаров */
+}
+
+.slds-chat-message__body {
+  flex: 1;
+}
+
+.slds-chat-message__text {
+  padding: 10px;
+  border-radius: 10px;
+  /* Закругленные углы для окна сообщения */
+}
+
+.slds-chat-message__text_inbound {
+  background-color: #e0e0e0;
+  /* Цвет фона для входящих сообщений */
+}
+
+.slds-chat-message__text_outbound {
+  background-color: #0070d2;
+  /* Цвет фона для исходящих сообщений */
+  color: #fff;
+  /* Цвет текста для исходящих сообщений */
+}
+
+.slds-chat-message__meta {
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+}
+
+.slds-chat-event {
+  display: flex;
+  align-items: center;
+  color: #666;
+  padding: 10px;
+  background-color: #f5f5f5;
+  /* Цвет фона для событий чата */
+}
+
+.slds-chat-event__agent-message {
+  background-color: #fff;
+  /* Цвет фона для сообщений агента */
+  padding: 10px;
+  border-radius: 10px;
+  /* Закругленные углы для окна сообщения агента */
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-left: 300px;
+  margin-right: 250px;
+  position: fixed;
+  bottom: 0;
+  width: 500px;
+}
+
+.input-container input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.input-container button[type="submit"] {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-left: 10px;
+  /* Пространство между инпутом и кнопкой */
+}
+
+.input-container button[type="submit"]:hover {
+  cursor: pointer;
+}
+
+.input-container button[type="submit"] img {
+  width: 24px;
+  /* Установите ширину и высоту изображения по вашему усмотрению */
+  height: 24px;
+}
