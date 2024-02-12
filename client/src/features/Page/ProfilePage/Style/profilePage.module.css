@@ -1,66 +1,129 @@
-.main {
+/* profilePage.module.css */
+
+.wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  padding-top: 5px;
 }
 
-.container {
+.sideBar {
+  flex: 0 0 250px; /* Фиксированная ширина сайдбара */
+  background-color: #f0f0f0;
+  border-right: 1px solid #ccc;
+  padding: 20px;
+  order: 2; /* Переместить сайдбар вправо */
+}
+
+.content {
+  flex: 1; /* Остальное пространство занимает контент */
+  padding: 20px;
+}
+
+.user_page {
   display: flex;
   flex-direction: column;
-  min-width: 1024px;
-  height: 60vh;
-  min-height: 600px;
-  margin: auto auto;
-  background: #ffffff;
-  margin-bottom: 20px;
-  border-radius: 20px;
-  box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.22);
 }
 
 .user_info {
   display: flex;
-  width: 100%;
-  height: 200px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user_photo {
+  margin-right: 20px;
 }
 
 .circle_ava {
-  margin: 15px;
-  display: inline-block;
-  border-radius: 50%;
-  overflow: hidden;
+  display: block;
   width: 100px;
   height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
 }
-.circle_ava img {
+
+.user_photo img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 
 .user_row {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  height: 50%;
+  flex-direction: column;
 }
 
-.user_row p {
-  margin: 20px;
+.user_name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user_email {
+  font-size: 16px;
+  color: #666;
 }
 
 .user_count {
   display: flex;
-  align-items: flex-end;
-  margin-right: auto;
-  margin-bottom: 50px;
+  margin-top: 10px;
+}
+
+.user_count > div {
+  margin-right: 20px;
+}
+
+.user_count h3 {
+  font-size: 18px;
 }
 
 .user_count p {
-  margin: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.user_posts {
+  margin-top: 20px;
+}
+
+.right_panel {
+  margin-left: 20px;
+}
+
+.hot_posts {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+/* PostItem styles */
+.post {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.post-body {
+  margin-top: 10px;
+}
+
+.post-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-author {
+  font-size: 14px;
+  color: #666;
+}
+.user_details {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.user_details p {
+  margin-right: 20px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
 }

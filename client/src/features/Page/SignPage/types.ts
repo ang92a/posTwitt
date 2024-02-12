@@ -2,8 +2,12 @@ export type User = {
   id: number;
   name: string;
   email: string;
-  img: string;
   password: string;
+  img: string;
+  isAdmin: boolean;
+  city: string;
+  contact: string;
+  birthDate: string;
 };
 
 export type AuthState = {

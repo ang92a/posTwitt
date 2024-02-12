@@ -20,8 +20,8 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(checkUser()).catch(console.log);
     dispatch(loadProfiles()).catch(console.log);
-    setTimeout(() => dispatch(stopLoading()), 1000);
     dispatch(loadPosts()).catch(console.log);
+    dispatch(stopLoading());
   }, []);
 
   return (
