@@ -16,6 +16,8 @@ export type CommentAdd = {
   content: string;
 };
 
+export type CommentId = Comment['id'];
+
 export type CommentState = {
   comment: Comment[];
   error: string | undefined;

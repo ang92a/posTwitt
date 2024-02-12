@@ -29,7 +29,7 @@ function SignUpPage(): JSX.Element {
     <main className={style.main}>
       <div className={style.container}>
         <div className={style.containerImg}>
-          <img src={fon} alt="photo" />
+          <img src={fon} alt="img" />
         </div>
         <div className={style.containerForm}>
           <form
