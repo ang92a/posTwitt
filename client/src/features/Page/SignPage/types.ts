@@ -13,6 +13,7 @@ export type User = {
 export type AuthState = {
   auth: User | undefined;
   error: string | undefined;
+  loading: boolean;
 };
 
 export type ProfileState = {

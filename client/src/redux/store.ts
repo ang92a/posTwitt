@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux';
 import profilesSlice from '../features/Page/ProfilePage/profileSlice';
 import postsSlice from '../features/Page/WelcomPage/postsSlice';
 import authSlice from '../features/Page/SignPage/authSlice';
-import commentSlice from '../features/UI/PostItem/commentSlice';
+// import commentSlice from '../features/UI/PostItem/commentSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
     profiles: profilesSlice,
     posts: postsSlice,
-    comment: commentSlice,
+    // comment: commentSlice,
   },
 });
 

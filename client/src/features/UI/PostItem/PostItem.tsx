@@ -1,17 +1,26 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import type { Post } from '../../Page/WelcomPage/types';
 import { type RootState, useAppDispatch } from '../../../redux/store';
-import { DelPost, DisLikePost, LikePost, loadPosts } from '../../Page/WelcomPage/postsSlice';
+import {
+  AddComment,
+  DelComment,
+  DelPost,
+  DisLikePost,
+  LikePost,
+} from '../../Page/WelcomPage/postsSlice';
 import commentImg from './img/comment.png';
 import izbr from './img/избранное.png';
-import { AddComment } from './commentSlice';
+import crest from './img/крестик.png';
+
 import emptyLike from './img/empty.svg';
 import like from './img/full.svg';
 import style from './postitem.module.css';
@@ -24,22 +33,14 @@ function PostItem({ post }: { post: Post }): JSX.Element {
   const [text, setText] = useState('');
 
   const user = useSelector((store: RootState) => store.auth.auth);
+  console.log(user);
 
   // проверка лайкал ли юзер этот пост
-  const findUserInLikePost = user && post.PostLikes.find((el) => el.userId === user.id);
-
-  const [isLike, setLike] = useState(findUserInLikePost);
+  const findUserInLikePost = user && Boolean(post.PostLikes.find((el) => el.userId === user.id));
 
   // лайки
-  const handleLikeClick = (status: string): void => {
-    if (status === 'full') {
-      dispatch(DisLikePost({ postId: post.id })).catch(console.log);
-    } else {
-      dispatch(LikePost({ postId: post.id, userId: user!.id })).catch(console.log);
-    }
-  };
 
-  const formatDateTime = (createdate: string | number | Date): string => {
+  const formatDateTime = (createdate: string): string => {
     const date = new Date(createdate);
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -48,10 +49,6 @@ function PostItem({ post }: { post: Post }): JSX.Element {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   };
-
-  useEffect(() => {
-    dispatch(loadPosts()).catch(console.log);
-  }, [text]);
 
   return (
     <>
@@ -67,8 +64,13 @@ function PostItem({ post }: { post: Post }): JSX.Element {
             <p className={style.time}>{formatDateTime(post.createdAt)}</p>
             <p className={style.content}>{post.content}</p>
             <div className={style.function}>
-              <div className={style.one} onClick={() => setComState((prev) => !prev)}>
-                <img className={style.img} src={commentImg} alt="" />
+              <div className={style.one}>
+                <img
+                  className={style.img}
+                  src={commentImg}
+                  alt="img"
+                  onClick={() => setComState((prev) => !prev)}
+                />
                 <p className={style.counter}>{post.Comments.length}</p>
               </div>
 
@@ -86,8 +88,8 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                       className={style.img}
                       data-id={post.id}
                       onClick={() => {
-                        handleLikeClick('full');
-                        dispatch(loadPosts()).catch(console.log);
+                        // handleLikeClick('full');
+                        dispatch(DisLikePost({ postId: post.id, userId: user.id }));
                       }}
                     />
                   ) : (
@@ -97,8 +99,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                       className={style.img}
                       data-id={post.id}
                       onClick={() => {
-                        handleLikeClick('empty');
-                        dispatch(loadPosts()).catch(console.log);
+                        dispatch(LikePost({ postId: post.id, userId: user.id }));
                       }}
                     />
                   )}
@@ -135,7 +136,19 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                     <div>{comment.User.name}</div>
                     <div className={style.Comment}>{comment.content}</div>
                   </div>
-                  {user?.id === comment.userId && <div className={style.delComment}>x</div>}
+                  {user?.id === comment.userId && (
+                    <div className={style.delComment}>
+                      {' '}
+                      <div
+                        className={style.containerPostMore}
+                        onClick={() =>
+                          dispatch(DelComment({ commentId: comment.id, postId: post.id }))
+                        }
+                      >
+                        X
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -159,7 +172,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
             >
               <div className={style.containerPostForm}>
                 <div className={style.containerPostPhotoForm}>
-                  <img className={style.ImgForm} src={user.img} alt="фотоUSer" />
+                  <img className={style.ImgForm} src={user!.img} alt="фотоUSer" />
                 </div>
                 <div>
                   <input

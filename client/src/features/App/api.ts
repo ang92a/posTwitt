@@ -2,8 +2,7 @@
 
 import type { Post, PostAdd, PostId } from '../Page/WelcomPage/types';
 import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
-import { Comment, CommentAdd } from '../UI/PostItem/types';
-
+import type { CommentAdd, CommentId } from '../UI/PostItem/types';
 
 // проверка юзера в системе
 export const fetchCheckUser = async (): Promise<User> => {
@@ -21,7 +20,6 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   };
   return data.profiles;
 };
-
 
 // ПОСТЫ
 // получение всех ПОСТОВ
@@ -60,8 +58,8 @@ export const fetchPostRemove = async (id: PostId): Promise<PostId> => {
   return data.postId;
 };
 
-////comment
-export const fetchAddComment = async (comment: CommentAdd): Promise<Comment> => {
+// comment
+export const fetchAddComment = async (comment: CommentAdd): Promise<Post> => {
   const res = await fetch('/api/comment', {
     method: 'POST',
     headers: {
@@ -69,8 +67,27 @@ export const fetchAddComment = async (comment: CommentAdd): Promise<Comment> => 
     },
     body: JSON.stringify(comment),
   });
-  const data: { comment: Comment } = (await res.json()) as { comment: Comment };
-  return data.comment;
+  const data: { post: Post } = (await res.json()) as { post: Post };
+  console.log(data, 2222);
+
+  return data.post;
+};
+
+export const fetchDelComment = async (commentDel: {
+  commentId: CommentId;
+  postId: PostId;
+}): Promise<{ commentId: CommentId; postId: PostId }> => {
+  const res = await fetch(`/api/comment/${commentDel.commentId}`, {
+    method: 'DELETE',
+  });
+  const data: { message: string; commentId: CommentId } = (await res.json()) as {
+    message: string;
+    commentId: CommentId;
+  };
+  if (data.message !== 'success') {
+    throw new Error(data.message);
+  }
+  return { commentId: data.commentId, postId: commentDel.postId };
 };
 
 // добавление лайк ПОСТОВ
@@ -92,10 +109,11 @@ export const fetchAddLikePost = async ({
   return data.post;
 };
 
-
 // удаление лайк ПОСТОВ
-export const fetchDelLikePost = async (postId: PostId): Promise<PostId> => {
-
+export const fetchDelLikePost = async (
+  postId: PostId,
+  userId: UserId,
+): Promise<{ postId: PostId; userId: UserId }> => {
   const res = await fetch(`/api/posts/dislike/${postId}`, {
     method: 'DELETE',
   });
@@ -106,7 +124,7 @@ export const fetchDelLikePost = async (postId: PostId): Promise<PostId> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-  return data.postId;
+  return { postId: data.postId, userId };
 };
 
 // РЕГИСТРАЦИЯ
@@ -157,4 +175,5 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-};
+}
+

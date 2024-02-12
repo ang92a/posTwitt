@@ -1,8 +1,9 @@
 import React from 'react';
-import load from './assets/Rolling-1s-200px.svg';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { RootState } from '../../../redux/store';
+import load from './assets/Rolling-1s-200px.svg';
+import { type RootState } from '../../../redux/store';
+
 import PostItem from '../../UI/PostItem/PostItem';
 import style from './Style/profilePage.module.css';
 
@@ -22,6 +23,7 @@ function ProfilePage(): JSX.Element {
       <div className={style.container}>
         <div className={style.user_page}>
           <div className={style.user_info}>
+
             <div className={style.user_photo}>
               <span className={style.circle_ava}>
                 <img src={currentProfile.img} alt="User Avatar" />

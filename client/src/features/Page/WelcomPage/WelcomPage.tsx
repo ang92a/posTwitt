@@ -6,6 +6,8 @@ import PostList from '../../UI/PostList/PostList';
 import LeftColumn from '../../UI/LeftColumn/LeftColumn';
 import HeaderWelcomePage from '../../UI/HeaderWelcomePage/HeaderWelcomePage';
 import StatistikItem from '../../UI/StatisticItem/StatistikItem';
+// import Slider from '../../UI/Slider/Slider';
+
 
 function WelcomPage(): JSX.Element {
   return (
@@ -33,6 +35,7 @@ function WelcomPage(): JSX.Element {
           </a>
         </div>
       </div>
+      {/* <Slider/> */}
     </main>
   );
 }
