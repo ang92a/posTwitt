@@ -8,26 +8,26 @@ import { checkUser, stopLoadingAu } from '../Page/SignPage/authSlice';
 import { loadProfiles, stopLoading } from '../Page/ProfilePage/profileSlice';
 import { loadPosts } from '../Page/WelcomPage/postsSlice';
 
-
 import SignInPage from '../Page/SignPage/SignInPage';
 import NavBar from '../UI/NavBar/NavBar';
 import NewsPage from '../Page/NewsPage/NewsPage';
 import ProfilePage from '../Page/ProfilePage/ProfilePage';
 import WelcomPage from '../Page/WelcomPage/WelcomPage';
 import SignUpPage from '../Page/SignPage/SignUpPage';
+import { loadChats } from '../Chat/chatSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
   dispatch(checkUser()).catch(console.log);
-  
-  
+
   useEffect(() => {
     dispatch(loadProfiles()).catch(console.log);
     setTimeout(() => dispatch(stopLoading()), 1000);
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
     dispatch(stopLoading());
+    dispatch(loadChats()).catch(console.log)
   }, []);
 
   return (

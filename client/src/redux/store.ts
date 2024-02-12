@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import profilesSlice from '../features/Page/ProfilePage/profileSlice';
 import postsSlice from '../features/Page/WelcomPage/postsSlice';
 import authSlice from '../features/Page/SignPage/authSlice';
+import chatSlice from '../features/Chat/chatSlice';
 // import commentSlice from '../features/UI/PostItem/commentSlice';
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     auth: authSlice,
     profiles: profilesSlice,
     posts: postsSlice,
+    chats: chatSlice
     // comment: commentSlice,
   },
 });

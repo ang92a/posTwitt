@@ -8,7 +8,6 @@ const handleSocketConnection = async (io) => {
 
   io.on('connection', (socket) => {
     console.log('user connected');
-    console.log(userSocketMap);
 
     socket.on('reg', (id) => {
       userSocketMap.set(id, socket.id);

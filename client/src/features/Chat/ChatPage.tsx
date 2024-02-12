@@ -10,18 +10,15 @@ import ReceiverMes from './ReceiverMes';
 import { type RootState } from '../../redux/store';
 import './style/panel.css';
 
-function ChatTest(): JSX.Element {
+function ChatPage(): JSX.Element {
+  const chats = useSelector((store: RootState) => store.chats.dialogs);
   const user = useSelector((store: RootState) => store.auth.auth);
-  const users = useSelector((store: RootState) => store.profiles.profiles).filter(
-    (man) => man.name !== user?.name,
-  );
+
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [message, setMessage] = useState('');
   const [receiver, setReceiver] = useState(user);
   const [messages, setMessages] = useState([{ message, user, receiverId: 0 }]);
-
-  console.log(1);
 
   useEffect(() => {
     socket.connect();
@@ -31,7 +28,6 @@ function ChatTest(): JSX.Element {
     });
 
     socket.on('chat message', (msg) => {
-      console.log(123132132132);
       setMessages((prev) => (prev.length === 1 && prev[0].message === '' ? [msg] : [...prev, msg]));
     });
 
@@ -48,21 +44,21 @@ function ChatTest(): JSX.Element {
     <>
       <nav className="chat-navigation">
         <ul className="chat-navigation-list">
-          {users.map(
-            (man) =>
-              man.id !== user?.id && (
-                <li
-                  key={man.id}
-                  onClick={() => {
-                    setActiveId(man.id);
-                    setReceiver(man);
-                  }}
-                  className={`chat-navigation-item ${man.id === activeId ? 'active' : ''}`}
-                >
-                  <a href="#">{man.name}</a>
-                </li>
-              ),
-          )}
+          {chats.map((dialog) => {
+            const man = dialog.User1 || dialog.User2;
+            return (
+              <li
+                key={dialog.id}
+                onClick={() => {
+                  setActiveId(man.id);
+                  setReceiver(man);
+                }}
+                className={`chat-navigation-item ${man?.id === activeId ? 'active' : ''}`}
+              >
+                <a href="#">{man.name}</a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
       <section role="log" className="slds-chat">
@@ -101,4 +97,4 @@ function ChatTest(): JSX.Element {
   );
 }
 
-export default ChatTest;
+export default ChatPage;
