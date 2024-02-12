@@ -9,12 +9,15 @@ import SenderMes from './SenderMes';
 import ReceiverMes from './ReceiverMes';
 import { type RootState } from '../../redux/store';
 import './style/panel.css';
+import { useParams } from 'react-router-dom';
+
 
 function ChatPage(): JSX.Element {
   const chats = useSelector((store: RootState) => store.chats.dialogs);
   const user = useSelector((store: RootState) => store.auth.auth);
+  const { receiverId } = useParams();
+  const [activeId, setActiveId] = useState<number | null>( receiverId ? +receiverId : null);
 
-  const [activeId, setActiveId] = useState<number | null>(null);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [message, setMessage] = useState('');
   const [receiver, setReceiver] = useState(user);

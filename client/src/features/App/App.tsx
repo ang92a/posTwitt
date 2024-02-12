@@ -14,15 +14,18 @@ import NewsPage from '../Page/NewsPage/NewsPage';
 import ProfilePage from '../Page/ProfilePage/ProfilePage';
 import WelcomPage from '../Page/WelcomPage/WelcomPage';
 import SignUpPage from '../Page/SignPage/SignUpPage';
+
 import { loadChats } from '../Chat/chatSlice';
+import { loadReating } from '../UI/LeftColumn/reatingSlice';
+
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  dispatch(checkUser()).catch(console.log);
-
   useEffect(() => {
+    dispatch(checkUser()).catch(console.log);
     dispatch(loadProfiles()).catch(console.log);
+    dispatch(loadReating()).catch(console.log);
     setTimeout(() => dispatch(stopLoading()), 1000);
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
@@ -37,6 +40,7 @@ function App(): JSX.Element {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/profiles/:profileId" element={<ProfilePage />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/chat/:receiverId" element={<ChatPage />} />
         </Route>
         <Route index element={<WelcomPage />} />
         <Route path="/sign-in" element={<SignInPage />} />

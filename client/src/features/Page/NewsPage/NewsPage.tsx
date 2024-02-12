@@ -5,6 +5,7 @@ import AddForm from '../../UI/AddForm/AddForm';
 import LeftColumn from '../../UI/LeftColumn/LeftColumn';
 
 import style from './style/news.module.css';
+import { SortItem } from './SortItem';
 
 function NewsPage(): JSX.Element {
   return (
@@ -12,6 +13,7 @@ function NewsPage(): JSX.Element {
       <div className={style.container}>
         <div className={style.containerFlexRow}>
           <div className={style.leftbox}>
+            <SortItem />
             <AddForm />
             <div className={style.centerFlex}>
               <PostList />
