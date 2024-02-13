@@ -1,10 +1,32 @@
 const router = require('express').Router();
 const { Post, User, Comment, PostLike } = require('../../db/models');
+const { Op } = require('sequelize');
+
+router.post('/sort', async (req, res) => {
+  try {
+    console.log(req.body);
+    const { text } = req.body;
+    const posts = await Post.findAll({
+      where: { content: { [Op.substring]: `%${text}` } },
+      order: [['id', 'DESC']],
+      include: [
+        { model: User },
+        { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
+        { model: PostLike },
+      ],
+    });
+    console.log(posts);
+    res.json({ posts });
+    return;
+  } catch ({ message }) {
+    res.json({ type: 'posts router', message });
+  }
+});
 
 router.get('/', async (req, res) => {
   try {
     const posts = await Post.findAll({
-      order: [['id', 'DESC']],
+      order: [['id', 'ASC']],
       include: [
         { model: User },
         { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
@@ -46,7 +68,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/:postId', async (req, res) => {
   try {
-    const postId = req.params;
+    const { postId } = req.params;
     console.log(postId);
     const result = await Post.destroy({ where: { id: postId } });
     if (result > 0) {
@@ -61,7 +83,7 @@ router.delete('/:postId', async (req, res) => {
 
 router.post('/like', async (req, res) => {
   try {
-    const { userId, postId } = req.body;
+    const { userId, postId, like } = req.body;
 
     const findpost = await PostLike.findOne({
       where: { userId: userId, postId: postId },
@@ -72,6 +94,12 @@ router.post('/like', async (req, res) => {
         userId,
         postId,
       });
+
+      const postUpdate = await Post.findOne({ where: { id: postId } });
+      if (postUpdate) {
+        await postUpdate.update({ likes: like + 1 });
+      }
+
       const post = await Post.findOne({
         where: { id: postId },
         include: [
@@ -80,6 +108,9 @@ router.post('/like', async (req, res) => {
           { model: PostLike },
         ],
       });
+
+      console.log(post);
+
       res.json({
         post,
       });
@@ -93,6 +124,11 @@ router.post('/like', async (req, res) => {
 router.delete('/dislike/:postId', async (req, res) => {
   try {
     const { postId } = req.params;
+
+    const postUpdate = await Post.findOne({ where: { id: postId } });
+    if (postUpdate) {
+      await postUpdate.update({ likes: postUpdate.likes - 1 });
+    }
 
     const result = await PostLike.destroy({
       where: { postId: postId, userId: res.locals.user.id },
