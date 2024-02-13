@@ -44,12 +44,13 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const { title, userId, content } = req.body;
+    const { title, userId, content, img } = req.body;
     const postmin = await Post.create({
       userId,
       title,
       content,
       likes: 0,
+      img,
     });
     const post = await Post.findOne({
       where: { id: postmin.id },

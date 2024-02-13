@@ -18,6 +18,7 @@ export type PostAdd = {
   content: string;
   userId: number;
   title: string;
+  img: string;
 };
 
 export type PostId = Post['id'];

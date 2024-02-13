@@ -12,7 +12,7 @@ import type { RootState } from '../../../redux/store';
 
 function WelcomPage(): JSX.Element {
   const posts = useSelector((store: RootState) => store.posts.posts);
-  const slice = posts.slice(0, 3);
+  const slice = posts.slice(0, 9);
 
   return (
     <main className={style.main}>
@@ -22,8 +22,8 @@ function WelcomPage(): JSX.Element {
         <h1>Последние посты</h1>
       </div>
       <div className={style.containerFlexRow}>
-        {/* <Slider /> */}
-        <PostList posts={slice} />
+        <Slider posts={slice} />
+        {/* <PostList posts={slice} /> */}
         <LeftColumn />
       </div>
       <div className={style.footer}>

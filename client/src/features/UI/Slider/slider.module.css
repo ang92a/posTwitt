@@ -32,7 +32,7 @@
         opacity: 0;
         visibility: hidden;
     }
-    
+
 
     100% {
         transform: translateY(100%) scale(0.5);
@@ -41,9 +41,8 @@
     }
 }
 
-
 .wrapper {
-    height: 100%;
+    height: auto;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -51,7 +50,7 @@
 
 .carousel {
     position: relative;
-    width: 100%;
+    width: 90%;
     max-width: 800px;
     display: flex;
     justify-content: center;
@@ -67,10 +66,8 @@
     opacity: 0;
     filter: drop-shadow(0 2px 2px #555);
     will-change: transform, opacity;
-    animation: carousel-animate-vertical 27s linear infinite;
+    animation: carousel-animate-vertical var(--animation-duration) linear infinite;
 }
-
-
 
 .carousel__item-head {
     border-radius: 50%;

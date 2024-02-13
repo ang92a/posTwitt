@@ -13,6 +13,8 @@ import { AddPosts } from '../../Page/WelcomPage/postsSlice';
 const AddForm = (): JSX.Element => {
   const [text, setText] = useState('');
   const [title, setTitle] = useState('');
+  const [image, setImage] = useState('');
+
   const user = useSelector((store: RootState) => store.auth.auth);
 
   const dispatch = useAppDispatch();
@@ -24,7 +26,7 @@ const AddForm = (): JSX.Element => {
         onSubmit={(e) => {
           e.preventDefault();
           user &&
-            dispatch(AddPosts({ title, content: text, userId: user.id })) // тут нужно поправить
+            dispatch(AddPosts({ title, content: text, userId: user.id, img: image })) // тут нужно поправить
               .then(() => {
                 setText('');
                 setTitle('');
@@ -45,6 +47,12 @@ const AddForm = (): JSX.Element => {
           placeholder={`Что нового, ${user?.name}?`}
         />
         <div className={style.footer}>
+          <input
+            type="file"
+            className={style.input}
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
           <button type="submit" className={style.btn}>
             Опубликовать
           </button>
