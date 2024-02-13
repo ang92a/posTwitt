@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
 import './App.css';
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import ChatPage from '../Chat/ChatPage';
 import { useAppDispatch } from '../../redux/store';
-
 import { checkUser, stopLoadingAu } from '../Page/SignPage/authSlice';
 import { loadProfiles, stopLoading } from '../Page/ProfilePage/profileSlice';
 import { loadPosts } from '../Page/WelcomPage/postsSlice';
-
 import SignInPage from '../Page/SignPage/SignInPage';
 import NavBar from '../UI/NavBar/NavBar';
 import NewsPage from '../Page/NewsPage/NewsPage';
 import ProfilePage from '../Page/ProfilePage/ProfilePage';
 import WelcomPage from '../Page/WelcomPage/WelcomPage';
 import SignUpPage from '../Page/SignPage/SignUpPage';
+import type { RootState } from '../../redux/store';
 
 import { loadChats } from '../Chat/chatSlice';
 import { loadReating } from '../UI/LeftColumn/reatingSlice';
 
-
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const user = useSelector((store: RootState) => store.auth.auth);
 
   useEffect(() => {
     dispatch(checkUser()).catch(console.log);
@@ -30,7 +30,9 @@ function App(): JSX.Element {
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
     dispatch(stopLoading());
-    dispatch(loadChats()).catch(console.log)
+    if (user) {
+      dispatch(loadChats()).catch(console.log);
+    }
   }, []);
 
   return (

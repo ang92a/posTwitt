@@ -2,10 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PostAdd, PostId, PostSort, PostsState } from './types';
 import {
   fetchAddComment,
+  fetchAddFavoritesPost,
   fetchAddLikePost,
   fetchAddPosts,
   fetchDelComment,
   fetchDelLikePost,
+  fetchDisFavoritesPost,
   fetchLoadPosts,
   fetchLoadSortPosts,
   fetchPostRemove,
@@ -44,7 +46,27 @@ export const DisLikePost = createAsyncThunk(
   'post/dislike',
   (payload: { postId: PostId; userId: UserId }) => {
     const { postId, userId } = payload;
+    console.log(postId, userId, 4555555);
+
     return fetchDelLikePost(postId, userId);
+  },
+);
+
+export const FavoritesPost = createAsyncThunk(
+  'post/favorites',
+  (payload: { postId: PostId; userId: UserId }) => {
+    const { postId, userId } = payload;
+    return fetchAddFavoritesPost({ postId, userId });
+  },
+);
+
+export const DisFavoritesPost = createAsyncThunk(
+  'post/disfavorites',
+  (payload: { postId: PostId; userId: UserId }) => {
+    const { postId, userId } = payload;
+    console.log(postId, userId, 'postslice');
+
+    return fetchDisFavoritesPost(postId, userId);
   },
 );
 
@@ -90,12 +112,38 @@ const authSlice = createSlice({
       .addCase(LikePost.rejected, (state, action) => {
         state.error = action.error.message;
       })
+
+      .addCase(FavoritesPost.fulfilled, (state, action) => {
+        state.posts = state.posts.map((post) =>
+          post.id === +action.payload.id ? action.payload : post,
+        );
+      })
+      .addCase(FavoritesPost.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(DisFavoritesPost.fulfilled, (state, action) => {
+        console.log(action.payload.userId);
+
+        state.posts = state.posts.map((post) =>
+          post.id === +action.payload.postId
+            ? {
+                ...post,
+                Favorites: post.Favorites.filter(
+                  (favorites) => +favorites.userId !== +action.payload.userId,
+                ),
+              }
+            : post,
+        );
+      })
+      .addCase(DisFavoritesPost.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
       .addCase(AddComment.fulfilled, (state, action) => {
         // state.posts = state.posts.map((post) =>
         //   post.id === +action.payload.id ? action.payload : post,
         // );
         state.posts.forEach((post, idx, arr) => {
-          post.id === +action.payload.id ? arr[idx].Comments = action.payload.Comments : post
+          post.id === +action.payload.id ? (arr[idx].Comments = action.payload.Comments) : post;
         });
       })
       .addCase(AddComment.rejected, (state, action) => {
