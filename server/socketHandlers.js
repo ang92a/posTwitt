@@ -21,22 +21,21 @@ const handleSocketConnection = async (io) => {
       const receiverSocketId = userSocketMap.get(receiverId);
       const senderSocketId = userSocketMap.get(user.id);
 
+      const rangeId = [user.id, receiverId].sort((a, b) => a - b);
+      const dialog = await Dialog.findOne({ where: { userId1: rangeId[0], userId2: rangeId[1] } });
+      if (!dialog) {
+        dialog = await Dialog.create({ userId1: rangeId[0], userId2: rangeId[1] });
+      }
+      const newMessage = await Message.create({ senderId: user.id, receiverId, dialogId: dialog.id, content: message })
+
       if (receiverSocketId) {
-        const rangeId = [user.id, receiverId].sort((a, b) => a - b);
-        const dialog = await Dialog.findOne({ where: { userId1: rangeId[0], userId2: rangeId[1] } });
-        if (!dialog) {
-          const newDialog = await Dialog.create({ userId1: rangeId[0], userId2: rangeId[1] });
-          const newMessage = await Message.create({ senderId: user.id, receiverId, dialogId: newDialog.id, content: message })
-          io.to(receiverSocketId).emit('chat message', { message, user });
-          io.to(senderSocketId).emit('chat message', { message, user });
-        } else {
-          const newMessage = await Message.create({ senderId: user.id, receiverId, dialogId: dialog.id, content: message })
-          io.to(receiverSocketId).emit('chat message', { message, user });
-          io.to(senderSocketId).emit('chat message', { message, user });
-        }
+        io.to(receiverSocketId).emit('chat message', { newMessage, user });
+        io.to(senderSocketId).emit('chat message', { newMessage, user });
       } else {
+        io.to(senderSocketId).emit('chat message', { newMessage, user });
         console.log('Receiver socket not found');
       }
+
     });
 
     // disconnect

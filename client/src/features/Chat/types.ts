@@ -1,4 +1,4 @@
-import { User } from '../Page/SignPage/types';
+import type { User } from '../Page/SignPage/types';
 
 export type Message = {
   id: number;
@@ -14,6 +14,7 @@ export type Dialog = {
   id: number;
   userId1: number;
   userId2: number;
+  Messages: Message[];
 };
 
 export type ChatState = {
@@ -21,3 +22,9 @@ export type ChatState = {
   error: string | undefined;
   loading: boolean;
 };
+
+export type Action = {
+  payload: {
+    message: Message
+  }
+}

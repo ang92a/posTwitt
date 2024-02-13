@@ -1,5 +1,6 @@
 .slds-chat {
   max-width: 600px;
+  max-height: 600px;
   /* Максимальная ширина чата */
   margin: 0 auto;
   /* Центрирование чата на странице */
@@ -9,6 +10,7 @@
   /* Предотвращает прокрутку чата */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   /* Тень для чата */
+  overflow-y: auto;
 }
 
 .slds-chat-list {
@@ -34,6 +36,7 @@
   display: flex;
   align-items: flex-start;
   padding: 10px;
+
 }
 
 .slds-avatar {
@@ -51,6 +54,7 @@
 .slds-chat-message__text {
   padding: 10px;
   border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   /* Закругленные углы для окна сообщения */
 }
 
@@ -92,12 +96,38 @@
 .input-container {
   display: flex;
   align-items: center;
-  margin-left: 300px;
-  margin-right: 250px;
+  margin-left: 500px;
+  /* margin-right: 250px; */
   position: fixed;
+  margin-bottom: 50px;
   bottom: 0;
   width: 500px;
 }
+
+
+
+::-webkit-scrollbar {
+  width: 12px;
+  /* Ширина полосы прокрутки */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  /* Тень для полосы прокрутки */
+
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0070d2;
+  /* Цвет ползунка */
+  border-radius: 10px;
+  /* Закругление углов ползунка */
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* Прозрачный фон заглушки */
+}
+
+
+
 
 .input-container input[type="text"] {
   flex: 1;
