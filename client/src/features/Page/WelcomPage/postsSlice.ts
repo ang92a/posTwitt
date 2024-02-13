@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { PostAdd, PostId, PostSort, PostsState } from './types';
+import type { PostAdd, PostId, PostSort, PostsState} from './types';
 import {
   fetchAddComment,
   fetchAddLikePost,
@@ -19,7 +19,10 @@ const initialState: PostsState = {
 };
 
 export const loadPosts = createAsyncThunk('posts/load', () => fetchLoadPosts());
-export const AddPosts = createAsyncThunk('post/add', (post: PostAdd) => fetchAddPosts(post));
+
+export const AddPosts = createAsyncThunk('post/add', (formData: FormData) =>
+  fetchAddPosts(formData),
+);
 export const DelPost = createAsyncThunk('post/del', (postId: PostId) => fetchPostRemove(postId));
 export const loadSortPosts = createAsyncThunk('post/sort', (text: PostSort) =>
   fetchLoadSortPosts(text),
@@ -95,7 +98,7 @@ const authSlice = createSlice({
         //   post.id === +action.payload.id ? action.payload : post,
         // );
         state.posts.forEach((post, idx, arr) => {
-          post.id === +action.payload.id ? arr[idx].Comments = action.payload.Comments : post
+          post.id === +action.payload.id ? (arr[idx].Comments = action.payload.Comments) : post;
         });
       })
       .addCase(AddComment.rejected, (state, action) => {

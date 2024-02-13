@@ -30,9 +30,6 @@ const NavBar = (): JSX.Element => {
       <div className={style.header}>
         <div className={style.container}>
           <ul className={style.navigation}>
-            <button onClick={onChangeTheme} className={style.btn}>
-              Change theme
-            </button>
             {user ? (
               <>
                 <div className={style.rightBox}>
@@ -54,19 +51,20 @@ const NavBar = (): JSX.Element => {
                   </li>
                   <li className={style.item}>
                     <NavLink
-                      className={`${style.link} ${style.nowork} ${window.location.pathname === `/chat` ? style.active : ''}`}
+                      className={`${style.link} ${window.location.pathname === `/chat` ? style.active : ''}`}
                       to="/chat"
                     >
                       Чат
                     </NavLink>
                   </li>
                   <li className={style.item}>
-                    <NavLink
-                      className={`${style.link} ${style.nowork} ${window.location.pathname === '/setting' ? style.active : ''}`}
-                      to="/setting"
+                    <button
+                      className={`${style.btn} ${window.location.pathname === '/setting' ? style.active : ''}`}
+                      onClick={onChangeTheme}
+                      type="button"
                     >
                       Настройки
-                    </NavLink>
+                    </button>
                   </li>
                   <li
                     onClick={() => {

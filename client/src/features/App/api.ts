@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 
-
-import type { Post, PostAdd, PostId, PostSort } from '../Page/WelcomPage/types';
+import type { Post, PostAdd, PostId, PostSort, formData } from '../Page/WelcomPage/types';
 import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
 import type { CommentAdd, CommentId } from '../UI/PostItem/types';
 import type { Dialog } from '../Chat/types';
@@ -43,8 +42,7 @@ export const fetchEditProfile = async (): Promise<User> => {
     headers: {
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({
-    }),
+    body: JSON.stringify({}),
   });
 };
 
@@ -59,13 +57,12 @@ export const fetchLoadPosts = async (): Promise<Post[]> => {
 // Сортировка постов по поиску
 
 // добавление ПОСТОВ
-export const fetchAddPosts = async (post: PostAdd): Promise<Post> => {
+export const fetchAddPosts = async (formData: FormData): Promise<Post> => {
+  console.log(formData);
+
   const res = await fetch('/api/posts', {
     method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify(post),
+    body: formData,
   });
   const data: { post: Post } = (await res.json()) as { post: Post };
   return data.post;
@@ -214,7 +211,6 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-
 };
 
 // CHAT
@@ -229,7 +225,4 @@ export const fetchLoadChats = async (): Promise<Dialog[]> => {
   return data.dialogs;
 };
 
-
 // };
-
-

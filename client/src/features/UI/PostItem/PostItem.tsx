@@ -26,6 +26,8 @@ import like from './img/full.svg';
 import style from './postitem.module.css';
 
 function PostItem({ post }: { post: Post }): JSX.Element {
+  console.log(post.img, 2222222222222222222222);
+
   const dispatch = useAppDispatch();
 
   // состояния на коменты
@@ -63,7 +65,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
             </div>
             <p className={style.time}>{formatDateTime(post.createdAt)}</p>
             <p className={style.content}>{post.content}</p>
-            <div>{post.img}</div>
+            <img src={post.img} alt="" />
             <div className={style.function}>
               {user ? (
                 <div className={style.one}>

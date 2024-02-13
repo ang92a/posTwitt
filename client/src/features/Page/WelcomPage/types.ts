@@ -7,6 +7,7 @@ export type Post = {
   userId: number;
   title: string;
   content: string;
+  img: string;
   likes: number;
   User: User;
   Comments: Comment[];

@@ -1,6 +1,18 @@
 const router = require('express').Router();
 const { Post, User, Comment, PostLike } = require('../../db/models');
 const { Op } = require('sequelize');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/image');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 router.post('/sort', async (req, res) => {
   try {
@@ -40,15 +52,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const { title, userId, content, img } = req.body;
+    const { title, content } = req.body;
+    const newFileUrl = `/image/${req.file.originalname}`;
+
     const postmin = await Post.create({
-      userId,
+      userId: res.locals.user.id,
       title,
       content,
       likes: 0,
-      img,
+      img: newFileUrl,
     });
     const post = await Post.findOne({
       where: { id: postmin.id },
@@ -70,7 +84,7 @@ router.post('/', async (req, res) => {
 router.delete('/:postId', async (req, res) => {
   try {
     const { postId } = req.params;
-    console.log(postId);
+    // console.log(postId);
     const result = await Post.destroy({ where: { id: postId } });
     if (result > 0) {
       res.json({ message: 'success', postId });

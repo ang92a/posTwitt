@@ -13,27 +13,30 @@ import { AddPosts } from '../../Page/WelcomPage/postsSlice';
 const AddForm = (): JSX.Element => {
   const [text, setText] = useState('');
   const [title, setTitle] = useState('');
-  const [image, setImage] = useState('');
+  // файл
+  const [image, setImg] = useState<FileList | null>(null);
 
   const user = useSelector((store: RootState) => store.auth.auth);
-
   const dispatch = useAppDispatch();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', (image && image[0]) || '');
+    formData.append('title', title);
+    formData.append('content', text);
+    user &&
+      dispatch(AddPosts(formData))
+        .then(() => {
+          setText('');
+          setTitle('');
+        })
+        .catch(console.log);
+  };
 
   return (
     <div className={style.postForm}>
-      <form
-        action=""
-        onSubmit={(e) => {
-          e.preventDefault();
-          user &&
-            dispatch(AddPosts({ title, content: text, userId: user.id, img: image })) // тут нужно поправить
-              .then(() => {
-                setText('');
-                setTitle('');
-              })
-              .catch(console.log);
-        }}
-      >
+      <form action="" onSubmit={handleSubmit}>
         <textarea
           className={style.textarea}
           value={title}
@@ -47,12 +50,7 @@ const AddForm = (): JSX.Element => {
           placeholder={`Что нового, ${user?.name}?`}
         />
         <div className={style.footer}>
-          <input
-            type="file"
-            className={style.input}
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
+          <input type="file" className={style.input} onChange={(e) => setImg(e.target.files)} />
           <button type="submit" className={style.btn}>
             Опубликовать
           </button>
