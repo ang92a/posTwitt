@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ChatPage from '../Chat/ChatPage';
@@ -14,7 +13,6 @@ import NewsPage from '../Page/NewsPage/NewsPage';
 import ProfilePage from '../Page/ProfilePage/ProfilePage';
 import WelcomPage from '../Page/WelcomPage/WelcomPage';
 import SignUpPage from '../Page/SignPage/SignUpPage';
-import type { RootState } from '../../redux/store';
 
 import { loadChats } from '../Chat/chatSlice';
 import { loadReating } from '../UI/LeftColumn/reatingSlice';
