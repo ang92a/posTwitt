@@ -21,6 +21,18 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   return data.profiles;
 };
 
+// изменение данных Юзера
+export const fetchEditProfile = async (): Promise<User> => {
+  const res = await fetch('/api/profiles', {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+    }),
+  });
+};
+
 // ПОСТЫ
 // получение всех ПОСТОВ
 
@@ -175,5 +187,4 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
-}
-
+};
