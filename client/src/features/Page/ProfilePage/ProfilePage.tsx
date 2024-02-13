@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import load from './assets/Rolling-1s-200px.svg';
-import { store, type RootState, useAppDispatch } from '../../../redux/store';
+import { type RootState, useAppDispatch } from '../../../redux/store';
 import PostItem from '../../UI/PostItem/PostItem';
 import style from './Style/profilePage.module.css';
-import { User } from '../SignPage/types';
+import { editProfile } from './profileSlice';
 
 function ProfilePage(): JSX.Element {
   const { profiles } = useSelector((store: RootState) => store.profiles);
@@ -27,10 +27,24 @@ function ProfilePage(): JSX.Element {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState<FileList | null>(null);
   const [city, setCity] = useState('');
   const [contact, setContact] = useState('');
   const [birthDate, setBirthDate] = useState('');
+
+  const onHandleEditProfile = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    // if (!name || !email) return;
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('city', city);
+    formData.append('contact', contact);
+    formData.append('birthDate', birthDate);
+    formData.append('img', (img && img[0]) || '');
+    dispatch(editProfile(formData)).catch(console.log);
+    setIsEditing(false);
+  };
 
   const content = currentProfile && (
     <main className={style.main}>
@@ -111,24 +125,16 @@ function ProfilePage(): JSX.Element {
     return (
       <div className={style.modalBackground}>
         <div className={style.modalContent}>
-          <form
-            className={style.profile_edit_form}
-            onSubmit={(e) => {
-              e.preventDefault();
-              dispatch(profileEdit({ name, email, img, city, contact, birthDate })).catch(
-                console.log,
-              );
-            }}
-          >
-            <h2>Редактировать профиль</h2>
+          <h2>Редактировать профиль</h2>
+          <form className={style.profile_edit_form} onSubmit={onHandleEditProfile}>
             <input
-              value={currentProfile.name}
+              defaultValue={currentProfile.name}
               type="text"
               placeholder="Новое имя"
               onChange={(e) => setName(e.target.value)}
             />
             <input
-              value={currentProfile.email}
+              defaultValue={currentProfile.email}
               type="text"
               placeholder="Новый email"
               onChange={(e) => setEmail(e.target.value)}
@@ -137,7 +143,7 @@ function ProfilePage(): JSX.Element {
               <label htmlFor="avatar">
                 Ваше фото
                 <input
-                  value={img}
+                  defaultValue={img}
                   style={{ marginLeft: '20px' }}
                   id="avatar"
                   type="file"
@@ -147,19 +153,19 @@ function ProfilePage(): JSX.Element {
               </label>
             </div>
             <input
-              value={currentProfile.city}
+              defaultValue={currentProfile.city}
               type="text"
               placeholder="Новый город"
               onChange={(e) => setCity(e.target.value)}
             />
             <input
-              value={currentProfile.contact}
+              defaultValue={currentProfile.contact}
               type="text"
               placeholder="Новый контакт"
               onChange={(e) => setContact(e.target.value)}
             />
             <input
-              value={currentProfile.birthDate}
+              defaultValue={currentProfile.birthDate}
               type="text"
               maxLength="10"
               onChange={handleBirthdateChange}

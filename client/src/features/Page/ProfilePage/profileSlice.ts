@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { fetchLoadProfiles } from '../../App/api';
+import { fetchEditProfile, fetchLoadProfiles } from '../../App/api';
 import type { ProfileState } from '../SignPage/types';
 
 const initialState: ProfileState = {
@@ -9,6 +9,9 @@ const initialState: ProfileState = {
   loading: true,
 };
 
+export const editProfile = createAsyncThunk('profile/edit', (formData: FormData) =>
+  fetchEditProfile(formData),
+);
 export const loadProfiles = createAsyncThunk('profiles/load', () => fetchLoadProfiles());
 
 const profilesSlice = createSlice({
@@ -31,6 +34,17 @@ const profilesSlice = createSlice({
         state.loading = true;
       })
       .addCase(loadProfiles.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(editProfile.fulfilled, (state, action) => {
+        state.profiles.map((profile) =>
+          profile.id === +action.payload.id ? action.payload.id : profile,
+        );
+      })
+      .addCase(editProfile.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editProfile.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

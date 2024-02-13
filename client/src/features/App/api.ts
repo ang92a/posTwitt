@@ -22,15 +22,15 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
 };
 
 // изменение данных Юзера
-export const fetchEditProfile = async (): Promise<User> => {
-  const res = await fetch('/api/profiles', {
+export const fetchEditProfile = async (
+  formData: FormData
+): Promise<User> => {  
+  const res = await fetch(`/api/profiles/`, {
     method: 'PUT',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({
-    }),
+    body: formData
   });
+  const data: { profile: User } = (await res.json()) as { profile: User };
+  return data.profile;
 };
 
 // ПОСТЫ
