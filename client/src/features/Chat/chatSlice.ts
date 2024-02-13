@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { fetchLoadChats } from '../App/api';
-import type { ChatState } from './types';
-
+import type { Action, ChatState } from './types';
 
 const initialState: ChatState = {
   dialogs: [],
@@ -11,11 +10,22 @@ const initialState: ChatState = {
 };
 
 export const loadChats = createAsyncThunk('chats/load', () => fetchLoadChats());
+// export const addMessage = createAsyncThunk('message/add', () => ());
 
 const chatSlice = createSlice({
   name: 'chat',
   initialState,
-  reducers: {},
+  reducers: {
+    addMessage: (state, action: Action) => {
+      // const { message } = action.payload;
+      // console.log(action.payload);
+
+      const dialog = state.dialogs.find((dial) => dial.id === action.payload.dialogId);
+      if (dialog) {
+        dialog.Messages.push(action.payload);
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadChats.fulfilled, (state, action) => {
@@ -27,5 +37,5 @@ const chatSlice = createSlice({
   },
 });
 
-
+export const { addMessage } = chatSlice.actions;
 export default chatSlice.reducer;

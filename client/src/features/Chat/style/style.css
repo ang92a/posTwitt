@@ -1,0 +1,112 @@
+.slds-chat {
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.slds-chat-list {
+  /* list-style-type: none; */
+  /* margin: 0;
+  padding: 0;
+  overflow-y: auto; */
+  /* Добавляем вертикальную прокрутку */
+  /* max-height: calc(100vh - 200px); */
+  /* Максимальная высота списка сообщений */
+}
+
+/* Анимация для появления новых сообщений */
+.slds-chat-listitem {
+  margin: 10px 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.slds-chat-listitem.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-left: 250px;
+  /* Уменьшаем отступ для инпута */
+  margin-right: 250px;
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 500px);
+  /* Ширина инпута равна 100% минус ширина панели */
+}
+
+.input-container input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.input-container button[type="submit"] {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.input-container button[type="submit"]:hover {
+  cursor: pointer;
+}
+
+.input-container button[type="submit"] img {
+  width: 24px;
+  height: 24px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.chat-navigation {
+  background-color: #f0f0f0;
+  padding: 10px;
+  position: fixed;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  z-index: 1000;
+}
+
+.chat-navigation-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-navigation-item {
+  margin-bottom: 10px;
+}
+
+.chat-navigation-item:last-child {
+  margin-bottom: 0;
+}
+
+.chat-navigation-item a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.chat-navigation-item a:hover {
+  background-color: #ddd;
+}
+
+.chat-navigation-item.active a {
+  background-color: #007bff;
+  color: #fff;
+}

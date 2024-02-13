@@ -12,7 +12,9 @@ router.get('/', async (req, res) => {
       ]
     },
     include: [{ model: User, as: 'User2' },
-    { model: User, as: 'User1' }],
+    { model: User, as: 'User1' },
+    Message
+  ],
   });
   dialogs.map((dialog) => {
     if (dialog.User2.id === res.locals.user.id) {

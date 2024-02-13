@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ChatPage from '../Chat/ChatPage';
 import { useAppDispatch } from '../../redux/store';
 
@@ -15,9 +16,7 @@ import ProfilePage from '../Page/ProfilePage/ProfilePage';
 import WelcomPage from '../Page/WelcomPage/WelcomPage';
 import SignUpPage from '../Page/SignPage/SignUpPage';
 
-import { loadChats } from '../Chat/chatSlice';
 import { loadReating } from '../UI/LeftColumn/reatingSlice';
-
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -30,7 +29,6 @@ function App(): JSX.Element {
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
     dispatch(stopLoading());
-    dispatch(loadChats()).catch(console.log)
   }, []);
 
   return (
