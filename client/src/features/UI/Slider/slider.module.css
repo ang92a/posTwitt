@@ -32,7 +32,7 @@
         opacity: 0;
         visibility: hidden;
     }
-    
+
 
     100% {
         transform: translateY(100%) scale(0.5);
@@ -42,7 +42,9 @@
 }
 
 
+
 .wrapper {
+    background: linear-gradient(60deg, #420285, #08BDBD);
     height: 100%;
     width: 100%;
     display: flex;
@@ -67,10 +69,8 @@
     opacity: 0;
     filter: drop-shadow(0 2px 2px #555);
     will-change: transform, opacity;
-    animation: carousel-animate-vertical 27s linear infinite;
+    animation: carousel-animate-vertical var(--animation-duration) linear infinite;
 }
-
-
 
 .carousel__item-head {
     border-radius: 50%;

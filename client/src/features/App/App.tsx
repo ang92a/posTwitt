@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ChatPage from '../Chat/ChatPage';
 import { useAppDispatch } from '../../redux/store';
 
@@ -17,12 +18,16 @@ import SignUpPage from '../Page/SignPage/SignUpPage';
 
 import { loadChats } from '../Chat/chatSlice';
 import { loadReating } from '../UI/LeftColumn/reatingSlice';
-
+import type { RootState } from '../../redux/store';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const user = useSelector((store: RootState) => store.auth.auth);
 
   useEffect(() => {
+    if (user) {
+      dispatch(loadChats()).catch(console.log);
+    }
     dispatch(checkUser()).catch(console.log);
     dispatch(loadProfiles()).catch(console.log);
     dispatch(loadReating()).catch(console.log);
@@ -30,7 +35,7 @@ function App(): JSX.Element {
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
     dispatch(stopLoading());
-    dispatch(loadChats()).catch(console.log)
+    // dispatch(loadChats()).catch(console.log);
   }, []);
 
   return (
