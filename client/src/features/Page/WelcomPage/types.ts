@@ -11,6 +11,7 @@ export type Post = {
   User: User;
   Comments: Comment[];
   PostLikes: PostLike[];
+  Favorites: Favorite[];
 };
 
 export type PostAdd = {
@@ -24,6 +25,11 @@ export type PostId = Post['id'];
 export type PostSort = Post['content'];
 
 export type PostLike = {
+  id: number;
+  postId: number;
+  userId: number;
+};
+export type Favorite = {
   id: number;
   postId: number;
   userId: number;

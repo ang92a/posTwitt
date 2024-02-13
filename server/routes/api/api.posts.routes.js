@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User, Comment, PostLike } = require('../../db/models');
+const { Post, User, Comment, PostLike, Favorite } = require('../../db/models');
 const { Op } = require('sequelize');
 
 router.post('/sort', async (req, res) => {
@@ -13,6 +13,7 @@ router.post('/sort', async (req, res) => {
         { model: User },
         { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
         { model: PostLike },
+        { model: Favorite },
       ],
     });
     console.log(posts);
@@ -31,6 +32,7 @@ router.get('/', async (req, res) => {
         { model: User },
         { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
         { model: PostLike },
+        { model: Favorite },
       ],
     });
     res.json({ posts });
@@ -56,6 +58,7 @@ router.post('/', async (req, res) => {
         { model: User },
         { model: Comment, include: { model: User } },
         { model: PostLike },
+        { model: Favorite },
       ],
     });
 
@@ -107,6 +110,7 @@ router.post('/like', async (req, res) => {
           { model: User },
           { model: Comment, include: { model: User } },
           { model: PostLike },
+          { model: Favorite },
         ],
       });
 
@@ -141,6 +145,54 @@ router.delete('/dislike/:postId', async (req, res) => {
     res.json({ message: 'Не сработал dislike' });
   } catch ({ message }) {
     res.json({ message });
+  }
+});
+router.delete('/disfavorites/:postId', async (req, res) => {
+  try {
+    const { postId } = req.params;
+    console.log(postId);
+    const result = await Favorite.destroy({
+      where: { postId: postId, userId: res.locals.user.id },
+    });
+    if (result > 0) {
+      res.json({ message: 'success', postId });
+      return;
+    }
+    res.json({ message: 'Не сработал DisFavorites' });
+  } catch ({ message }) {
+    res.json({ message });
+  }
+});
+
+router.post('/favorites', async (req, res) => {
+  try {
+    const { userId, postId } = req.body;
+
+    const findpost = await Favorite.findOne({
+      where: { userId: userId, postId: postId },
+    });
+
+    if (!findpost) {
+      await Favorite.create({
+        userId,
+        postId,
+      });
+      const post = await Post.findOne({
+        where: { id: postId },
+        include: [
+          { model: User },
+          { model: Comment, include: { model: User } },
+          { model: PostLike },
+          { model: Favorite },
+        ],
+      });
+      res.json({
+        post,
+      });
+    }
+    return;
+  } catch ({ message }) {
+    res.json({ type: 'post router favorites', message });
   }
 });
 

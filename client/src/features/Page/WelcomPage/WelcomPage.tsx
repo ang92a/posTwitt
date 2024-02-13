@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useSelector } from 'react-redux';
 import style from './style/welcomepage.module.css';
 
 import PostList from '../../UI/PostList/PostList';
@@ -7,8 +7,7 @@ import LeftColumn from '../../UI/LeftColumn/LeftColumn';
 import HeaderWelcomePage from '../../UI/HeaderWelcomePage/HeaderWelcomePage';
 import StatistikItem from '../../UI/StatisticItem/StatistikItem';
 import Slider from '../../UI/Slider/Slider';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
+import type { RootState } from '../../../redux/store';
 // import Slider from '../../UI/Slider/Slider';
 
 function WelcomPage(): JSX.Element {
