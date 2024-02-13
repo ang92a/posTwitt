@@ -30,8 +30,9 @@ const NavBar = (): JSX.Element => {
       <div className={style.header}>
         <div className={style.container}>
           <ul className={style.navigation}>
-            <div className="text">Color theme is {colorTheme}</div>
-            <button onClick={onChangeTheme}>Change theme</button>
+            <button onClick={onChangeTheme} className={style.btn}>
+              Change theme
+            </button>
             {user ? (
               <>
                 <div className={style.rightBox}>

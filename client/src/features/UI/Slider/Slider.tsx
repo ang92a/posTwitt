@@ -3,29 +3,25 @@ import styles from './slider.module.css'; // Импортируем CSS моду
 import { RootState } from '../../../redux/store';
 import { useSelector } from 'react-redux';
 import PostItem from '../PostItem/PostItem';
+import { Post } from '../../Page/WelcomPage/types';
 
-function Slider(): JSX.Element {
-
+function Slider({ posts }: { posts: Post[] }): JSX.Element {
+  
   const animationTiming = 3;
-
-
-  // const posts = useSelector((store: RootState) => store.posts.posts);
-
-  const postsCycled = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const animationDuration = animationTiming * postsCycled.length;
+  const animationDuration = animationTiming * posts.length;
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.carousel} style={{ '--animation-duration': `${animationDuration}s` }}>
-        {postsCycled.map((post, idx) => (
+        {posts.map((post, idx) => (
           <div
             key={idx}
             className={styles.carousel__item}
             style={{
-              animationDelay: `calc(${(animationDuration / postsCycled.length) * (idx - 2)}s)`,
+              animationDelay: `calc(${(animationDuration / posts.length) * (idx - 2)}s)`,
             }}
           >
-            1111111111111111111111111111111111111111111
+            <PostItem post={post} />
           </div>
         ))}
       </div>

@@ -41,11 +41,8 @@
     }
 }
 
-
-
 .wrapper {
-    background: linear-gradient(60deg, #420285, #08BDBD);
-    height: 100%;
+    height: auto;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -53,7 +50,7 @@
 
 .carousel {
     position: relative;
-    width: 100%;
+    width: 90%;
     max-width: 800px;
     display: flex;
     justify-content: center;

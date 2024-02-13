@@ -67,3 +67,33 @@
 .nowork{
   color: rgb(217, 214, 214);
 }
+
+
+.btn {
+  text-decoration: none;
+  color: #fff;
+  background-color: var(--primary-color);
+  width: auto;
+  max-width: 250px;
+  border-radius: 24px;
+  text-align: center;
+  padding: 10px 40px;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, .13);
+  border: none;
+  transition: all .3s ease;
+  outline: 0;
+  margin: 20px 20px;
+
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 6px 2px rgba(53, 6, 12, 0.5);
+}
+
+.btn:active {
+  transform: scale(.99);
+  box-shadow: 0px 2px 6px -1px rgba(108, 114, 255, 0.5);
+}
