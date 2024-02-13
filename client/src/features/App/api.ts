@@ -36,6 +36,18 @@ export const fetchLoadSortPosts = async (text: PostSort): Promise<Post[]> => {
   return data.posts;
 };
 
+// изменение данных Юзера
+export const fetchEditProfile = async (): Promise<User> => {
+  const res = await fetch('/api/profiles', {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+    }),
+  });
+};
+
 // ПОСТЫ
 // получение всех ПОСТОВ
 export const fetchLoadPosts = async (): Promise<Post[]> => {
@@ -202,6 +214,9 @@ export const fetchLogout = async (): Promise<void> => {
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
+
+};
+
 }
 
 // CHAT
@@ -218,4 +233,5 @@ export const fetchLoadChats = async (): Promise<Dialog[]> => {
 
 
 // };
+
 

@@ -10,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
       Follower,
       Dialog,
       Message,
+      Favorite,
     }) {
       this.hasMany(Post, { foreignKey: "userId" });
       this.hasMany(Comment, { foreignKey: "userId" });
       this.hasMany(PostLike, { foreignKey: "userId" });
       this.hasMany(CommentLike, { foreignKey: "userId" });
+      this.hasMany(Favorite, { foreignKey: "userId" });
       this.hasMany(Follower, { foreignKey: "followerId", as: "Follower" });
-      this.hasMany(Follower, { foreignKey: "followerId", as: "Followed" });
+      this.hasMany(Follower, { foreignKey: "followedId", as: "Followed" });
       this.hasMany(Dialog, { foreignKey: "userId1", as: "DialogsUser1" });
       this.hasMany(Dialog, { foreignKey: "userId2", as: "DialogsUser2" });
       this.hasMany(Message, { foreignKey: "senderId", as: "SentMessages" });
