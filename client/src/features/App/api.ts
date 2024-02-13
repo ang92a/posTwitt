@@ -217,8 +217,6 @@ export const fetchLogout = async (): Promise<void> => {
 
 };
 
-}
-
 // CHAT
 
 // load chat

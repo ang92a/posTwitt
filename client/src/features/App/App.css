@@ -7,9 +7,21 @@
   font-family: 'Poppins', sans-serif;
 }
 
+body {
+  background: var(--color-background);
+}
+
 
 /* #007bff-красивый цвет */
 
 :root {
   --primary-color: #6c72ff;
+  --color-background: rgb(230, 230, 230);
+  --color-font: black;
+}
+
+
+html[data-theme="dark"] {
+  --color-background: black;
+  --color-font: white;
 }

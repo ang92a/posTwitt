@@ -23,8 +23,8 @@ function WelcomPage(): JSX.Element {
         <h1>Последние посты</h1>
       </div>
       <div className={style.containerFlexRow}>
-        {/* <Slider /> */}
-        <PostList posts={slice} />
+        <Slider />
+        {/* <PostList posts={slice} /> */}
         <LeftColumn />
       </div>
       <div className={style.footer}>
