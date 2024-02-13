@@ -64,6 +64,30 @@
   /* цвет при наведении */
 }
 
-.nowork{
+.nowork {
   color: rgb(217, 214, 214);
+}
+
+
+.btn {
+  color: #333;
+  text-decoration: none;
+  width: auto;
+  max-width: 250px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  outline: 0;
+}
+
+.btn:hover {
+  color: var(--primary-color);
+  cursor: pointer;
+  background-color: transparent;
+
+}
+
+.btn:active {
+  color: var(--primary-color);
 }

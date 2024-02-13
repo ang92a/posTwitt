@@ -14,18 +14,22 @@ import {
   AddComment,
   DelComment,
   DelPost,
+  DisFavoritesPost,
   DisLikePost,
+  FavoritesPost,
   LikePost,
 } from '../../Page/WelcomPage/postsSlice';
 import commentImg from './img/comment.png';
-import izbr from './img/избранное.png';
+import favorite from './img/избранное.png';
+import disfavorite from './img/Vector.png';
 import crest from './img/крестик.png';
-
 import emptyLike from './img/empty.svg';
 import like from './img/full.svg';
 import style from './postitem.module.css';
 
 function PostItem({ post }: { post: Post }): JSX.Element {
+  console.log(post.img, 2222222222222222222222);
+
   const dispatch = useAppDispatch();
 
   // состояния на коменты
@@ -36,6 +40,15 @@ function PostItem({ post }: { post: Post }): JSX.Element {
 
   // проверка лайкал ли юзер этот пост
   const findUserInLikePost = user && Boolean(post.PostLikes.find((el) => el.userId === user.id));
+
+  // проверка фаворитев у юзер этот пост
+  // const bla =
+  //   user && Boolean(post.Favorites.find((el) => +el.userId === user.id && +el.postId === post.id));
+  // console.log(post.Favorites);
+  // console.log(bla);
+  const findUserInFavoritesPost =
+    user && Boolean(post.Favorites.find((el) => +el.userId === user.id));
+  console.log(post, '123');
 
   // лайки
 
@@ -63,6 +76,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
             </div>
             <p className={style.time}>{formatDateTime(post.createdAt)}</p>
             <p className={style.content}>{post.content}</p>
+            <img src={post.img} alt="" />
             <div className={style.function}>
               {user ? (
                 <div className={style.one}>
@@ -130,10 +144,85 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                 </div>
               )}
 
-              {/* избранное */}
+              {/* //// избранное */}
+              {user ? (
+                <div className={style.foo}>
+                  {findUserInFavoritesPost ? (
+                    <img
+                      src={disfavorite}
+                      alt="full"
+                      className={style.img}
+                      onClick={() =>
+                        dispatch(
+                          DisFavoritesPost({
+                            postId: post.id,
+                            userId: user.id,
+                          }),
+                        )
+                      }
+                    />
+                  ) : (
+                    <img
+                      src={favorite}
+                      alt="full"
+                      className={style.img}
+                      onClick={() =>
+                        dispatch(
+                          FavoritesPost({
+                            postId: post.id,
+                            userId: user.id,
+                          }),
+                        )
+                      }
+                    />
+                  )}
+                </div>
+              ) : (
+                <div className={style.foo}>
+                  <img src={favorite} alt="full" className={style.img} />
+                </div>
+              )}
+              {/* {user ? (
+                <div className={style.foo}>
+                  {findUserInFavoritesPost ? ( //
+                    <img
+                      src={disfavorite}
+                      alt="full"
+                      className={style.img}
+                      onClick={() =>
+                        dispatch(
+                          DisFavoritesPost({
+                            postId: post.id,
+                            userId: user.id,
+                          }),
+                        )
+                      }
+                    />
+                  ) : (
+                    <img
+                      src={favorite}
+                      alt="empty"
+                      className={style.img}
+                      onClick={() =>
+                        dispatch(
+                          FavoritesPost({
+                            postId: post.id,
+                            userId: user.id,
+                          }),
+                        )
+                      }
+                    />
+                  )}
+                </div>
+              ) : (
+                <div className={style.foo}>
+                  <img className={style.img} src={favorite} alt="" />
+                </div>
+              )} */}
               {/* <div className={style.foo}>
                 <img className={style.img} src={izbr} alt="" />
               </div> */}
+              {/* избранное */}
             </div>
           </div>
           {user?.id === post.User.id && (

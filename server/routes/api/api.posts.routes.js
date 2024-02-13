@@ -1,6 +1,18 @@
 const router = require('express').Router();
-const { Post, User, Comment, PostLike } = require('../../db/models');
+const { Post, User, Comment, PostLike, Favorite } = require('../../db/models');
 const { Op } = require('sequelize');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/image');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 router.post('/sort', async (req, res) => {
   try {
@@ -13,6 +25,7 @@ router.post('/sort', async (req, res) => {
         { model: User },
         { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
         { model: PostLike },
+        { model: Favorite },
       ],
     });
     console.log(posts);
@@ -31,6 +44,7 @@ router.get('/', async (req, res) => {
         { model: User },
         { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
         { model: PostLike },
+        { model: Favorite },
       ],
     });
     res.json({ posts });
@@ -40,14 +54,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const { title, userId, content } = req.body;
+    const { title, content } = req.body;
+    const newFileUrl = `/image/${req.file.originalname}`;
+
     const postmin = await Post.create({
-      userId,
+      userId: res.locals.user.id,
       title,
       content,
       likes: 0,
+      img: newFileUrl,
     });
     const post = await Post.findOne({
       where: { id: postmin.id },
@@ -55,6 +72,7 @@ router.post('/', async (req, res) => {
         { model: User },
         { model: Comment, include: { model: User } },
         { model: PostLike },
+        { model: Favorite },
       ],
     });
 
@@ -69,7 +87,7 @@ router.post('/', async (req, res) => {
 router.delete('/:postId', async (req, res) => {
   try {
     const { postId } = req.params;
-    console.log(postId);
+    // console.log(postId);
     const result = await Post.destroy({ where: { id: postId } });
     if (result > 0) {
       res.json({ message: 'success', postId });
@@ -106,6 +124,7 @@ router.post('/like', async (req, res) => {
           { model: User },
           { model: Comment, include: { model: User } },
           { model: PostLike },
+          { model: Favorite },
         ],
       });
 
@@ -140,6 +159,54 @@ router.delete('/dislike/:postId', async (req, res) => {
     res.json({ message: 'Не сработал dislike' });
   } catch ({ message }) {
     res.json({ message });
+  }
+});
+router.delete('/disfavorites/:postId', async (req, res) => {
+  try {
+    const { postId } = req.params;
+    console.log(postId);
+    const result = await Favorite.destroy({
+      where: { postId: postId, userId: res.locals.user.id },
+    });
+    if (result > 0) {
+      res.json({ message: 'success', postId });
+      return;
+    }
+    res.json({ message: 'Не сработал DisFavorites' });
+  } catch ({ message }) {
+    res.json({ message });
+  }
+});
+
+router.post('/favorites', async (req, res) => {
+  try {
+    const { userId, postId } = req.body;
+
+    const findpost = await Favorite.findOne({
+      where: { userId: userId, postId: postId },
+    });
+
+    if (!findpost) {
+      await Favorite.create({
+        userId,
+        postId,
+      });
+      const post = await Post.findOne({
+        where: { id: postId },
+        include: [
+          { model: User },
+          { model: Comment, include: { model: User } },
+          { model: PostLike },
+          { model: Favorite },
+        ],
+      });
+      res.json({
+        post,
+      });
+    }
+    return;
+  } catch ({ message }) {
+    res.json({ type: 'post router favorites', message });
   }
 });
 

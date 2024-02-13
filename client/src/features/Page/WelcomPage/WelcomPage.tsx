@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useSelector } from 'react-redux';
 import style from './style/welcomepage.module.css';
 
 import PostList from '../../UI/PostList/PostList';
@@ -7,13 +7,12 @@ import LeftColumn from '../../UI/LeftColumn/LeftColumn';
 import HeaderWelcomePage from '../../UI/HeaderWelcomePage/HeaderWelcomePage';
 import StatistikItem from '../../UI/StatisticItem/StatistikItem';
 import Slider from '../../UI/Slider/Slider';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
+import type { RootState } from '../../../redux/store';
 // import Slider from '../../UI/Slider/Slider';
 
 function WelcomPage(): JSX.Element {
   const posts = useSelector((store: RootState) => store.posts.posts);
-  const slice = posts.slice(0, 3);
+  const slice = posts.slice(0, 9);
 
   return (
     <main className={style.main}>
@@ -23,8 +22,8 @@ function WelcomPage(): JSX.Element {
         <h1>Последние посты</h1>
       </div>
       <div className={style.containerFlexRow}>
-        {/* <Slider /> */}
-        <PostList posts={slice} />
+        <Slider posts={slice} />
+        {/* <PostList posts={slice} /> */}
         <LeftColumn />
       </div>
       <div className={style.footer}>

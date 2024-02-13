@@ -1,36 +1,22 @@
-/* eslint-disable import/prefer-default-export */
-
 import { useCallback, useState } from 'react';
 
-// Определение типа для темы цвета
-type ColorTheme = 'light' | 'dark';
-
-// Объявление константы для тем цвета
-const COLOR_THEME: { light: ColorTheme; dark: ColorTheme } = {
+const COLOR_THEME = {
   light: 'light',
   dark: 'dark',
 };
 
-// Возвращаемый тип хука
-type UseColorThemeReturnType = {
-  colorTheme: ColorTheme;
-  changeColorTheme: (theme: ColorTheme) => void;
-  toggleColorTheme: () => void;
-};
 
-export const useColorTheme = (): UseColorThemeReturnType => {
-  const [colorTheme, setColorTheme] = useState<ColorTheme>(COLOR_THEME.dark);
-
-  const changeColorTheme = useCallback((theme: ColorTheme = COLOR_THEME.dark) => {
-    setColorTheme(theme);
-    document.documentElement.setAttribute('data-theme', theme);
+export const useColorTheme = () => {
+  const [colorTheme, setColorTheme] = useState(COLOR_THEME.light);
+  const changeColorTheme = useCallback((theme = '') => {
+    const currentTheme = theme === '' ? COLOR_THEME.light : theme;
+    setColorTheme(currentTheme);
+    document.documentElement.setAttribute('data-theme', currentTheme);
   }, []);
-
   const toggleColorTheme = useCallback(() => {
-    setColorTheme((prevTheme) =>
-      prevTheme === COLOR_THEME.dark ? COLOR_THEME.light : COLOR_THEME.dark,
-    );
-  }, []);
-
+    colorTheme === COLOR_THEME.light
+      ? changeColorTheme(COLOR_THEME.dark)
+      : changeColorTheme(COLOR_THEME.light);
+  }, [colorTheme, changeColorTheme]);
   return { colorTheme, changeColorTheme, toggleColorTheme };
 };

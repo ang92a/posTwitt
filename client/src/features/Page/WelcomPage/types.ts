@@ -7,22 +7,30 @@ export type Post = {
   userId: number;
   title: string;
   content: string;
+  img: string;
   likes: number;
   User: User;
   Comments: Comment[];
   PostLikes: PostLike[];
+  Favorites: Favorite[];
 };
 
 export type PostAdd = {
   content: string;
   userId: number;
   title: string;
+  img: string;
 };
 
 export type PostId = Post['id'];
 export type PostSort = Post['content'];
 
 export type PostLike = {
+  id: number;
+  postId: number;
+  userId: number;
+};
+export type Favorite = {
   id: number;
   postId: number;
   userId: number;

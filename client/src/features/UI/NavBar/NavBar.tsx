@@ -12,12 +12,18 @@ import { type RootState, useAppDispatch } from '../../../redux/store';
 import { logout } from '../../Page/SignPage/authSlice';
 
 import style from './navbar.module.css';
+import { useColorTheme } from '../UseColorTheme/UseColorTheme';
 
 const NavBar = (): JSX.Element => {
   const user = useSelector((store: RootState) => store.auth.auth);
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+
+  const { colorTheme, toggleColorTheme } = useColorTheme();
+  const onChangeTheme = () => {
+    toggleColorTheme();
+  };
 
   return (
     <>
@@ -52,12 +58,13 @@ const NavBar = (): JSX.Element => {
                     </NavLink>
                   </li>
                   <li className={style.item}>
-                    <NavLink
-                      className={`${style.link} ${style.nowork} ${window.location.pathname === '/setting' ? style.active : ''}`}
-                      to="/setting"
+                    <button
+                      className={`${style.btn} ${window.location.pathname === '/setting' ? style.active : ''}`}
+                      onClick={onChangeTheme}
+                      type="button"
                     >
                       Настройки
-                    </NavLink>
+                    </button>
                   </li>
                   <li
                     onClick={() => {

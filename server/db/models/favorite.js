@@ -1,15 +1,13 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Post extends Model {
-    static associate({ User, PostLike, Comment, Favorite }) {
+  class Favorite extends Model {
+    static associate({ User, Post }) {
       this.belongsTo(User, { foreignKey: "userId" });
-      this.hasMany(Comment, { foreignKey: "postId" });
-      this.hasMany(PostLike, { foreignKey: "postId" });
-      this.hasMany(Favorite, { foreignKey: "postId" });
+      this.belongsTo(Post, { foreignKey: "postId" });
     }
   }
-  Post.init(
+  Favorite.init(
     {
       id: {
         allowNull: false,
@@ -19,27 +17,21 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: {
         allowNull: false,
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
           model: "Users",
           key: "id",
         },
         onDelete: "CASCADE",
       },
-      title: {
+      postId: {
         allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      content: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      img: {
-        type: DataTypes.TEXT,
-      },
-      likes: {
-        defaultValue: 0,
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
+        references: {
+          model: "Posts",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,
@@ -52,8 +44,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Post",
+      modelName: "Favorite",
     }
   );
-  return Post;
+  return Favorite;
 };
