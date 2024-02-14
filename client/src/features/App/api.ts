@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 
+import type { Post, PostId, PostSort, Reating } from '../Page/WelcomPage/types';
 
-import type { Post, PostAdd, PostId, PostSort, formData } from '../Page/WelcomPage/types';
-
-import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
+import type { User, UserSignUpp, UserId, UserSignInn } from '../Page/SignPage/types';
 import type { CommentAdd, CommentId } from '../UI/PostItem/types';
 import type { Dialog } from '../Chat/types';
 
@@ -36,7 +35,6 @@ export const fetchLoadSortPosts = async (text: PostSort): Promise<Post[]> => {
   };
   return data.posts;
 };
-
 
 // изменение данных Юзера
 export const fetchEditProfile = async (formData: FormData): Promise<User> => {
@@ -211,7 +209,7 @@ export const fetchLoadReating = async (): Promise<Reating[]> => {
 };
 
 // РЕГИСТРАЦИЯ
-export const fetchSignUp = async (user: UserSignUp): Promise<User> => {
+export const fetchSignUp = async (user: UserSignUpp): Promise<User> => {
   const res = await fetch('/api/auth/sign-up', {
     method: 'post',
     headers: {
@@ -231,7 +229,7 @@ export const fetchSignUp = async (user: UserSignUp): Promise<User> => {
 };
 
 // ВХОД
-export const fetchSignIn = async (user: UserSignIn): Promise<User> => {
+export const fetchSignIn = async (user: UserSignInn): Promise<User> => {
   const res = await fetch('/api/auth/sign-in', {
     method: 'post',
     headers: {

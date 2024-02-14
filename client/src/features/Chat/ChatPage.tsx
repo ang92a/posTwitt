@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -12,9 +13,11 @@ import SenderMes from './SenderMes';
 import ReceiverMes from './ReceiverMes';
 import { useAppDispatch, type RootState } from '../../redux/store';
 import './style/panel.css';
+
 import { addDialog, addMessage, loadChats } from './chatSlice';
 import {type User } from '../Page/SignPage/types';
 import {type Message } from './types';
+
 
 function ChatPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -28,7 +31,6 @@ function ChatPage(): JSX.Element {
   const [receiver, setReceiver] = useState(user);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [message, setMessage] = useState('');
-
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,6 +50,7 @@ function ChatPage(): JSX.Element {
         socket.emit('reg', user?.id);
         setIsConnected(true);
       });
+
 
       socket.on('add dialog', (dialog) => {
         dispatch(addDialog(dialog));
@@ -83,6 +86,7 @@ function ChatPage(): JSX.Element {
               if (dialog.userId2 === user?.id) man = users.find((el) => el.id === dialog.userId1);
             }
             return (
+
               <div
                 key={dialog.id}
                 onClick={() => {
@@ -95,6 +99,7 @@ function ChatPage(): JSX.Element {
               >
                 {man && <NavLink to={`/chat/${man?.id}`}>{man?.name}</NavLink>}
               </div>
+
             );
           })}
         </ul>

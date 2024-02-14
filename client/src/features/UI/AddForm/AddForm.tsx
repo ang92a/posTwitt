@@ -19,7 +19,7 @@ const AddForm = (): JSX.Element => {
   const user = useSelector((store: RootState) => store.auth.auth);
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) : void => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('image', (image && image[0]) || '');

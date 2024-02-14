@@ -27,7 +27,6 @@ router.post('/', upload.single('img'), async (req, res) => {
 
     if (!req.file) {
       const some = await User.findOne({ where: { email } });
-      console.log(some.img, '-----------');
       newFale = some.img;
     } else {
       newFale = `/profileImg/${req.file.originalname}`;
