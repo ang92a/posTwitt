@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchCheckUser, fetchLogout, fetchSignIn, fetchSignUp } from '../../App/api';
-import type { AuthState, UserSignIn, UserSignUp } from './types';
+import type { AuthState, UserSignInn, UserSignUpp } from './types';
 
 
 const initialState: AuthState = {
@@ -10,8 +10,8 @@ const initialState: AuthState = {
 };
 
 export const checkUser = createAsyncThunk('auth/check', () => fetchCheckUser());
-export const signUp = createAsyncThunk('auth/signUp', (user: UserSignUp) => fetchSignUp(user));
-export const signIn = createAsyncThunk('auth/signIn', (user: UserSignIn) => fetchSignIn(user));
+export const signUp = createAsyncThunk('auth/signUp', (user: UserSignUpp) => fetchSignUp(user));
+export const signIn = createAsyncThunk('auth/signIn', (user: UserSignInn) => fetchSignIn(user));
 export const logout = createAsyncThunk('auth/logOut', () => fetchLogout());
 
 

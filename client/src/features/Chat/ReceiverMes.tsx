@@ -1,6 +1,8 @@
 import React from 'react';
+import type { User } from '../Page/SignPage/types';
+import type { Message } from './types';
 
-function ReceiverMes({ receiver, message }): JSX.Element {
+function ReceiverMes({ receiver, message }: { receiver: User; message: Message }): JSX.Element {
   return (
     <li className="slds-chat-listitem slds-chat-listitem_inbound">
       <div className="slds-chat-message">

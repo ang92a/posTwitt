@@ -27,3 +27,15 @@ export type UserId = User['id'];
 export type UserSignUp = Omit<User, 'id' | 'img'> & { rpassword: string };
 
 export type UserSignIn = Omit<User, 'id' | 'img' | 'name'>;
+
+export type UserSignUpp = {
+  name: string;
+  email: string;
+  password: string;
+  rpassword: string;
+};
+
+export type UserSignInn = {
+  email: string;
+  password: string;
+};

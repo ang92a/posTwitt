@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -37,9 +38,9 @@ function SignUpPage(): JSX.Element {
             className={style.signUp}
             onSubmit={(e) => {
               e.preventDefault();
-              dispatch(signUp({ name, email, password, rpassword })).then((res) =>
-                dispatch(fielUsers(res.payload)),
-              );
+              dispatch(signUp({ name, email, password, rpassword }))
+                .then((res) => dispatch(fielUsers(res.payload)))
+                .catch(console.log);
             }}
           >
             <h1>Регистрация PosTwitt</h1>
