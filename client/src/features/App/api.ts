@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
-
-
 import type { Post, PostAdd, PostId, PostSort, formData } from '../Page/WelcomPage/types';
-
 import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
 import type { CommentAdd, CommentId } from '../UI/PostItem/types';
 import type { Dialog } from '../Chat/types';
