@@ -13,7 +13,7 @@ router.post('/sign-up', async (req, res) => {
       res.status(400).json({ message: 'Пароли не совпадают' });
       return;
     }
-    user = await User.findOne({ where: { name } });
+    user = await User.findOne({ where: { email } });
     if (user) {
       res.status(400).json({ message: 'Такой пользователь уже есть' });
       return;

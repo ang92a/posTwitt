@@ -231,26 +231,28 @@ function WelcomPage(): JSX.Element {
   return (
     <main className={style.main}>
       <HeaderWelcomePage />
-      <StatistikItem />
-      <div className={style.container}>
-        <h1>Последние посты</h1>
-      </div>
-      <div className={style.containerFlexRow}>
-        <Slider posts={slice} />
-        <LeftColumn />
-      </div>
-      <div className={style.footer}>
-        <h1>
-          Зарегистрируйтесь и <br />
-          узнайте обо всем первым
-        </h1>
-        <div>
-          <a href="/sign-up" className={style.btn}>
-            Зарегистрироваться
-          </a>
-          <a href="/sign-in" className={style.btn}>
-            Войти
-          </a>
+      <div className={style.wrapper}>
+        <StatistikItem />
+        <div className={style.container}>
+          <h1>Последние посты</h1>
+        </div>
+        <div className={style.containerFlexRow}>
+          <Slider posts={slice} />
+          <LeftColumn />
+        </div>
+        <div className={style.footer}>
+          <h1>
+            Зарегистрируйтесь и <br />
+            узнайте обо всем первым
+          </h1>
+          <div>
+            <a href="/sign-up" className={style.btn}>
+              Зарегистрироваться
+            </a>
+            <a href="/sign-in" className={style.btn}>
+              Войти
+            </a>
+          </div>
         </div>
       </div>
     </main>

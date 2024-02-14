@@ -48,7 +48,7 @@
     text-decoration: none;
     color: #fff;
     background-color: var(--primary-color);
-    max-width: 250px;
+    width: 250px;
     border-radius: 24px;
     text-align: center;
     padding: 10px 40px;
@@ -63,6 +63,7 @@
 
 .btn:hover {
     transform: translateY(-3px);
+    background: var(--dark-hover);
     box-shadow: 0 2px 6px -1px rgba(108, 114, 255, 0.5);
 }
 
@@ -72,8 +73,18 @@
 }
 
 .btnDemo {
-    width: 150px;
-    background-color: rgba(74, 75, 90, 0.5);
+    color: var(--primary-color);
+    background: none;
+    border: none;
+    font-size: inherit;
+    font-weight: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btnDemo:hover {
+    color: var(--dark-hover)
 }
 
 .boxFlex {

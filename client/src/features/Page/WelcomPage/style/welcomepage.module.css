@@ -28,7 +28,7 @@
     justify-content: center;
     text-align: center;
     margin: 0 auto;
-    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 
 .footer>h1 {
@@ -39,8 +39,7 @@
     text-decoration: none;
     color: #fff;
     background-color: var(--primary-color);
-    width: auto;
-    max-width: 250px;
+    width: 250px;
     border-radius: 24px;
     text-align: center;
     padding: 10px 40px;
@@ -50,16 +49,25 @@
     border: none;
     transition: all .3s ease;
     outline: 0;
-    margin: 20px 20px;
+    margin: 0 10px 20px;
 
 }
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 2px 6px 2px rgba(53, 6, 12, 0.5);
+    background: var(--dark-hover);
+    box-shadow: 0 2px 6px -1px rgba(108, 114, 255, 0.5);
 }
 
 .btn:active {
     transform: scale(.99);
     box-shadow: 0px 2px 6px -1px rgba(108, 114, 255, 0.5);
+}
+
+.wrapper {
+    width: 1281px;
+    height: auto;
+    margin: 0 auto;
+    border-left: 1px solid #c2c1c1;
+    border-right: 1px solid #c2c1c1;
 }
