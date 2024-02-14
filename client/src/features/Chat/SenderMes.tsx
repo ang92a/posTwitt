@@ -1,7 +1,6 @@
 import React from 'react';
 
 function SenderMes({message, user}):JSX.Element {
-  console.log(message);
   
   return (
     <li className="slds-chat-listitem slds-chat-listitem_outbound">

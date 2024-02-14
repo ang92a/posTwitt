@@ -1,6 +1,6 @@
 .slds-chat {
   max-width: 600px;
-  max-height: 600px;
+  max-height: 70vh;
   /* Максимальная ширина чата */
   margin: 0 auto;
   /* Центрирование чата на странице */
@@ -115,7 +115,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #0070d2;
+  background-color: #bbc1c5;
   /* Цвет ползунка */
   border-radius: 10px;
   /* Закругление углов ползунка */
@@ -153,4 +153,24 @@
   width: 24px;
   /* Установите ширину и высоту изображения по вашему усмотрению */
   height: 24px;
+}
+
+.topPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  color: #666;
+  border-radius: 10px;
+
+  padding: 10px;
+
+}
+
+.receiverAva {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
 }
