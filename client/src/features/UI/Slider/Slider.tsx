@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import PostItem from '../PostItem/PostItem';
 import { Post } from '../../Page/WelcomPage/types';
 
+
 function Slider({ posts }: { posts: Post[] }): JSX.Element {
   
   const animationTiming = 3;
