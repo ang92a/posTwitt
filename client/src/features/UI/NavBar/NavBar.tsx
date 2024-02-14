@@ -47,7 +47,7 @@ const NavBar = (): JSX.Element => {
                       className={`${style.link} ${window.location.pathname === `/profiles/${user?.id}` ? style.active : ''}`}
                       to={`/profiles/${user?.id}`}
                     >
-                      Профиль
+                      Моя страница
                     </NavLink>
                   </li>
                   <li className={style.item}>
@@ -70,13 +70,6 @@ const NavBar = (): JSX.Element => {
                     </NavLink>
                   </li>
                   <li className={style.item}>
-                    {/* <button
-                      className={`${style.btn} ${window.location.pathname === '/setting' ? style.active : ''}`}
-                      onClick={onChangeTheme}
-                      type="button"
-                    >
-                      {colorTheme}
-                    </button> */}
                     <input
                       type="checkbox"
                       name="theme_switch"

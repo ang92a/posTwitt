@@ -7,6 +7,7 @@ import load from './assets/Rolling-1s-200px.svg';
 import { useSelector } from 'react-redux';
 import { User } from '../SignPage/types';
 import { profileEdit } from '../WelcomPage/postsSlice';
+import IMask from 'imask';
 
 export function ModalProfile({
   handleEditing,
@@ -23,34 +24,37 @@ export function ModalProfile({
   const [city, setCity] = useState(currentProfile.city);
   const [contact, setContact] = useState(currentProfile.contact);
   const [birthDate, setBirthDate] = useState(currentProfile.birthDate);
+  const [error, setError] = useState('');
 
   const loading = useSelector((store: RootState) => store.profiles.loading);
 
   const onHandleEditProfile = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    // if (!name || !email) return;
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('city', city);
-    formData.append('contact', contact);
-    formData.append('birthDate', birthDate);
-    if (img) {
-      formData.append('img', img[0]);
+    if (name === '') {
+      setError('Поле имя не может быть пустым');
+    } else if (email === '') {
+      setError('Поле e-mail не может быть пустым');
+    } else {
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('city', city);
+      formData.append('contact', contact);
+      formData.append('birthDate', birthDate);
+      if (img) {
+        formData.append('img', img[0]);
+      }
+      dispatch(editProfile(formData))
+        .then((data) => dispatch(profileEdit(data.payload)))
+        .catch(console.log);
+      handleEditing(false);
     }
-    dispatch(editProfile(formData)).then((data) => dispatch(profileEdit(data.payload))).catch(console.log);
-    handleEditing(false);
   };
 
-  // const handleBirthdateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const formattedDate = formatBirthdate(event.target.value);
-  //   setBirthDate(formattedDate);
-  // };
-
-  // const formatBirthdate = (value: string) => value
-  //     .replace(/\D/g, '')
-  //     .replace(/(\d{2})(\d{2})(\d{4})/, '$1.$2.$3')
-  //     .substr(0, 10);
+  const maskOptions = {
+    phoneMask: '+{7}(000)000-00-00',
+    bDMask: '00.00.0000',
+  };
 
   return (
     <div className={style.modalBackground}>
@@ -63,12 +67,14 @@ export function ModalProfile({
             placeholder="Новое имя"
             onChange={(e) => setName(e.target.value)}
           />
+          {error === 'Поле имя не может быть пустым' && <p>{error}</p>}
           <input
             defaultValue={currentProfile.email}
             type="text"
             placeholder="Новый email"
             onChange={(e) => setEmail(e.target.value)}
           />
+          {error === 'Поле e-mail не может быть пустым' && <p>{error}</p>}
           <div>
             <label htmlFor="avatar">
               Ваше фото
@@ -92,13 +98,17 @@ export function ModalProfile({
             defaultValue={currentProfile.contact}
             type="text"
             placeholder="Новый контакт"
-            onChange={(e) => setContact(e.target.value)}
+            onChange={(e) => {
+              setContact(e.target.value), IMask(e.target, maskOptions.phoneMask);
+            }}
           />
           <input
             defaultValue={currentProfile.birthDate}
             type="text"
-            maxLength="10"
-            onChange={(e) => setBirthDate(e.target.value)}
+            maxLength={19}
+            onChange={(e) => {
+              setBirthDate(e.target.value), IMask(e.target, maskOptions.bDMask);
+            }}
             placeholder="Новая дата рождения"
           />
           <button type="button" onClick={() => handleEditing(false)}>
