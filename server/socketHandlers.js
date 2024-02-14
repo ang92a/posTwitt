@@ -20,14 +20,17 @@ const handleSocketConnection = async (io) => {
       const senderSocketId = userSocketMap.get(user.id);
 
       const rangeId = [user.id, receiverId].sort((a, b) => a - b);
-      let dialog = await Dialog.findOne({
-        where: { userId1: rangeId[0], userId2: rangeId[1] },
-      });
+
+      let dialog = await Dialog.findOne({ where: { userId1: rangeId[0], userId2: rangeId[1] } });
       if (!dialog) {
-        dialog = await Dialog.create({
-          userId1: rangeId[0],
-          userId2: rangeId[1],
-        });
+        dialog = await Dialog.create({ userId1: rangeId[0], userId2: rangeId[1] });
+        if (receiverSocketId) {
+          io.to(receiverSocketId).emit('add dialog', dialog);
+          io.to(senderSocketId).emit('add dialog', dialog);
+        } else {
+          io.to(senderSocketId).emit('add dialog', dialog);
+        }
+
       }
       const newMessage = await Message.create({
         senderId: user.id,
