@@ -4,18 +4,17 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
-const { Server } = require("socket.io");
+const { Server } = require('socket.io');
 const { createServer } = require('node:http');
 
-const server = createServer(app)
+const server = createServer(app);
 const io = new Server(server, {
   cookie: true,
   withCredentials: true,
   cors: {
-    origin: "http://localhost:5173"
-  }
+    origin: 'http://localhost:5173',
+  },
 });
-
 
 const indexRouter = require('./routes/index.routes');
 const { verifyAccessToken } = require('./middleware/verifyJWT');
@@ -26,13 +25,21 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: 'true' }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  express.static(
+    process.env.NODE_ENV === 'production'
+      ? path.join(__dirname, './dist')
+      : path.join(__dirname, '../client/dist')
+  )
+);
 app.use(verifyAccessToken);
 
 app.use('/', indexRouter);
 
 handleSocketConnection(io);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => {
   console.log(`listen ${PORT}`);
