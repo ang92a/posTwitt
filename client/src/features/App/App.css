@@ -11,10 +11,13 @@ body {
   background: var(--color-background);
 }
 
+
 /* #007bff-красивый цвет */
+/* #0e1b40 - темно синий hover */
 
 :root {
   --primary-color: #6c72ff;
+  --dark-hover: #0e1b40;
   --color-background: rgb(230, 230, 230);
   --color-font: black;
 }
