@@ -1,10 +1,9 @@
 import { useCallback, useState } from 'react';
 
 const COLOR_THEME = {
-  light: 'light',
-  dark: 'dark',
+  light: 'Светлая тема',
+  dark: 'Тёмная тема',
 };
-
 
 export const useColorTheme = () => {
   const [colorTheme, setColorTheme] = useState(COLOR_THEME.light);

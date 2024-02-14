@@ -12,18 +12,20 @@ import { type RootState, useAppDispatch } from '../../../redux/store';
 import { logout } from '../../Page/SignPage/authSlice';
 
 import style from './navbar.module.css';
+import './themeSwitcher.scss';
 import { useColorTheme } from '../UseColorTheme/UseColorTheme';
 
 const NavBar = (): JSX.Element => {
   const user = useSelector((store: RootState) => store.auth.auth);
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
 
   const { colorTheme, toggleColorTheme } = useColorTheme();
-  console.log(colorTheme);
+
+  
 
   const onChangeTheme = (): void => {
+
     toggleColorTheme();
   };
 
@@ -59,15 +61,6 @@ const NavBar = (): JSX.Element => {
                       Чат
                     </NavLink>
                   </li>
-                  <li className={style.item}>
-                    <button
-                      className={`${style.btn} ${window.location.pathname === '/setting' ? style.active : ''}`}
-                      onClick={onChangeTheme}
-                      type="button"
-                    >
-                      Настройки
-                    </button>
-                  </li>
                   <li
                     onClick={() => {
                       dispatch(logout()).catch(console.log);
@@ -78,6 +71,25 @@ const NavBar = (): JSX.Element => {
                     <NavLink className={style.link} to="/logout">
                       Выход
                     </NavLink>
+                  </li>
+                  <li className={style.item}>
+                    {/* <button
+                      className={`${style.btn} ${window.location.pathname === '/setting' ? style.active : ''}`}
+                      onClick={onChangeTheme}
+                      type="button"
+                    >
+                      {colorTheme}
+                    </button> */}
+                    <input
+                      type="checkbox"
+                      name="theme_switch"
+                      className="theme_switch__input"
+                      id="themeSwitch"
+                      onChange={onChangeTheme}
+                    />
+                    <label htmlFor="themeSwitch" className="theme_switch__label">
+                      <span></span>
+                    </label>
                   </li>
                 </div>
               </>
