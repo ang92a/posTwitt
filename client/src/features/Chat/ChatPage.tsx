@@ -97,7 +97,8 @@ function ChatPage(): JSX.Element {
         </ul>
       </nav>
       <div className="topPanel">
-        <img className="receiverAva" src={receiver?.img} alt="" />
+        {receiver?.img && <img className="receiverAva" src={receiver?.img} alt="" />}
+
         {receiver?.name}
       </div>
       <section ref={containerRef} role="log" className="slds-chat">
