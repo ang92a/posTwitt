@@ -16,6 +16,7 @@ import SignUpPage from '../Page/SignPage/SignUpPage';
 
 import { loadReating } from '../UI/LeftColumn/reatingSlice';
 import type { RootState } from '../../redux/store';
+import { loadChats } from '../Chat/chatSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

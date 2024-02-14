@@ -1,13 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import style from './style/welcomepage.module.css';
-
-import PostList from '../../UI/PostList/PostList';
 import LeftColumn from '../../UI/LeftColumn/LeftColumn';
 import HeaderWelcomePage from '../../UI/HeaderWelcomePage/HeaderWelcomePage';
 import StatistikItem from '../../UI/StatisticItem/StatistikItem';
 import Slider from '../../UI/Slider/Slider';
-import type { RootState } from '../../../redux/store';
 
 import img1 from '../../UI/Slider/assets/images1.jpg';
 import img2 from '../../UI/Slider/assets/images2.jpg';
@@ -17,12 +13,10 @@ import img5 from '../../UI/Slider/assets/images5.jpg';
 import img7 from '../../UI/Slider/assets/images7.jpg';
 import img8 from '../../UI/Slider/assets/images8.jpg';
 import img9 from '../../UI/Slider/assets/images9.jpg';
+import type { Post } from './types';
 
 function WelcomPage(): JSX.Element {
-  // const posts = useSelector((store: RootState) => store.posts.posts);
-  // const slice = posts.slice(0, 9);
-
-  const slice = [
+  const slice: Post[] = [
     {
       id: 1,
       userId: 1,
@@ -31,12 +25,16 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 4,
       createdAt: '2024-02-12T07:47:45.406Z',
-      updatedAt: '2024-02-14T09:13:17.540Z',
       User: {
         id: 1,
         password: '$2b$10$0Buz6NO/rXKcN43B82F3Sul/4j2DjaWifELNt.mlAQ5GaGoTRn9O2',
         isAdmin: false,
         img: img1,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -50,12 +48,16 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 7,
       createdAt: '2024-02-13T10:22:30.812Z',
-      updatedAt: '2024-02-14T08:45:19.673Z',
       User: {
         id: 2,
         password: '$2b$10$E6ezuZnc2XR92qjXs2E4RO85gUf.Gw9mb4vyT7JGpXouoDRVBwH0m',
         isAdmin: false,
         img: img2,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -69,12 +71,16 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 12,
       createdAt: '2024-02-14T06:30:00.000Z',
-      updatedAt: '2024-02-14T09:10:00.000Z',
       User: {
         id: 3,
         password: '$2b$10$qR5NfhzZm1oXROIfWdLpIuF/rEYtxZzIr7n6oA2Z8F4T3xTq1HLbW',
         isAdmin: false,
         img: img3,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -88,12 +94,17 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 5,
       createdAt: '2024-02-14T12:00:00.000Z',
-      updatedAt: '2024-02-14T12:01:00.000Z',
+
       User: {
         id: 1,
         password: '$2b$10$0Buz6NO/rXKcN43B82F3Sul/4j2DjaWifELNt.mlAQ5GaGoTRn9O2',
         isAdmin: false,
         img: img4,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -107,12 +118,17 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 8,
       createdAt: '2024-02-14T14:30:00.000Z',
-      updatedAt: '2024-02-14T15:00:00.000Z',
+
       User: {
         id: 3,
         password: '$2b$10$qR5NfhzZm1oXROIfWdLpIuF/rEYtxZzIr7n6oA2Z8F4T3xTq1HLbW',
         isAdmin: false,
         img: img5,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -126,12 +142,16 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 6,
       createdAt: '2024-02-14T18:00:00.000Z',
-      updatedAt: '2024-02-14T18:30:00.000Z',
       User: {
         id: 2,
         password: '$2b$10$E6ezuZnc2XR92qjXs2E4RO85gUf.Gw9mb4vyT7JGpXouoDRVBwH0m',
         isAdmin: false,
         img: img4,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -145,12 +165,16 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 10,
       createdAt: '2024-02-14T20:45:00.000Z',
-      updatedAt: '2024-02-14T21:00:00.000Z',
       User: {
         id: 1,
         password: '$2b$10$0Buz6NO/rXKcN43B82F3Sul/4j2DjaWifELNt.mlAQ5GaGoTRn9O2',
         isAdmin: false,
         img: img7,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -164,12 +188,16 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 3,
       createdAt: '2024-02-14T22:00:00.000Z',
-      updatedAt: '2024-02-14T22:30:00.000Z',
       User: {
         id: 3,
         password: '$2b$10$qR5NfhzZm1oXROIfWdLpIuF/rEYtxZzIr7n6oA2Z8F4T3xTq1HLbW',
         isAdmin: false,
         img: img8,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -183,12 +211,16 @@ function WelcomPage(): JSX.Element {
       img: null,
       likes: 2,
       createdAt: '2024-02-15T09:00:00.000Z',
-      updatedAt: '2024-02-15T09:30:00.000Z',
       User: {
         id: 2,
         password: '$2b$10$E6ezuZnc2XR92qjXs2E4RO85gUf.Gw9mb4vyT7JGpXouoDRVBwH0m',
         isAdmin: false,
         img: img9,
+        city: '',
+        contact: '',
+        birthDate: '',
+        name: '',
+        email: '',
       },
       Comments: [],
       Favorites: [],
@@ -205,7 +237,6 @@ function WelcomPage(): JSX.Element {
       </div>
       <div className={style.containerFlexRow}>
         <Slider posts={slice} />
-        {/* <PostList posts={slice} /> */}
         <LeftColumn />
       </div>
       <div className={style.footer}>
@@ -222,7 +253,6 @@ function WelcomPage(): JSX.Element {
           </a>
         </div>
       </div>
-      {/* <Slider/> */}
     </main>
   );
 }

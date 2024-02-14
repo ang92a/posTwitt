@@ -21,7 +21,9 @@ const NavBar = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const { colorTheme, toggleColorTheme } = useColorTheme();
-  const onChangeTheme = () => {
+  console.log(colorTheme);
+
+  const onChangeTheme = (): void => {
     toggleColorTheme();
   };
 

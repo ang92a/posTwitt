@@ -1,40 +1,24 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import { RootState, useAppDispatch } from '../../../redux/store';
+import { type RootState } from '../../../redux/store';
 import PostItem from '../../UI/PostItem/PostItem';
 import style from './Style/profilePage.module.css';
 import { ModalProfile } from './ModalProfile';
-import { loadProfiles } from './profileSlice';
-import { loadPosts } from '../WelcomPage/postsSlice';
 
 function ProfilePage(): JSX.Element {
-  const dispatch = useAppDispatch();
   const profiles = useSelector((store: RootState) => store.profiles.profiles);
-  // console.log(profiles);
   const [isEditing, setIsEditing] = useState(false);
-
   const handleEditing = (value: boolean): void => {
     setIsEditing(value);
   };
 
-  useEffect(() => {
-    console.log('edit');
-
-    // dispatch(loadPosts()).catch(console.log);
-    // dispatch(loadProfiles()).catch(console.log);
-  }, [isEditing]);
-
   const { profileId } = useParams();
   const currentProfile = profileId && profiles.find((profile) => profile.id === +profileId);
-
   const user = useSelector((store: RootState) => store.auth.auth);
-
   const navigate = useNavigate();
-
   const allPosts = useSelector((store: RootState) => store.posts.posts);
   const userPosts = allPosts.filter((post) => profileId && post.userId === +profileId);
 
@@ -113,7 +97,10 @@ function ProfilePage(): JSX.Element {
           </div>
         </div>
       )}
-      {isEditing && <ModalProfile handleEditing={handleEditing} currentProfile={currentProfile} />}
+
+      {currentProfile && isEditing && (
+        <ModalProfile handleEditing={handleEditing} currentProfile={currentProfile} />
+      )}
     </div>
   );
 }

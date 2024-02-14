@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -13,6 +14,8 @@ import ReceiverMes from './ReceiverMes';
 import { useAppDispatch, type RootState } from '../../redux/store';
 import './style/panel.css';
 import { addMessage, loadChats } from './chatSlice';
+import type { User } from '../Page/SignPage/types';
+import type { Message } from './types';
 
 function ChatPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -28,7 +31,8 @@ function ChatPage(): JSX.Element {
 
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([{ message, user, receiverId }]);
+
+  console.log(isConnected);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -50,10 +54,7 @@ function ChatPage(): JSX.Element {
         socket.emit('reg', user?.id);
         setIsConnected(true);
       });
-
-      socket.on('chat message', (msg) => {
-        console.log(msg);
-
+      socket.on('chat message', (msg: { user: User; newMessage: Message }) => {
         dispatch(addMessage(msg.newMessage));
         // setMessages((prev) => (prev.length === 1 && prev[0].message === '' ? [msg] : [...prev, msg]));
       });
@@ -79,19 +80,21 @@ function ChatPage(): JSX.Element {
           {chats.map((dialog) => {
             const man = dialog.User1 || dialog.User2;
             return (
-              <div
-                key={dialog.id}
-                onClick={() => {
-                  setActiveId(man.id);
-                  console.log(man);
+              man && (
+                <div
+                  key={dialog.id}
+                  onClick={() => {
+                    setActiveId(man.id);
+                    console.log(man);
 
-                  setReceiver(man);
-                  console.log(receiver);
-                }}
-                className={`chat-navigation-item ${man?.id === activeId ? 'active' : ''}`}
-              >
-                <NavLink to={`/chat/${man?.id}`}>{man.name}</NavLink>
-              </div>
+                    setReceiver(man);
+                    console.log(receiver);
+                  }}
+                  className={`chat-navigation-item ${man?.id === activeId ? 'active' : ''}`}
+                >
+                  <NavLink to={`/chat/${man?.id}`}>{man.name}</NavLink>
+                </div>
+              )
             );
           })}
         </ul>
