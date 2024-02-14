@@ -12,7 +12,7 @@ import SenderMes from './SenderMes';
 import ReceiverMes from './ReceiverMes';
 import { useAppDispatch, type RootState } from '../../redux/store';
 import './style/panel.css';
-import { addMessage, loadChats } from './chatSlice';
+import { addDialog, addMessage, loadChats } from './chatSlice';
 
 function ChatPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -40,10 +40,9 @@ function ChatPage(): JSX.Element {
     if (containerRef.current && containerRef.current.scrollHeight) {
       containerRef?.current?.scrollTo(0, containerRef.current?.scrollHeight);
     }
-  }, [chats]);
+  }, [chats, receiver]);
 
   useEffect(() => {
-    console.log(user);
     if (user) {
       socket.connect();
       socket.on('connect', () => {
@@ -51,8 +50,13 @@ function ChatPage(): JSX.Element {
         setIsConnected(true);
       });
 
+      socket.on('add dialog', (dialog) => {
+        console.log(dialog);
+        dispatch(addDialog(dialog));
+      });
+
       socket.on('chat message', (msg) => {
-        console.log(msg);
+        console.log(msg.newMessage);
 
         dispatch(addMessage(msg.newMessage));
         // setMessages((prev) => (prev.length === 1 && prev[0].message === '' ? [msg] : [...prev, msg]));
@@ -77,20 +81,23 @@ function ChatPage(): JSX.Element {
       <nav className="chat-navigation">
         <ul className="chat-navigation-list">
           {chats.map((dialog) => {
-            const man = dialog.User1 || dialog.User2;
+            let man = dialog.User1 || dialog.User2;
+            if (!man) {
+              if (dialog.userId1 === user?.id) man = users.find((el) => el.id === dialog.userId2);
+              if (dialog.userId2 === user?.id) man = users.find((el) => el.id === dialog.userId1);
+            }
             return (
               <div
                 key={dialog.id}
                 onClick={() => {
-                  setActiveId(man.id);
-                  console.log(man);
-
-                  setReceiver(man);
-                  console.log(receiver);
+                  if (man) {
+                    setActiveId(man.id);
+                    setReceiver(man);
+                  }
                 }}
                 className={`chat-navigation-item ${man?.id === activeId ? 'active' : ''}`}
               >
-                <NavLink to={`/chat/${man?.id}`}>{man.name}</NavLink>
+                {man && <NavLink to={`/chat/${man?.id}`}>{man?.name}</NavLink>}
               </div>
             );
           })}
@@ -98,7 +105,6 @@ function ChatPage(): JSX.Element {
       </nav>
       <div className="topPanel">
         {receiver?.img && <img className="receiverAva" src={receiver?.img} alt="" />}
-
         {receiver?.name}
       </div>
       <section ref={containerRef} role="log" className="slds-chat">
@@ -107,7 +113,7 @@ function ChatPage(): JSX.Element {
             chats.map(
               (dialog) =>
                 (dialog.userId1 === activeId || dialog.userId2 === activeId) &&
-                dialog.Messages.map((mes) =>
+                dialog.Messages?.map((mes) =>
                   mes.content !== '' && mes.senderId === user?.id ? (
                     <SenderMes user={user} message={mes} />
                   ) : (
@@ -117,26 +123,28 @@ function ChatPage(): JSX.Element {
             )}
         </ul>
       </section>
-      <div className="input-container">
-        <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          type="text"
-          placeholder="Type a message..."
-        />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            if (receiver === undefined) return;
+      {receiver && (
+        <div className="input-container">
+          <input
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            type="text"
+            placeholder="Type a message..."
+          />
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              if (receiver === undefined) return;
 
-            socket.emit('chat message', message, user, activeId);
-            setMessage('');
-          }}
-          type="submit"
-        >
-          <img src={send} alt="send" />
-        </button>
-      </div>
+              socket.emit('chat message', message, user, activeId);
+              setMessage('');
+            }}
+            type="submit"
+          >
+            <img src={send} alt="send" />
+          </button>
+        </div>
+      )}
     </>
   );
 }

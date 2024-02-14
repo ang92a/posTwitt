@@ -24,7 +24,5 @@ export type ChatState = {
 };
 
 export type Action = {
-  payload: {
-    message: Message
-  }
+  payload:  Message
 }
