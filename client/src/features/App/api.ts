@@ -13,6 +13,8 @@ export const fetchCheckUser = async (): Promise<User> => {
 
 // ЮЗЕРЫ
 // получение всех ЮЗЕРОВ
+console.log('123');
+
 export const fetchLoadProfiles = async (): Promise<User[]> => {
   const res = await fetch('/api/profiles/');
   const data: { profiles: User[] } = (await res.json()) as {
