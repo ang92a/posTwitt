@@ -1,6 +1,8 @@
 import React from 'react';
+import type { User } from '../Page/SignPage/types';
+import type { Message } from './types';
 
-function ReceiverMes({ receiver, message }): JSX.Element {
+function ReceiverMes({ receiver, message }: { receiver: User; message: Message }): JSX.Element {
   return (
     <li className="slds-chat-listitem slds-chat-listitem_inbound">
       <div className="slds-chat-message">
@@ -17,7 +19,7 @@ function ReceiverMes({ receiver, message }): JSX.Element {
             <span>{message && message.content}</span>
           </div>
           <div className="slds-chat-message__meta" aria-label="said Andy Martinez at 5:29 PM">
-            {receiver?.name} •{' '}
+            {receiver?.name}•
             {`${message.createdAt.slice(0, 10)} ${message.createdAt.slice(11, 19)}`}
           </div>
         </div>

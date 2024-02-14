@@ -22,7 +22,10 @@ const NavBar = (): JSX.Element => {
 
   const { colorTheme, toggleColorTheme } = useColorTheme();
 
-  const onChangeTheme = () => {
+  
+
+  const onChangeTheme = (): void => {
+
     toggleColorTheme();
   };
 

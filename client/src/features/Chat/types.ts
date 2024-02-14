@@ -6,6 +6,7 @@ export type Message = {
   receiverId: number;
   dialogId: number;
   content: string;
+  createdAt: string;
 };
 
 export type Dialog = {
@@ -24,7 +25,5 @@ export type ChatState = {
 };
 
 export type Action = {
-  payload: {
-    message: Message
-  }
-}
+  payload: Message;
+};
