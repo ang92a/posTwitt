@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { PostAdd, PostId, PostSort, PostsState} from './types';
+import type { PostAdd, PostId, PostSort, PostsState } from './types';
 import {
   fetchAddComment,
   fetchAddFavoritesPost,
@@ -12,7 +12,7 @@ import {
   fetchLoadSortPosts,
   fetchPostRemove,
 } from '../../App/api';
-import type { UserId } from '../SignPage/types';
+import type { User, UserId } from '../SignPage/types';
 import type { CommentAdd, CommentId } from '../../UI/PostItem/types';
 
 const initialState: PostsState = {
@@ -79,6 +79,11 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = undefined;
+    },
+    profileEdit: (state, action: { type: string; payload: User }) => {
+      state.posts = state.posts.map((post) =>
+        post.userId === action.payload.id ? { ...post, User: action.payload } : post,
+      );
     },
   },
   extraReducers: (builder) => {
@@ -183,4 +188,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { profileEdit } = authSlice.actions;
 export default authSlice.reducer;

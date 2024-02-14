@@ -37,15 +37,17 @@ export const fetchLoadSortPosts = async (text: PostSort): Promise<Post[]> => {
   return data.posts;
 };
 
+
 // изменение данных Юзера
-export const fetchEditProfile = async (): Promise<User> => {
-  const res = await fetch('/api/profiles', {
-    method: 'PUT',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({}),
+export const fetchEditProfile = async (formData: FormData): Promise<User> => {
+  const res = await fetch(`/api/profiles/`, {
+    method: 'POST',
+    body: formData,
   });
+  const data: { profile: User } = (await res.json()) as { profile: User };
+  console.log(data.profile);
+
+  return data.profile;
 };
 
 // ПОСТЫ
