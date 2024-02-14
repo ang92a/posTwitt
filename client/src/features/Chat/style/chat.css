@@ -96,9 +96,10 @@
 .input-container {
   display: flex;
   align-items: center;
-  margin-left: auto;
+  margin-left: 70vh;
   margin-right: auto;
-  margin-top: 2vh;
+  position: fixed;
+  margin-bottom: 2vh;
   bottom: 0;
   width: 60vh;
 }

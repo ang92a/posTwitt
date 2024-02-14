@@ -19,7 +19,7 @@ function ReceiverMes({ receiver, message }: { receiver: User; message: Message }
             <span>{message && message.content}</span>
           </div>
           <div className="slds-chat-message__meta" aria-label="said Andy Martinez at 5:29 PM">
-            {receiver?.name} •{' '}
+            {receiver?.name}•
             {`${message.createdAt.slice(0, 10)} ${message.createdAt.slice(11, 19)}`}
           </div>
         </div>
