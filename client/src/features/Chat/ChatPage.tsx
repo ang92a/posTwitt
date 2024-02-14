@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './style/chat.css';
 
 import { NavLink, useParams } from 'react-router-dom';
@@ -30,10 +30,17 @@ function ChatPage(): JSX.Element {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([{ message, user, receiverId }]);
 
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     dispatch(loadChats()).catch(console.log);
   }, []);
+
+  useEffect(() => {
+    if (containerRef.current && containerRef.current.scrollHeight) {
+      containerRef?.current?.scrollTo(0, containerRef.current?.scrollHeight);
+    }
+  }, [chats]);
 
   useEffect(() => {
     console.log(user);
@@ -89,7 +96,11 @@ function ChatPage(): JSX.Element {
           })}
         </ul>
       </nav>
-      <section role="log" className="slds-chat">
+      <div className="topPanel">
+        <img className="receiverAva" src={receiver?.img} alt="" />
+        {receiver?.name}
+      </div>
+      <section ref={containerRef} role="log" className="slds-chat">
         <ul className="slds-chat-list">
           {receiver &&
             chats.map(
