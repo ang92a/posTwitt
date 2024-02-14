@@ -17,8 +17,17 @@ const chatSlice = createSlice({
     addMessage: (state, action: Action): void => {
       const dialog = state.dialogs.find((dial) => dial.id === action.payload.dialogId);
       if (dialog) {
+        if (!dialog.Messages) {
+          dialog.Messages = [];
+        }
         dialog.Messages.push(action.payload);
       }
+    },
+    addDialog: (state, action) => {
+      console.log(state.dialogs, 'sssssssllllllll');
+      console.log(action.payload, 'ssssssssllllllllllll');
+
+      state.dialogs.push(action.payload)
     },
   },
   extraReducers: (builder) => {
@@ -32,5 +41,5 @@ const chatSlice = createSlice({
   },
 });
 
-export const { addMessage } = chatSlice.actions;
+export const { addMessage, addDialog } = chatSlice.actions;
 export default chatSlice.reducer;

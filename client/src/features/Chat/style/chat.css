@@ -96,12 +96,12 @@
 .input-container {
   display: flex;
   align-items: center;
-  margin-left: 500px;
-  /* margin-right: 250px; */
+  margin-left: 70vh;
+  margin-right: auto;
   position: fixed;
-  margin-bottom: 50px;
+  margin-bottom: 2vh;
   bottom: 0;
-  width: 500px;
+  width: 60vh;
 }
 
 
@@ -164,12 +164,11 @@
   width: 600px;
   color: #666;
   border-radius: 10px;
-
   padding: 10px;
-
 }
 
 .receiverAva {
+  margin-right: 15px;
   border-radius: 50%;
   width: 25px;
   height: 25px;
