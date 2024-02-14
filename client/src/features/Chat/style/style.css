@@ -1,3 +1,7 @@
+* {
+  color: var(--color-font);
+}
+
 .slds-chat {
   max-width: 600px;
   margin: 0 auto;

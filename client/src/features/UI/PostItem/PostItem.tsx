@@ -26,6 +26,7 @@ import crest from './img/крестик.png';
 import emptyLike from './img/empty.svg';
 import like from './img/full.svg';
 import style from './postitem.module.css';
+import { NavLink } from 'react-router-dom';
 
 function PostItem({ post }: { post: Post }): JSX.Element {
   console.log(post.img, 2222222222222222222222);
@@ -67,16 +68,19 @@ function PostItem({ post }: { post: Post }): JSX.Element {
       <div className={style.containerPost}>
         <div className={style.containerPostOne}>
           <div className={style.containerPostPhoto}>
-            <img className={style.Img} src={post.User.img} alt="img" />
+            <NavLink to={`/profiles/${post.User.id}`}>
+              <img className={style.Img} src={post.User.img} />
+            </NavLink>
           </div>
           <div className={style.containerPostContent}>
             <div style={{ display: 'flex' }}>
-              <p className={style.user_name}>{post.User.name}</p>
-              <p className={style.user_email}>{post.User.email}</p>
+              <NavLink to={`/profiles/${post.User?.id}`} className={style.aInPost}>
+                <p className={style.user_name}>{post.User.name}</p>
+              </NavLink>
             </div>
             <p className={style.time}>{formatDateTime(post.createdAt)}</p>
             <p className={style.content}>{post.content}</p>
-            <img src={post.img} alt="" />
+            <img src={post.img} />
             <div className={style.function}>
               {user ? (
                 <div className={style.one}>

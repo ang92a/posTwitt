@@ -41,10 +41,10 @@ const AddForm = (): JSX.Element => {
           className={style.textarea}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="тема твитта, которая потом попадет в рейтинг... "
+          placeholder="Тема твитта, она попадет в рейтинги!"
         />
         <textarea
-          className={style.textarea}
+          className={style.textarea_text}
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder={`Что нового, ${user?.name}?`}

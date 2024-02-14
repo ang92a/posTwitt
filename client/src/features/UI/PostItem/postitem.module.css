@@ -165,3 +165,11 @@
 .nowork {
   color: rgb(224, 221, 221);
 }
+
+.aInPost{
+  text-decoration: none;
+}
+
+.aInPost:hover{
+  text-decoration: underline;
+}

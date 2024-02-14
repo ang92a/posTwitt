@@ -70,7 +70,7 @@ function ProfilePage(): JSX.Element {
                     <h3 className={style.user_followers_count}>123</h3>
                     <p>Подписчиков</p>
                   </div>
-                  {user?.id !== currentProfile.id && (
+                  {user && user?.id !== currentProfile.id && (
                     <div className={style.contact_with_user}>
                       <div>
                         <button
@@ -80,9 +80,9 @@ function ProfilePage(): JSX.Element {
                           Чат
                         </button>
                       </div>
-                      <div>
+                      {/* <div>
                         <button type="button">Подписаться</button>
-                      </div>
+                      </div> */}
                     </div>
                   )}
                 </div>
