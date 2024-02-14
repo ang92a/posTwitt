@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 
-
-import type { Post, PostAdd, PostId, PostSort, formData } from '../Page/WelcomPage/types';
-
+import type { Post, PostAdd, PostId } from '../Page/WelcomPage/types';
 import type { User, UserSignIn, UserSignUp, UserId } from '../Page/SignPage/types';
 import type { CommentAdd, CommentId } from '../UI/PostItem/types';
-import type { Dialog } from '../Chat/types';
 
 // проверка юзера в системе
 export const fetchCheckUser = async (): Promise<User> => {
@@ -23,48 +20,36 @@ export const fetchLoadProfiles = async (): Promise<User[]> => {
   };
   return data.profiles;
 };
-export const fetchLoadSortPosts = async (text: PostSort): Promise<Post[]> => {
-  const res = await fetch('/api/posts/sort', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({ text }),
-  });
-  const data: { posts: Post[] } = (await res.json()) as {
-    posts: Post[];
-  };
-  return data.posts;
-};
 
 // изменение данных Юзера
-export const fetchEditProfile = async (): Promise<User> => {
-  const res = await fetch('/api/profiles', {
-    method: 'PUT',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({}),
+export const fetchEditProfile = async (formData: FormData): Promise<User> => {
+  const res = await fetch(`/api/profiles/`, {
+    method: 'POST',
+    body: formData,
   });
+  const data: { profile: User } = (await res.json()) as { profile: User };
+  console.log(data.profile);
+
+  return data.profile;
 };
 
 // ПОСТЫ
 // получение всех ПОСТОВ
+
 export const fetchLoadPosts = async (): Promise<Post[]> => {
   const res = await fetch('/api/posts');
   const data: { posts: Post[] } = (await res.json()) as { posts: Post[] };
   return data.posts;
 };
 
-// Сортировка постов по поиску
-
 // добавление ПОСТОВ
-export const fetchAddPosts = async (formData: FormData): Promise<Post> => {
-  console.log(formData);
-
+export const fetchAddPosts = async (post: PostAdd): Promise<Post> => {
   const res = await fetch('/api/posts', {
     method: 'POST',
-    body: formData,
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(post),
   });
   const data: { post: Post } = (await res.json()) as { post: Post };
   return data.post;
@@ -72,8 +57,6 @@ export const fetchAddPosts = async (formData: FormData): Promise<Post> => {
 
 // удаление ПОСТОВ
 export const fetchPostRemove = async (id: PostId): Promise<PostId> => {
-  console.log(id);
-
   const res = await fetch(`/api/posts/${id}`, {
     method: 'DELETE',
   });
@@ -123,18 +106,16 @@ export const fetchDelComment = async (commentDel: {
 export const fetchAddLikePost = async ({
   postId,
   userId,
-  like,
 }: {
   postId: PostId;
   userId: UserId;
-  like: number;
 }): Promise<Post> => {
   const res = await fetch('/api/posts/like', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({ postId, userId, like }),
+    body: JSON.stringify({ postId, userId }),
   });
   const data: { post: Post } = (await res.json()) as { post: Post };
   return data.post;
@@ -152,60 +133,10 @@ export const fetchDelLikePost = async (
     message: string;
     postId: PostId;
   };
-  console.log(data, 'data LIKELIKE');
-
   if (data.message !== 'success') {
     throw new Error(data.message);
   }
   return { postId: data.postId, userId };
-};
-// Избранное
-
-// добавление Избранное ПОСТОВ
-
-export const fetchAddFavoritesPost = async ({
-  postId,
-  userId,
-}: {
-  postId: PostId;
-  userId: UserId;
-}): Promise<Post> => {
-  const res = await fetch('/api/posts/favorites', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({ postId, userId }),
-  });
-  const data: { post: Post } = (await res.json()) as { post: Post };
-  return data.post;
-};
-// Удаление из избранного
-export const fetchDisFavoritesPost = async (
-  postId: PostId,
-  userId: UserId,
-): Promise<{ postId: PostId; userId: UserId }> => {
-  console.log(55156132135413);
-
-  const res = await fetch(`/api/posts/disfavorites/${postId}`, {
-    method: 'DELETE',
-  });
-  const data: { message: string; postId: PostId } = (await res.json()) as {
-    message: string;
-    postId: PostId;
-  };
-  console.log(data, 'datadata');
-  if (data.message !== 'success') {
-    throw new Error(data.message);
-  }
-  return { postId: data.postId, userId };
-};
-
-// РЕЙТИНГ
-export const fetchLoadReating = async (): Promise<Reating[]> => {
-  const res = await fetch('/api/reating');
-  const data: { posts: Reating[] } = (await res.json()) as { posts: Reating[] };
-  return data.posts;
 };
 
 // РЕГИСТРАЦИЯ
@@ -271,4 +202,3 @@ export const fetchLoadChats = async (): Promise<Dialog[]> => {
 };
 
 // };
-console.log(111);
