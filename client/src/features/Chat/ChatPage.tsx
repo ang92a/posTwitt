@@ -13,6 +13,8 @@ import ReceiverMes from './ReceiverMes';
 import { useAppDispatch, type RootState } from '../../redux/store';
 import './style/panel.css';
 import { addDialog, addMessage, loadChats } from './chatSlice';
+import {type User } from '../Page/SignPage/types';
+import {type Message } from './types';
 
 function ChatPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,12 +25,9 @@ function ChatPage(): JSX.Element {
   );
   const { receiverId } = useParams();
   const [activeId, setActiveId] = useState<number | null>(receiverId ? +receiverId : null);
-
   const [receiver, setReceiver] = useState(user);
-
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([{ message, user, receiverId }]);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -51,15 +50,12 @@ function ChatPage(): JSX.Element {
       });
 
       socket.on('add dialog', (dialog) => {
-        console.log(dialog);
         dispatch(addDialog(dialog));
       });
 
-      socket.on('chat message', (msg) => {
+      socket.on('chat message', (msg: {user: User, newMessage: Message}) => {
         console.log(msg.newMessage);
-
         dispatch(addMessage(msg.newMessage));
-        // setMessages((prev) => (prev.length === 1 && prev[0].message === '' ? [msg] : [...prev, msg]));
       });
 
       socket.on('disconnect', () => setIsConnected(false));
@@ -135,7 +131,6 @@ function ChatPage(): JSX.Element {
             onClick={(e) => {
               e.preventDefault();
               if (receiver === undefined) return;
-
               socket.emit('chat message', message, user, activeId);
               setMessage('');
             }}
