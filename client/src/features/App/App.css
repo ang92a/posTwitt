@@ -20,6 +20,6 @@ body {
 }
 
 html[data-theme='Тёмная тема'] {
-  --color-background: black;
+  --color-background: #34363d;
   --color-font: white;
 }
