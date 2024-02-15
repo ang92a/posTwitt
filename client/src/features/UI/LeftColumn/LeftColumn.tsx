@@ -11,7 +11,7 @@ function LeftColumn(): JSX.Element {
       <p className={style.title}>Актуальные темы</p>
       {reating.map((el) => (
         <a key={el.id} href={`/profiles/${el.userId}`} className={style.topicLink}>
-          #{el.content}
+          #{el.title}
         </a>
       ))}
     </div>

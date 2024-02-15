@@ -55,7 +55,6 @@ export function ModalProfile({
       .then((data: any) => dispatch(profileEdit(data.payload)))
       .catch(console.log);
     handleEditing(false);
-
   };
 
   const maskOptions = {
@@ -90,7 +89,7 @@ export function ModalProfile({
                 defaultValue={img ? '' : undefined}
                 style={{ marginLeft: '20px' }}
                 id="avatar"
-                type="file"
+                type="file" 
                 placeholder="Ваше фото"
                 onChange={(e) => setImg(e.target.files)}
               />
@@ -116,13 +115,14 @@ export function ModalProfile({
             onChange={(e) => {
               setBirthDate(e.target.value), IMask(e.target, maskOptions.bDMask);
             }}
-
             placeholder="Новая дата рождения"
           />
-          <button type="button" onClick={() => handleEditing(false)}>
+          <button type="button" className={style.btn} onClick={() => handleEditing(false)}>
             Закрыть
           </button>
-          <button type="submit">Сохранить изменения</button>
+          <button type="submit" className={style.btn}>
+            Сохранить изменения
+          </button>
         </form>
       </div>
     </div>
