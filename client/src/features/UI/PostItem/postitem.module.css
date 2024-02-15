@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
-  background: #fdf9f9;
+  background: var(--bg-item);
   border-radius: 8px;
 }
 

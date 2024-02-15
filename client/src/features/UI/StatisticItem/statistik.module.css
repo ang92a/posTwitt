@@ -5,7 +5,6 @@
   width: 1024px;
   background-color: var(--primary-color);
   margin: 0 auto;
-  color: white;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   padding-bottom: 30px;
@@ -15,6 +14,7 @@
 .two,
 .fre {
   text-align: center;
+
 }
 
 .one,
@@ -24,6 +24,14 @@
   padding: 20px;
 }
 
+.one,
+.two,
+.fre>p {
+  color: var(--color-font)
+}
+
+
 .count {
   font-size: 45px;
+  color: var(--color-font)
 }

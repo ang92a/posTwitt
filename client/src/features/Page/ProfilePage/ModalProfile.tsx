@@ -3,12 +3,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../../redux/store';
+import { RootState, useAppDispatch } from '../../../redux/store';
 import { editProfile } from './profileSlice';
 import style from './Style/profilePage.module.css';
 import type { User } from '../SignPage/types';
 import { profileEdit } from '../WelcomPage/postsSlice';
 import IMask from 'imask';
+import { useSelector } from 'react-redux';
 
 export function ModalProfile({
   handleEditing,
