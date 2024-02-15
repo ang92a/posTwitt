@@ -231,7 +231,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                 <div className={style.containerPostPhotoForm}>
                   <img className={style.ImgForm} src={user!.img} alt="фотоUSer" />
                 </div>
-                <div>
+                <div className={style.contInpCom}>
                   <input
                     className={style.Input}
                     onChange={(e) => setText(e.target.value)}

@@ -1,7 +1,9 @@
 .slds-chat {
-  max-width: 600px;
+  /* max-width: 600px; */
+
+  width: 900px;
   min-height: 70vh;
-  max-height: 70vh;
+  max-height: 85vh;
   /* Максимальная ширина чата */
   margin: 0 auto;
   /* Центрирование чата на странице */
@@ -15,6 +17,59 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  background-color: var(--color-chat-all);
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  color: var(--color-text);
+  margin-left: 10px;
+}
+.btn {
+  background-color: var(--primary-color);
+  color: var(--color-text);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  color: var(--color-btn-all);
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn:hover {
+  background-color: var(--dark-hover);
+}
+.input::file-selector-button {
+  background-color: var(--primary-color);
+
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  height: 50px;
+  color: var(--color-btn-all);
+}
+
+.input::file-selector-button:hover {
+  background-color: var(--dark-hover);
+}
+
+.containber-all {
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-bg-body);
+  height: 100vh;
+}
+.container-nav-left {
+}
+.container-chat {
 }
 
 .slds-chat-list {
@@ -23,7 +78,6 @@
   padding: 0;
   overflow-y: auto;
   /* Разрешаем прокрутку для содержимого */
-
 }
 
 .slds-chat-listitem {
@@ -51,7 +105,7 @@
 }
 
 .slds-chat-message-outbound {
-  align-items: flex-end
+  align-items: flex-end;
 }
 
 .slds-avatar {
@@ -59,6 +113,7 @@
   height: 40px;
   margin-right: 10px;
   border-radius: 50%;
+  color: var(--color-avatar-chat);
   /* Закругленные углы для аватаров */
 }
 
@@ -90,7 +145,6 @@
   /* margin-right: 20vh; */
   width: fit-content;
   min-width: 100px;
-
 }
 
 .slds-chat-message__text_outbound {
@@ -128,25 +182,11 @@
   /* Закругленные углы для окна сообщения агента */
 }
 
-.input-container {
-  display: flex;
-  align-items: center;
-  margin-left: 70vh;
-  margin-right: auto;
-  position: fixed;
-  margin-bottom: 2vh;
-  bottom: 0;
-  width: 60vh;
-}
-
-
-
 ::-webkit-scrollbar {
   width: 12px;
   /* Ширина полосы прокрутки */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   /* Тень для полосы прокрутки */
-
 }
 
 ::-webkit-scrollbar-thumb {
@@ -161,10 +201,7 @@
   /* Прозрачный фон заглушки */
 }
 
-
-
-
-.input-container input[type="text"] {
+.input-container input[type='text'] {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
@@ -172,7 +209,7 @@
   font-size: 16px;
 }
 
-.input-container button[type="submit"] {
+.input-container button[type='submit'] {
   background-color: transparent;
   border: none;
   padding: 0;
@@ -180,11 +217,11 @@
   /* Пространство между инпутом и кнопкой */
 }
 
-.input-container button[type="submit"]:hover {
+.input-container button[type='submit']:hover {
   cursor: pointer;
 }
 
-.input-container button[type="submit"] img {
+.input-container button[type='submit'] img {
   width: 24px;
   /* Установите ширину и высоту изображения по вашему усмотрению */
   height: 24px;

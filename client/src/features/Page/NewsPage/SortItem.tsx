@@ -23,7 +23,7 @@ export const SortItem = (): JSX.Element => {
           className={style.textarea}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Поиск постов "
+          placeholder="Поиск"
         />
       </div>
     </form>

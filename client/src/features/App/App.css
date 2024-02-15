@@ -11,20 +11,45 @@ body {
   background: var(--color-background);
 }
 
-
 /* #007bff-красивый цвет */
 /* #0e1b40 - темно синий hover */
 
 :root {
   --primary-color: #6c72ff;
   --dark-hover: #0e1b40;
-  --color-background: rgb(230, 230, 230);
-  --color-font: black;
-  --bg-item: #fdf9f9;
-  overflow-x: hidden;
+
+
+  --color-bg-body: #edeef0;
+  --color-bg-navbar: #ffffff;
+  --color-bg-post: #ffffff;
+  --color-text: #000000;
+  --color-btn-all: #ffffff;
+  --color-chat-all: #ffffff;
+  --color-avatar-chat: #ffffff;
+
+  /* --color-font: black;
+  --bg-item: #ffffff; */
+
 }
 
 html[data-theme='Тёмная тема'] {
-  --color-background: #34363d;
-  --color-font: white;
+  --color-bg-body: #141414;
+  --color-bg-navbar: #222222;
+  --color-bg-post: #222222;
+  --color-text: #ffffff;
+  --color-btn-all: #ffffff;
+  --color-chat-all: #222222;
+  --color-avatar-chat: #ffffff;
+
+  /* --color-font: white;
+  --bg-item: #4d4a4a; */
+  /* --color-background: #222222;
+  --color-backround: #141414;
+ 
+ 
+  background-color: var(--vkui--color_header_background);
+
+  --color-bg-body: #141414;
+  --color-bg-navbar: #222222;
+  --color-bg-post: #222222; */
 }
