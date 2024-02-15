@@ -22,7 +22,7 @@ const NavBar = (): JSX.Element => {
 
   const { colorTheme, toggleColorTheme } = useColorTheme();
 
-  const onChangeTheme = () => {
+  const onChangeTheme = (): void => {
     toggleColorTheme();
   };
 
@@ -58,37 +58,39 @@ const NavBar = (): JSX.Element => {
                       Чат
                     </NavLink>
                   </li>
-                  <li
-                    onClick={() => {
-                      dispatch(logout()).catch(console.log);
-                      navigate('/');
-                    }}
-                    className={style.item}
-                  >
-                    <NavLink className={style.link} to="/logout">
-                      Выход
-                    </NavLink>
-                  </li>
-                  <li className={style.item}>
-                    <input
-                      type="checkbox"
-                      name="theme_switch"
-                      className="theme_switch__input"
-                      id="themeSwitch"
-                      onChange={onChangeTheme}
-                    />
-                    <label htmlFor="themeSwitch" className="theme_switch__label">
-                      <span></span>
-                    </label>
-                  </li>
                 </div>
+                
+                <li className={style.itemTheme}>
+                  <input
+                    type="checkbox"
+                    name="theme_switch"
+                    className="theme_switch__input"
+                    id="themeSwitch"
+                    onChange={onChangeTheme}
+                  />
+                  <label htmlFor="themeSwitch" className="theme_switch__label">
+                    <span></span>
+                  </label>
+                </li>
+
+                <li
+                  onClick={() => {
+                    dispatch(logout()).catch(console.log);
+                    navigate('/');
+                  }}
+                  className={style.item}
+                >
+                  <NavLink className={style.link} to="/logout">
+                    Выход
+                  </NavLink>
+                </li>
               </>
             ) : (
               <>
                 <div className={style.leftBox}>
                   <li className={style.item}>
                     <NavLink
-                      className={`${style.link} ${style.nowork} ${window.location.pathname === '/sign-in' ? style.active : ''}`}
+                      className={`${style.btn} ${window.location.pathname === '/sign-in' ? style.active : ''}`}
                       to="/sign-in"
                     >
                       Вход
@@ -96,7 +98,7 @@ const NavBar = (): JSX.Element => {
                   </li>
                   <li className={style.item}>
                     <NavLink
-                      className={`${style.link} ${style.nowork} ${window.location.pathname === '/sign-up' ? style.active : ''}`}
+                      className={`${style.btn}${window.location.pathname === '/sign-up' ? style.active : ''}`}
                       to="/sign-up"
                     >
                       Регистрация

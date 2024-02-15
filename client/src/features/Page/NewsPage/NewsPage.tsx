@@ -6,9 +6,11 @@ import LeftColumn from '../../UI/LeftColumn/LeftColumn';
 import style from './style/news.module.css';
 import { SortItem } from './SortItem';
 import { type RootState } from '../../../redux/store';
+import ProfileItem from '../../UI/ProfileItem/ProfileItem';
 
 function NewsPage(): JSX.Element {
   const posts = useSelector((store: RootState) => store.posts.posts);
+  const user = useSelector((store: RootState) => store.auth.auth);
 
   return (
     <main className={style.main}>
@@ -16,12 +18,15 @@ function NewsPage(): JSX.Element {
         <div className={style.containerFlexRow}>
           <div className={style.leftbox}>
             <SortItem />
-            <AddForm />
+            {user && <AddForm />}
             <div className={style.centerFlex}>
               <PostList posts={posts} />
             </div>
           </div>
-          <LeftColumn />
+          <div>
+            {user && <ProfileItem />}
+            <LeftColumn />
+          </div>
         </div>
       </div>
     </main>

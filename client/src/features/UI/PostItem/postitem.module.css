@@ -12,6 +12,8 @@
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
+  background: var(--bg-item);
+  border-radius: 8px;
 }
 
 .containerPostPhoto {
@@ -166,10 +168,10 @@
   color: rgb(224, 221, 221);
 }
 
-.aInPost{
+.aInPost {
   text-decoration: none;
 }
 
-.aInPost:hover{
+.aInPost:hover {
   text-decoration: underline;
 }

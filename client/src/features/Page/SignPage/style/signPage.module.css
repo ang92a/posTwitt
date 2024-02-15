@@ -100,13 +100,12 @@ input[type="password"]:focus {
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 2px 6px -1px rgba(108, 114, 255, 0.5);
+    background-color: var(--dark-hover)
 }
 
 .btn:active {
     transform: scale(.99);
-    box-shadow: 0px 2px 6px -1px rgba(108, 114, 255, 0.5);
-    /* Цвет тени при активации */
+    background-color: var(--dark-hover)
 }
 
 .subText {

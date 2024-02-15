@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react';
 import { RootState, useAppDispatch } from '../../../redux/store';
 import { editProfile } from './profileSlice';
 import style from './Style/profilePage.module.css';
-import load from './assets/Rolling-1s-200px.svg';
-import { useSelector } from 'react-redux';
-import { User } from '../SignPage/types';
+import type { User } from '../SignPage/types';
 import { profileEdit } from '../WelcomPage/postsSlice';
 import IMask from 'imask';
+import { useSelector } from 'react-redux';
 
 export function ModalProfile({
   handleEditing,
@@ -15,7 +17,7 @@ export function ModalProfile({
 }: {
   handleEditing: (value: boolean) => void;
   currentProfile: User;
-}) {
+}): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState(currentProfile.name);
@@ -25,7 +27,6 @@ export function ModalProfile({
   const [contact, setContact] = useState(currentProfile.contact);
   const [birthDate, setBirthDate] = useState(currentProfile.birthDate);
   const [error, setError] = useState('');
-
   const loading = useSelector((store: RootState) => store.profiles.loading);
 
   const onHandleEditProfile = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -49,6 +50,12 @@ export function ModalProfile({
         .catch(console.log);
       handleEditing(false);
     }
+
+    dispatch(editProfile(formData))
+      .then((data: any) => dispatch(profileEdit(data.payload)))
+      .catch(console.log);
+    handleEditing(false);
+
   };
 
   const maskOptions = {
@@ -79,7 +86,8 @@ export function ModalProfile({
             <label htmlFor="avatar">
               Ваше фото
               <input
-                defaultValue={img}
+                // defaultValue={img || ''}
+                defaultValue={img ? '' : undefined}
                 style={{ marginLeft: '20px' }}
                 id="avatar"
                 type="file"
@@ -105,10 +113,10 @@ export function ModalProfile({
           <input
             defaultValue={currentProfile.birthDate}
             type="text"
-            maxLength={19}
             onChange={(e) => {
               setBirthDate(e.target.value), IMask(e.target, maskOptions.bDMask);
             }}
+
             placeholder="Новая дата рождения"
           />
           <button type="button" onClick={() => handleEditing(false)}>

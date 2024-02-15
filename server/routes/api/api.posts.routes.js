@@ -56,8 +56,14 @@ router.get('/', async (req, res) => {
 
 router.post('/', upload.single('image'), async (req, res) => {
   try {
+    let newFileUrl;
     const { title, content } = req.body;
-    const newFileUrl = `/image/${req.file.originalname}`;
+
+    if (!req.file) {
+      newFileUrl = '';
+    } else {
+      newFileUrl = `/image/${req.file.originalname}`;
+    }
 
     const postmin = await Post.create({
       userId: res.locals.user.id,

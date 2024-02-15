@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { PostAdd, PostId, PostSort, PostsState } from './types';
+import type { PostId, PostSort, PostsState } from './types';
 import {
   fetchAddComment,
   fetchAddFavoritesPost,
@@ -147,9 +148,6 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(AddComment.fulfilled, (state, action) => {
-        // state.posts = state.posts.map((post) =>
-        //   post.id === +action.payload.id ? action.payload : post,
-        // );
         state.posts.forEach((post, idx, arr) => {
           post.id === +action.payload.id ? (arr[idx].Comments = action.payload.Comments) : post;
         });
