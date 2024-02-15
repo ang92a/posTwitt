@@ -12,6 +12,7 @@ const initialState: ProfileState = {
 export const editProfile = createAsyncThunk('profile/edit', (formData: FormData) =>
   fetchEditProfile(formData),
 );
+
 export const loadProfiles = createAsyncThunk('profiles/load', () => fetchLoadProfiles());
 
 const profilesSlice = createSlice({
