@@ -1,148 +1,219 @@
-const router = require("express").Router();
-const bcrypt = require("bcrypt");
-const { User, Post, Comment, PostLike, Favorite } = require("../../db/models");
-const generateTokens = require("../../utils/authUtils");
-const configJWT = require("../../middleware/configJWT");
-const image = "https://cdn-icons-png.flaticon.com/512/1/1247.png";
+const router = require('express').Router();
+const { Post, User, Comment, PostLike, Favorite } = require('../../db/models');
+const { Op } = require('sequelize');
+const multer = require('multer');
 
-router.post("/sign-up", async (req, res) => {
-  let user;
-  const regular = /(\w+)@(mail|gmail|yandex|yahoo|bk)\.(com|ru|to)/g;
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/image');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
+router.post('/sort', async (req, res) => {
   try {
-    const { name, email, password, rpassword } = req.body;
-    if (password !== rpassword) {
-      res.status(400).json({ message: "Пароли не совпадают" });
-      return;
-    }
-    user = await User.findOne({ where: { email } });
-    if (user) {
-      res.status(400).json({ message: "Такой пользователь уже есть" });
-      return;
-    }
-    if (name.length < 2) {
-      res
-        .status(400)
-        .json({ message: "Поле имя не может быть меньше 2 символов" });
-      return;
-    }
-    if (!regular.test(email)) {
-      res.status(400).json({ message: "Некорректный e-mail" });
-      return;
-    }
-    if (password.length < 8) {
-      res
-        .status(400)
-        .json({ message: "Пароль не может быть меньше 8 символов" });
-      return;
-    }
-    const hash = await bcrypt.hash(password, 10);
-    user = await User.create({ name, email, password: hash, img: image });
-    user = await User.findOne({
-      where: { id: user.id },
-      include: {
-        model: Post,
-        include: [
-          { model: Comment },
-          { model: PostLike },
-          { model: Favorite },
-          { model: User },
-        ],
-      },
+    console.log(req.body);
+    const { text } = req.body;
+    const posts = await Post.findAll({
+      where: { content: { [Op.substring]: `%${text}` } },
+      order: [['id', 'DESC']],
+      include: [
+        { model: User },
+        { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
+        { model: PostLike },
+        { model: Favorite },
+      ],
     });
-
-    const { accessToken, refreshToken } = generateTokens({
-      user: { id: user.id, name: user.name },
-    });
-
-    // устанавливаем куки
-    res.cookie("access", accessToken, {
-      maxAge: 1000 * 60 * 5,
-      httpOnly: true,
-    });
-    res.cookie("refresh", refreshToken, {
-      maxAge: 1000 * 60 * 60 * 12,
-      httpOnly: true,
-    });
-
-    res.status(200).json({ message: "success", user });
+    console.log(posts);
+    res.json({ posts });
+    return;
   } catch ({ message }) {
-    res.status(500).json({ message });
+    res.json({ type: 'posts router', message });
   }
 });
 
-router.post("/sign-in", async (req, res) => {
-  let user;
+router.get('/', async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    user = await User.findOne({
-      where: { email },
-      include: {
-        model: Post,
-        include: [
-          { model: Comment },
-          { model: PostLike },
-          { model: Favorite },
-          { model: User },
-        ],
-      },
+    const posts = await Post.findAll({
+      order: [['id', 'ASC']],
+      include: [
+        { model: User },
+        { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
+        { model: PostLike },
+        { model: Favorite },
+      ],
     });
-    if (!user) {
-      res
-        .status(400)
-        .json({ message: "Такого пользователя нет или пароль неверный" });
+    res.json({ posts });
+    return;
+  } catch ({ message }) {
+    res.json({ type: 'posts router', message });
+  }
+});
+
+router.post('/', upload.single('image'), async (req, res) => {
+  try {
+    let newFileUrl;
+    const { title, content } = req.body;
+
+    if (!req.file) {
+      newFileUrl = '';
+    } else {
+      newFileUrl = `/image/${req.file.originalname}`;
+    }
+
+    const postmin = await Post.create({
+      userId: res.locals.user.id,
+      title,
+      content,
+      likes: 0,
+      img: newFileUrl,
+    });
+    const post = await Post.findOne({
+      where: { id: postmin.id },
+      include: [
+        { model: User },
+        { model: Comment, include: { model: User } },
+        { model: PostLike },
+        { model: Favorite },
+      ],
+    });
+
+    res.json({
+      post,
+    });
+  } catch ({ message }) {
+    res.json({ type: 'post router', message });
+  }
+});
+
+router.delete('/:postId', async (req, res) => {
+  try {
+    const { postId } = req.params;
+    // console.log(postId);
+    const result = await Post.destroy({ where: { id: postId } });
+    if (result > 0) {
+      res.json({ message: 'success', postId });
       return;
     }
-    const isSame = await bcrypt.compare(password, user.password);
-    if (!isSame) {
-      res
-        .status(400)
-        .json({ message: "Такого пользователя нет или пароль неверный" });
-      return;
-    }
-    const { accessToken, refreshToken } = generateTokens({
-      user: { id: user.id, name: user.name },
-    });
-
-    // устанавливаем куки
-    res.cookie("access", accessToken, {
-      maxAge: 1000 * 60 * 5,
-      httpOnly: true,
-    });
-    res.cookie("refresh", refreshToken, {
-      maxAge: 1000 * 60 * 60 * 12,
-      httpOnly: true,
-    });
-    res.json({ message: "success", user });
+    res.json({ message: 'Не твоя, вот ты и бесишься' });
   } catch ({ message }) {
     res.json({ message });
   }
 });
 
-router.get("/check", async (req, res) => {
-  if (res.locals.user) {
-    const user = await User.findOne({
-      where: { id: res.locals.user.id },
-      include: {
-        model: Post,
-        include: [
-          { model: Comment },
-          { model: PostLike },
-          { model: Favorite },
-          { model: User },
-        ],
-      },
+router.post('/like', async (req, res) => {
+  try {
+    const { userId, postId, like } = req.body;
+
+    const findpost = await PostLike.findOne({
+      where: { userId: userId, postId: postId },
     });
 
-    res.json({ user });
+    if (!findpost) {
+      await PostLike.create({
+        userId,
+        postId,
+      });
+
+      const postUpdate = await Post.findOne({ where: { id: postId } });
+      if (postUpdate) {
+        await postUpdate.update({ likes: like + 1 });
+      }
+
+      const post = await Post.findOne({
+        where: { id: postId },
+        include: [
+          { model: User },
+          { model: Comment, include: { model: User } },
+          { model: PostLike },
+          { model: Favorite },
+        ],
+      });
+
+      console.log(post);
+
+      res.json({
+        post,
+      });
+    }
     return;
+  } catch ({ message }) {
+    res.json({ type: 'post router', message });
   }
-  res.json({});
 });
 
-router.get("/logout", (req, res) => {
-  res.clearCookie(configJWT.access.type).clearCookie(configJWT.refresh.type);
-  res.json({ message: "success" });
+router.delete('/dislike/:postId', async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    const postUpdate = await Post.findOne({ where: { id: postId } });
+    if (postUpdate) {
+      await postUpdate.update({ likes: postUpdate.likes - 1 });
+    }
+
+    const result = await PostLike.destroy({
+      where: { postId: postId, userId: res.locals.user.id },
+    });
+    if (result > 0) {
+      res.json({ message: 'success', postId });
+      return;
+    }
+    res.json({ message: 'Не сработал dislike' });
+  } catch ({ message }) {
+    res.json({ message });
+  }
+});
+router.delete('/disfavorites/:postId', async (req, res) => {
+  try {
+    const { postId } = req.params;
+    console.log(postId);
+    const result = await Favorite.destroy({
+      where: { postId: postId, userId: res.locals.user.id },
+    });
+    if (result > 0) {
+      res.json({ message: 'success', postId });
+      return;
+    }
+    res.json({ message: 'Не сработал DisFavorites' });
+  } catch ({ message }) {
+    res.json({ message });
+  }
+});
+
+router.post('/favorites', async (req, res) => {
+  try {
+    const { userId, postId } = req.body;
+
+    const findpost = await Favorite.findOne({
+      where: { userId: userId, postId: postId },
+    });
+
+    if (!findpost) {
+      await Favorite.create({
+        userId,
+        postId,
+      });
+      const post = await Post.findOne({
+        where: { id: postId },
+        include: [
+          { model: User },
+          { model: Comment, include: { model: User } },
+          { model: PostLike },
+          { model: Favorite },
+        ],
+      });
+      res.json({
+        post,
+      });
+    }
+    return;
+  } catch ({ message }) {
+    res.json({ type: 'post router favorites', message });
+  }
 });
 
 module.exports = router;
