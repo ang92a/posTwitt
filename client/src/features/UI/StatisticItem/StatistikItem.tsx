@@ -32,21 +32,20 @@ function StatistikItem(): JSX.Element {
     }
   }, [allPostsCountYest]);
 
-
   return (
     <div className={style.container}>
       <div className={style.one}>
         <p className={style.count}>{users}</p>
-        <p>Пользователей зарегестрировано</p>
+        <p className={style.text}>Пользователей зарегестрировано</p>
       </div>
       <div className={style.two}>
         <p className={style.count}>{allPosts}</p>
-        <p>Постов написано</p>
+        <p className={style.text}>Постов написано</p>
         {/* <p>Сообщений написано</p> */}
       </div>
       <div className={style.fre}>
         <p className={style.count}>{count}</p>
-        <p>Написано сегодня постов</p>
+        <p className={style.text}>Написано сегодня постов</p>
       </div>
     </div>
   );

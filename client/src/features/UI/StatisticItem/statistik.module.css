@@ -27,11 +27,10 @@
 .one,
 .two,
 .fre>p {
-  color: var(--color-font)
+  color: white;
 }
 
 
 .count {
   font-size: 45px;
-  color: var(--color-font)
 }

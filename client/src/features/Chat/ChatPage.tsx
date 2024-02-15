@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -7,7 +8,6 @@ import './style/chat.css';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import socket from './socket';
-import send from './assets/send-svgrepo-com.svg';
 import SenderMes from './SenderMes';
 import ReceiverMes from './ReceiverMes';
 import { useAppDispatch, type RootState } from '../../redux/store';
@@ -130,6 +130,7 @@ function ChatPage(): JSX.Element {
             {receiver && (
               <div className=" footer">
                 <input
+                  className="input"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   type="text"

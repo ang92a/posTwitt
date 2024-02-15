@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { User } = require('../../db/models');
 const generateTokens = require('../../utils/authUtils');
 const configJWT = require('../../middleware/configJWT');
-const image = 'https://cdn-icons-png.flaticon.com/512/1/1247.png';
+// const image = 'https://cdn-icons-png.flaticon.com/512/1/1247.png';
 
 router.post('/sign-up', async (req, res) => {
   let user;
@@ -20,7 +20,13 @@ router.post('/sign-up', async (req, res) => {
     }
 
     const hash = await bcrypt.hash(password, 10);
-    user = await User.create({ name, email, password: hash, img: image });
+    user = await User.create({
+      name,
+      email,
+      password: hash,
+      img: '/1247.png',
+      backgroundImg: '/290631878743.jpg',
+    });
 
     const { accessToken, refreshToken } = generateTokens({
       user: { id: user.id, name: user.name },

@@ -27,7 +27,7 @@
 .textarea_text {
   background: transparent;
   width: 100%;
-  height: 30px;
+  height: auto;
   border: none;
   outline: none;
   resize: none;
@@ -45,6 +45,7 @@
   color: var(--color-bg-post);
   color: var(--color-text);
 }
+
 .footer {
   width: 100%;
   display: flex;

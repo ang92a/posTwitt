@@ -58,7 +58,7 @@
 .user_name {
   font-size: 20px;
   font-weight: bold;
-
+  text-decoration: none;
   color: var(--color-text);
 }
 
@@ -78,7 +78,7 @@
 .one,
 .two,
 .fre,
-.foo > img {
+.foo>img {
   width: 15px;
   height: 15px;
 }
@@ -87,10 +87,12 @@
   width: 15px;
   margin-right: 8px;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .img:hover {
   transform: scale(1.4);
+  transition: transform 0.3s ease;
 }
 
 /* container COMMENT */
@@ -166,6 +168,7 @@
   margin-bottom: 8px;
   height: 40px;
 }
+
 .btn:hover {
   background-color: var(--dark-hover);
 }
@@ -185,9 +188,11 @@
 .time {
   color: var(--color-font);
 }
+
 .content {
   overflow-wrap: break-word;
 }
+
 .Comment {
   overflow-wrap: break-word;
 }
