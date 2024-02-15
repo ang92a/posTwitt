@@ -7,6 +7,7 @@ import style from './style/news.module.css';
 import { SortItem } from './SortItem';
 import { type RootState } from '../../../redux/store';
 import ProfileItem from '../../UI/ProfileItem/ProfileItem';
+import Weather from '../../UI/Weather/Weather';
 
 function NewsPage(): JSX.Element {
   const posts = useSelector((store: RootState) => store.posts.posts);
@@ -15,6 +16,7 @@ function NewsPage(): JSX.Element {
   return (
     <main className={style.main}>
       <div className={style.container}>
+        <Weather />
         <div className={style.containerFlexRow}>
           <div className={style.leftbox}>
             <SortItem />

@@ -38,7 +38,7 @@ function ProfilePage(): JSX.Element {
         <div className={style.container}>
           <div className={style.user_page}>
             <div className={style.user_info}>
-            <img className={style.user_backphoto} src={currentProfile.backgroundImg } alt='prof' />
+            {/* <img className={style.user_backphoto} src={currentProfile.backgroundImg } alt='prof' /> */}
               <div className={style.photo_info} >
               <div className={style.user_photo}>
                 <span className={style.circle_ava}>
@@ -49,7 +49,7 @@ function ProfilePage(): JSX.Element {
                 <div style={{ display: 'flex' }}>
                   <p className={style.user_name}>{currentProfile.name}</p>
                   <p className={style.user_email}>
-                    {currentProfile.email}
+                    {/* {currentProfile.email} */}
                     {user?.id === currentProfile.id && (
                       <span className={style.edit_icon} onClick={() => handleEditing(true)}>
                         ✏️
@@ -63,7 +63,7 @@ function ProfilePage(): JSX.Element {
                     <p>Постов</p>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <h3 className={style.user_followers_count}>123</h3>
+                    <h3 className={style.user_followers_count}>0</h3>
                     <p>Подписчиков</p>
                   </div>
                   {user && user?.id !== currentProfile.id && (
