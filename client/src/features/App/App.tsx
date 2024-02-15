@@ -16,6 +16,7 @@ import SignUpPage from '../Page/SignPage/SignUpPage';
 
 import { loadReating } from '../UI/LeftColumn/reatingSlice';
 import type { RootState } from '../../redux/store';
+import { Page404 } from '../Page/404/404';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,7 +33,6 @@ function App(): JSX.Element {
     setTimeout(() => dispatch(stopLoadingAu()), 1000);
     dispatch(loadPosts()).catch(console.log);
     dispatch(stopLoading());
-
   }, []);
 
   return (
@@ -43,6 +43,7 @@ function App(): JSX.Element {
           <Route path="/profiles/:profileId" element={<ProfilePage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/chat/:receiverId" element={<ChatPage />} />
+          <Route path="/*" element={<Page404 />} />
         </Route>
         <Route index element={<WelcomPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
