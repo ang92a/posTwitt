@@ -12,7 +12,8 @@ const io = new Server(server, {
   cookie: true,
   withCredentials: true,
   cors: {
-    origin: 'http://localhost:5173',
+    // origin: 'http://localhost:5173',
+    origin: 'http://31.129.49.45',
   },
 });
 
