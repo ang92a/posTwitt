@@ -20,9 +20,9 @@
 }
 
 .boxImg img {
-    width: auto;
+    width: 105%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover; 
     object-position: -15px;
 }
 

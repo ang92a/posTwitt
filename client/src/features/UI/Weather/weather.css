@@ -12,6 +12,7 @@
 .textUp {
     font-size: 24px;
     font-weight: bold;
+    color: #fff;
 }
 
 .card_weather {
@@ -55,13 +56,14 @@
 }
 
 .card_city {
-    font-size: 18px;
+    font-size: 24px;
     margin-bottom: 10px;
     color: #fff;
 }
 
 .card_icon {
     color: #fff;
+    font-size: 27px;
 }
 
 .card_weather_info {
@@ -104,5 +106,16 @@
 
 .card_city_container {
     margin-bottom: 10px;
+    padding: 35px;
     /* Добавим немного отступа между блоками */
+}
+
+.find {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

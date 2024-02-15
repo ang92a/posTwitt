@@ -126,7 +126,6 @@ function Weather(): JSX.Element {
     let resId = await fetch(url);
     let dataId = await resId.json();
     let city = dataId.name;
-    console.log(city);
     let latitude = dataId.location.lat;
     let longitude = dataId.location.lng;
     let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b582f0a6371524e7a56d1655c5abe090`;

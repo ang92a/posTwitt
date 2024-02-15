@@ -15,13 +15,14 @@
 }
 
 .user_backphoto {
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   height: 18vh;
   overflow: hidden;
   width: 100%;
   object-fit: cover;
+  margin-bottom: 10px;
   /* Обрезать изображение до размеров контейнера, не растягивая его */
-
 }
 
 .content {
@@ -63,7 +64,7 @@
   align-items: center;
   justify-content: space-around;
   flex-wrap: nowrap;
-  flex-direction: row;
+  flex-direction: column;
   background: var(--color-bg-post);
   color: var(--color-text);
 }
@@ -88,6 +89,7 @@
 .user_row {
   display: flex;
   flex-direction: column;
+  min-width: 400px;
 }
 
 .user_name {
@@ -116,6 +118,7 @@
 .user_count p {
   font-size: 14px;
 }
+
 .btn {
   background-color: var(--primary-color);
   color: var(--color-text);
@@ -322,6 +325,12 @@
   margin-top: 5px;
 }
 
-.edit_icon{
+.edit_icon {
   margin-left: 20px;
+}
+
+.btnIz {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  width: 250px;
 }
