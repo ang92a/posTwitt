@@ -38,6 +38,8 @@ function ProfilePage(): JSX.Element {
         <div className={style.container}>
           <div className={style.user_page}>
             <div className={style.user_info}>
+            <img className={style.user_backphoto} src={currentProfile.backgroundImg } alt='prof' />
+              <div className={style.photo_info} >
               <div className={style.user_photo}>
                 <span className={style.circle_ava}>
                   <img src={currentProfile.img} alt="User Avatar" />
@@ -103,6 +105,7 @@ function ProfilePage(): JSX.Element {
                     </button>
                   )}
                 </div>
+              </div>
               </div>
             </div>
             {/* {userPosts.length > 0 && (
