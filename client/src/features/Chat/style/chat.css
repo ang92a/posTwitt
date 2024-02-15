@@ -78,6 +78,14 @@
 }
 
 .slds-chat-message__text {
+  max-width: 300px;
+  /* задаем максимальную ширину */
+  word-wrap: break-word;
+  display: inline-block;
+  /* Для применения максимальной ширины к тексту */
+
+  display: flex;
+  justify-content: center;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -85,6 +93,11 @@
 }
 
 .slds-chat-message__text_inbound {
+  max-width: 300px; /* задаем максимальную ширину */
+  word-wrap: break-word; 
+  display: inline-block; /* Для применения максимальной ширины к тексту */
+
+
   background-color: #e0e0e0;
   /* Цвет фона для входящих сообщений */
   /* margin-right: 20vh; */
@@ -94,6 +107,10 @@
 }
 
 .slds-chat-message__text_outbound {
+  max-width: 300px; /* задаем максимальную ширину */
+  word-wrap: break-word; 
+  display: inline-block; /* Для применения максимальной ширины к тексту */
+
   background-color: #0070d2;
   /* Цвет фона для исходящих сообщений */
   color: #fff;
