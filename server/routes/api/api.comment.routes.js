@@ -31,7 +31,13 @@ router.delete('/:commentId', async (req, res) => {
   try {
     const { commentId } = req.params;
     // console.log(postId);
-    const result = await Comment.destroy({ where: { id: commentId, userId:res.locals.user.id } });
+    const admin = await User.findOne({ where: { isAdmin: true } });
+    let result
+    if( admin.id === res.locals.user.id ) {
+        result = await Comment.destroy({ where: { id: commentId } })
+    } else {
+      result = await Comment.destroy({ where: { id: commentId, userId: res.locals.user.id } });
+    }
     if (result > 0) {
       res.json({ message: 'success', commentId });
       return;
