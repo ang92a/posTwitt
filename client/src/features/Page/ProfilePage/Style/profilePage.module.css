@@ -2,8 +2,26 @@
 * {
   color: var(--color-font);
 }
+
 .wrapper {
   display: flex;
+}
+
+.photo_info {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around
+}
+
+.user_backphoto {
+  border-radius: 8px;
+  height: 18vh;
+  overflow: hidden;
+  width: 100%;
+  object-fit: cover;
+  /* Обрезать изображение до размеров контейнера, не растягивая его */
+
 }
 
 .content {
@@ -87,7 +105,7 @@
   align-items: center;
 }
 
-.user_count > div {
+.user_count>div {
   margin-right: 20px;
 }
 
@@ -199,6 +217,7 @@
   font-size: 14px;
   color: #666;
 }
+
 .user_details {
   display: flex;
   flex-wrap: wrap;
@@ -266,6 +285,7 @@
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -278,15 +298,18 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-  z-index: 999; /* Высокий z-index, чтобы модальное окно было поверх всего */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Полупрозрачный черный фон */
+  z-index: 999;
+  /* Высокий z-index, чтобы модальное окно было поверх всего */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modalContent {
-  animation: modalFadeIn 0.6s ease; /* Применение анимации */
+  animation: modalFadeIn 0.6s ease;
+  /* Применение анимации */
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;

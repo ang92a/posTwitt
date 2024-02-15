@@ -8,6 +8,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import type { Post } from '../../Page/WelcomPage/types';
 import { type RootState, useAppDispatch } from '../../../redux/store';
 import {
@@ -25,7 +26,6 @@ import disfavorite from './img/Vector.png';
 import emptyLike from './img/empty.svg';
 import like from './img/full.svg';
 import style from './postitem.module.css';
-import { NavLink } from 'react-router-dom';
 
 function PostItem({ post }: { post: Post }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -174,7 +174,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
               {/* избранное */}
             </div>
           </div>
-          {user?.id === post.User.id && (
+          {(user?.id === post.userId || user?.isAdmin === true) && (
             <div className={style.containerPostMore} onClick={() => dispatch(DelPost(post.id))}>
               X
             </div>
@@ -193,7 +193,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
                     <div>{comment.User.name}</div>
                     <div className={style.Comment}>{comment.content}</div>
                   </div>
-                  {user?.id === comment.userId && (
+                  {(user?.id === comment.userId || user?.isAdmin === true) && (
                     <div className={style.delComment}>
                       {' '}
                       <div
