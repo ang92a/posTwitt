@@ -21,6 +21,7 @@ body {
   --color-background: rgb(230, 230, 230);
   --color-font: black;
   --bg-item: #fdf9f9;
+  overflow-x: hidden;
 }
 
 html[data-theme='Тёмная тема'] {

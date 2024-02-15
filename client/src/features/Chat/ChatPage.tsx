@@ -1,11 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useRef, useState } from 'react';
 import './style/chat.css';
 
-import { NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import socket from './socket';
 import send from './assets/send-svgrepo-com.svg';
@@ -13,11 +12,9 @@ import SenderMes from './SenderMes';
 import ReceiverMes from './ReceiverMes';
 import { useAppDispatch, type RootState } from '../../redux/store';
 import './style/panel.css';
-
 import { addDialog, addMessage, loadChats } from './chatSlice';
-import {type User } from '../Page/SignPage/types';
-import {type Message } from './types';
-
+import { type User } from '../Page/SignPage/types';
+import { type Message } from './types';
 
 function ChatPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -31,7 +28,8 @@ function ChatPage(): JSX.Element {
   const [receiver, setReceiver] = useState(user);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [message, setMessage] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
+
+  const containerRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     dispatch(loadChats()).catch(console.log);
@@ -51,12 +49,11 @@ function ChatPage(): JSX.Element {
         setIsConnected(true);
       });
 
-
       socket.on('add dialog', (dialog) => {
         dispatch(addDialog(dialog));
       });
 
-      socket.on('chat message', (msg: {user: User, newMessage: Message}) => {
+      socket.on('chat message', (msg: { user: User; newMessage: Message }) => {
         console.log(msg.newMessage);
         dispatch(addMessage(msg.newMessage));
       });
@@ -74,7 +71,6 @@ function ChatPage(): JSX.Element {
   useEffect(() => {
     setReceiver(users.find((el) => receiverId && el.id === +receiverId));
   }, [users, activeId]);
-
   return (
     <>
       <nav className="chat-navigation">
@@ -86,7 +82,6 @@ function ChatPage(): JSX.Element {
               if (dialog.userId2 === user?.id) man = users.find((el) => el.id === dialog.userId1);
             }
             return (
-
               <div
                 key={dialog.id}
                 onClick={() => {
@@ -99,17 +94,18 @@ function ChatPage(): JSX.Element {
               >
                 {man && <NavLink to={`/chat/${man?.id}`}>{man?.name}</NavLink>}
               </div>
-
             );
           })}
         </ul>
       </nav>
       <div className="topPanel">
-        {receiver?.img && <img className="receiverAva" src={receiver?.img} alt="" />}
-        {receiver?.name}
+        <Link to={`/profiles/${receiver?.id}`} className="link-style">
+          {receiver?.img && <img className="receiverAva" src={receiver?.img} alt="" />}
+          {receiver?.name}
+        </Link>
       </div>
-      <section ref={containerRef} role="log" className="slds-chat">
-        <ul className="slds-chat-list">
+      <section  role="log" className="slds-chat">
+        <ul ref={containerRef} className="slds-chat-list">
           {receiver &&
             chats.map(
               (dialog) =>

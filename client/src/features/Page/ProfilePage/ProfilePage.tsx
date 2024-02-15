@@ -9,7 +9,10 @@ import style from './Style/profilePage.module.css';
 import { ModalProfile } from './ModalProfile';
 
 function ProfilePage(): JSX.Element {
+  const [btnIzbr, setbtnIzbr] = useState(true);
+
   const profiles = useSelector((store: RootState) => store.profiles.profiles);
+
   const [isEditing, setIsEditing] = useState(false);
   const handleEditing = (value: boolean): void => {
     setIsEditing(value);
@@ -17,9 +20,16 @@ function ProfilePage(): JSX.Element {
 
   const { profileId } = useParams();
   const currentProfile = profileId && profiles.find((profile) => profile.id === +profileId);
+
   const user = useSelector((store: RootState) => store.auth.auth);
   const navigate = useNavigate();
   const allPosts = useSelector((store: RootState) => store.posts.posts);
+
+  const izbranoeArray = allPosts.filter((el) =>
+    el.Favorites.some((izbr) => +izbr.userId === +user!.id),
+  );
+  console.log(izbranoeArray);
+
   const userPosts = allPosts.filter((post) => profileId && post.userId === +profileId);
 
   return (
@@ -28,6 +38,8 @@ function ProfilePage(): JSX.Element {
         <div className={style.container}>
           <div className={style.user_page}>
             <div className={style.user_info}>
+            <img className={style.user_backphoto} src={currentProfile.backgroundImg } alt='prof' />
+              <div className={style.photo_info} >
               <div className={style.user_photo}>
                 <span className={style.circle_ava}>
                   <img src={currentProfile.img} alt="User Avatar" />
@@ -82,17 +94,29 @@ function ProfilePage(): JSX.Element {
                     <strong>Дата рождения:</strong> {currentProfile.birthDate}
                   </p>
                 </div>
+                <div>
+                  {btnIzbr ? (
+                    <button type="button" onClick={() => setbtnIzbr(!btnIzbr)}>
+                      Избранное
+                    </button>
+                  ) : (
+                    <button type="button" onClick={() => setbtnIzbr(!btnIzbr)}>
+                      Мои посты
+                    </button>
+                  )}
+                </div>
+              </div>
               </div>
             </div>
-            {userPosts.length > 0 && (
+            {/* {userPosts.length > 0 && (
               <div className={style.users_public_h}>
                 <h3>Публикации пользователя</h3>
               </div>
-            )}
+            )} */}
             <div className={style.user_posts}>
-              {userPosts.map((post) => (
-                <PostItem key={post.id} post={post} />
-              ))}
+              {btnIzbr
+                ? userPosts.map((post) => <PostItem key={post.id} post={post} />)
+                : izbranoeArray.map((post) => <PostItem key={post.id} post={post} />)}
             </div>
           </div>
         </div>
