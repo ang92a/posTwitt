@@ -73,74 +73,85 @@ function ChatPage(): JSX.Element {
   }, [users, activeId]);
   return (
     <>
-      <nav className="chat-navigation">
-        <ul className="chat-navigation-list">
-          {chats.map((dialog) => {
-            let man = dialog.User1 || dialog.User2;
-            if (!man) {
-              if (dialog.userId1 === user?.id) man = users.find((el) => el.id === dialog.userId2);
-              if (dialog.userId2 === user?.id) man = users.find((el) => el.id === dialog.userId1);
-            }
-            return (
-              <div
-                key={dialog.id}
-                onClick={() => {
-                  if (man) {
-                    setActiveId(man.id);
-                    setReceiver(man);
-                  }
-                }}
-                className={`chat-navigation-item ${man?.id === activeId ? 'active' : ''}`}
-              >
-                {man && <NavLink to={`/chat/${man?.id}`}>{man?.name}</NavLink>}
-              </div>
-            );
-          })}
-        </ul>
-      </nav>
-      <div className="topPanel">
-        <Link to={`/profiles/${receiver?.id}`} className="link-style">
-          {receiver?.img && <img className="receiverAva" src={receiver?.img} alt="" />}
-          {receiver?.name}
-        </Link>
-      </div>
-      <section  role="log" className="slds-chat">
-        <ul ref={containerRef} className="slds-chat-list">
-          {receiver &&
-            chats.map(
-              (dialog) =>
-                (dialog.userId1 === activeId || dialog.userId2 === activeId) &&
-                dialog.Messages?.map((mes) =>
-                  mes.content !== '' && mes.senderId === user?.id ? (
-                    <SenderMes user={user} message={mes} />
-                  ) : (
-                    <ReceiverMes receiver={receiver} message={mes} />
-                  ),
-                ),
-            )}
-        </ul>
-      </section>
-      {receiver && (
-        <div className="input-container">
-          <input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            type="text"
-            placeholder="Type a message..."
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              if (receiver === undefined) return;
-              socket.emit('chat message', message, user, activeId);
-              setMessage('');
-            }}
-            type="submit"
-          >
-            <img src={send} alt="send" />
-          </button>
+      <div className="containber-all">
+        <div className="container-nav-left">
+          <nav className="chat-navigation">
+            <ul className="chat-navigation-list">
+              {chats.map((dialog) => {
+                let man = dialog.User1 || dialog.User2;
+                if (!man) {
+                  if (dialog.userId1 === user?.id)
+                    man = users.find((el) => el.id === dialog.userId2);
+                  if (dialog.userId2 === user?.id)
+                    man = users.find((el) => el.id === dialog.userId1);
+                }
+                return (
+                  <div
+                    key={dialog.id}
+                    onClick={() => {
+                      if (man) {
+                        setActiveId(man.id);
+                        setReceiver(man);
+                      }
+                    }}
+                    className={`chat-navigation-item ${man?.id === activeId ? 'active' : ''}`}
+                  >
+                    {man && <NavLink to={`/chat/${man?.id}`}>{man?.name}</NavLink>}
+                  </div>
+                );
+              })}
+            </ul>
+          </nav>
         </div>
-      )}
+        {/* /////
+         */}
+        <div className="container-chat">
+          <div className="topPanel">
+            <Link to={`/profiles/${receiver?.id}`} className="link-style">
+              {receiver?.img && <img className="receiverAva" src={receiver?.img} alt="" />}
+              {receiver?.name}
+            </Link>
+          </div>
+          <section role="log" className="slds-chat">
+            <ul ref={containerRef} className="slds-chat-list">
+              {receiver &&
+                chats.map(
+                  (dialog) =>
+                    (dialog.userId1 === activeId || dialog.userId2 === activeId) &&
+                    dialog.Messages?.map((mes) =>
+                      mes.content !== '' && mes.senderId === user?.id ? (
+                        <SenderMes user={user} message={mes} />
+                      ) : (
+                        <ReceiverMes receiver={receiver} message={mes} />
+                      ),
+                    ),
+                )}
+            </ul>
+            {receiver && (
+              <div className=" footer">
+                <input
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  type="text"
+                  placeholder="Type a message..."
+                />
+                <button
+                  className="btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (receiver === undefined) return;
+                    socket.emit('chat message', message, user, activeId);
+                    setMessage('');
+                  }}
+                  type="submit"
+                >
+                  Опубликовать
+                </button>
+              </div>
+            )}
+          </section>
+        </div>
+      </div>
     </>
   );
 }

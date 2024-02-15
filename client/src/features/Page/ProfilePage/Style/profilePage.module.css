@@ -30,6 +30,9 @@
   flex-direction: column;
   align-items: center;
   min-width: 660px;
+  background: var(--color-bg-body);
+  height: 100%;
+  min-height: 100vh;
 }
 
 .user_info {
@@ -43,6 +46,8 @@
   justify-content: space-around;
   flex-wrap: nowrap;
   flex-direction: row;
+  background: var(--color-bg-post);
+  color: var(--color-text);
 }
 
 .user_photo {
@@ -59,7 +64,7 @@
 
 .user_photo img {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .user_row {
@@ -74,7 +79,6 @@
 
 .user_email {
   font-size: 16px;
-  color: #666;
 }
 
 .user_count {
@@ -93,7 +97,21 @@
 
 .user_count p {
   font-size: 14px;
-  color: #666;
+}
+.btn {
+  background-color: var(--primary-color);
+  color: var(--color-text);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  color: var(--color-btn-all);
+}
+
+.btn:hover {
+  background-color: var(--dark-hover);
 }
 
 .a_in_profile {
@@ -116,6 +134,8 @@
   color: var(--color-font);
   background-color: var(--color-background);
   max-width: 720px;
+  /* background: var(--color-bg-post); */
+  color: var(--color-text);
 }
 
 .right_panel {

@@ -59,7 +59,7 @@ const NavBar = (): JSX.Element => {
                     </NavLink>
                   </li>
                 </div>
-                
+
                 <li className={style.itemTheme}>
                   <input
                     type="checkbox"

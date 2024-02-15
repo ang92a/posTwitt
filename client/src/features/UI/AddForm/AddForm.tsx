@@ -51,7 +51,7 @@ const AddForm = (): JSX.Element => {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Тема твитта, она попадет в рейтинги!"
         />
-        {error === 'Тема не может быть пустой' && <p>{error}</p>}
+        {error === 'Тема не может быть пустой' && <p className={style.eror}>{error}</p>}
         <textarea
           className={style.textarea_text}
           value={text}
@@ -61,7 +61,7 @@ const AddForm = (): JSX.Element => {
         {error === 'Пост не может быть пустым' && <p>{error}</p>}
         <div className={style.footer}>
           <input type="file" className={style.input} onChange={(e) => setImg(e.target.files)} />
-          <button type="submit" className={style.btn}>
+          <button type="submit" className={style.btn} onClick={() => setError('')}>
             Опубликовать
           </button>
         </div>

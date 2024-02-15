@@ -69,6 +69,7 @@ function ProfilePage(): JSX.Element {
                       <div>
                         <button
                           type="button"
+                          
                           onClick={() => navigate(`/chat/${currentProfile.id}`)}
                         >
                           Чат
@@ -94,11 +95,11 @@ function ProfilePage(): JSX.Element {
                 </div>
                 <div>
                   {btnIzbr ? (
-                    <button type="button" onClick={() => setbtnIzbr(!btnIzbr)}>
+                    <button type="button" className={style.btn} onClick={() => setbtnIzbr(!btnIzbr)}>
                       Избранное
                     </button>
                   ) : (
-                    <button type="button" onClick={() => setbtnIzbr(!btnIzbr)}>
+                    <button type="button"  className={style.btn}onClick={() => setbtnIzbr(!btnIzbr)}>
                       Мои посты
                     </button>
                   )}

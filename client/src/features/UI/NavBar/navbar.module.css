@@ -2,8 +2,10 @@
   width: 100vw;
   /* Ширина на всю ширину видимой области экрана */
   height: auto;
-  border-bottom: 1px solid #a9a9a9;
+  /* border-bottom: 1px solid #a9a9a9; */
   /* Подчеркивание */
+  background: var(--color-bg-navbar);
+  color: var(--color-text);
 }
 
 .container {
@@ -74,9 +76,9 @@
   padding: 10px 40px;
   font-size: 14px;
   font-weight: 700;
-  box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, .13);
+  box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.13);
   border: none;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   outline: 0;
   margin-bottom: 20px;
 }
@@ -88,7 +90,7 @@
 }
 
 .btn:active {
-  transform: scale(.99);
+  transform: scale(0.99);
   box-shadow: 0px 2px 6px -1px rgba(108, 114, 255, 0.5);
 }
 
