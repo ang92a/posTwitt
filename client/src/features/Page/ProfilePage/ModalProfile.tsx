@@ -1,15 +1,16 @@
+/* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react';
-import { RootState, useAppDispatch } from '../../../redux/store';
+import { useAppDispatch } from '../../../redux/store';
 import { editProfile } from './profileSlice';
 import style from './Style/profilePage.module.css';
 import type { User } from '../SignPage/types';
 import { profileEdit } from '../WelcomPage/postsSlice';
 import IMask from 'imask';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 export function ModalProfile({
   handleEditing,
@@ -27,7 +28,7 @@ export function ModalProfile({
   const [contact, setContact] = useState(currentProfile.contact);
   const [birthDate, setBirthDate] = useState(currentProfile.birthDate);
   const [error, setError] = useState('');
-  const loading = useSelector((store: RootState) => store.profiles.loading);
+  // const loading = useSelector((store: RootState) => store.profiles.loading);
 
   const onHandleEditProfile = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -46,7 +47,7 @@ export function ModalProfile({
         formData.append('img', img[0]);
       }
       dispatch(editProfile(formData))
-        .then((data) => dispatch(profileEdit(data.payload)))
+        .then((data: any) => dispatch(profileEdit(data.payload)))
         .catch(console.log);
       handleEditing(false);
     }
@@ -89,7 +90,7 @@ export function ModalProfile({
                 defaultValue={img ? '' : undefined}
                 style={{ marginLeft: '20px' }}
                 id="avatar"
-                type="file" 
+                type="file"
                 placeholder="Ваше фото"
                 onChange={(e) => setImg(e.target.files)}
               />

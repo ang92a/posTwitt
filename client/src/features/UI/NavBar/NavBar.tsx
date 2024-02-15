@@ -1,3 +1,5 @@
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -21,6 +23,7 @@ const NavBar = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const { colorTheme, toggleColorTheme } = useColorTheme();
+  console.log(colorTheme);
 
   const onChangeTheme = (): void => {
     toggleColorTheme();
