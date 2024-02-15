@@ -36,10 +36,10 @@ app.use(verifyAccessToken);
 
 app.use('/', indexRouter);
 
-app.send('*', (req, res) => {
+app.get('*', (req, res) => {
   const filePath = path.join(__dirname, './dist/index.html'); // Путь к файлу, который вы хотите отправить
   // Отправка содержимого файла как ответ на запрос
-  res.send(filePath);
+  res.sendFile(filePath);
 });
 handleSocketConnection(io);
 
