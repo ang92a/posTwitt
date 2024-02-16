@@ -196,3 +196,9 @@
 .Comment {
   overflow-wrap: break-word;
 }
+
+.postImg {
+  width: 80%;
+  margin-top: 20px;
+  border-radius: 8px;
+}

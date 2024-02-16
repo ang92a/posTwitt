@@ -5,7 +5,7 @@ router.get('/', async (req, res) => {
   try {
     const posts = await Post.findAll({
       order: [['likes', 'DESC']],
-      limit: 6,
+      limit: 8,
     });
     res.json({ posts });
     return;

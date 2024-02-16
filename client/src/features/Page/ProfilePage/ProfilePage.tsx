@@ -8,6 +8,7 @@ import PostItem from '../../UI/PostItem/PostItem';
 import style from './Style/profilePage.module.css';
 import { ModalProfile } from './ModalProfile';
 import { logout } from '../SignPage/authSlice';
+import pencil from "./assets/pencil.png"
 
 function ProfilePage(): JSX.Element {
   const [btnIzbr, setbtnIzbr] = useState(true);
