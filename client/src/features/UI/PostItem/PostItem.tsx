@@ -71,7 +71,7 @@ function PostItem({ post }: { post: Post }): JSX.Element {
             <p className={style.time}>{formatDateTime(post.createdAt)}</p>
             <p className={style.content}>{post.content}</p>
 
-            {post.img && <img src={post.img} alt="" />}
+            {post.img && <img src={post.img} alt="" className={style.postImg} />}
             <div className={style.function}>
               {user ? (
                 <div className={style.one}>

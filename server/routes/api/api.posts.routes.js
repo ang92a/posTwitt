@@ -39,7 +39,7 @@ router.post('/sort', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const posts = await Post.findAll({
-      order: [['id', 'ASC']],
+      order: [['createdAt', 'DESC']],
       include: [
         { model: User },
         { model: Comment, include: { model: User }, order: [['id', 'DESC']] },
